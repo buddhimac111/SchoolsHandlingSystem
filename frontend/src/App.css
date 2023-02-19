@@ -1,33 +1,66 @@
-.App {
-  text-align: center;
+/******** HomePage ********/
+
+#loginBox
+{
+    background-color: var(--secondary);
 }
+#contentBox
+{
+    background-color: var(--grey);
+   
+}
+#loginText
+{
+    color: var(--primary);
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    margin-left: 0.5rem;
+}
+.lblLog
+{
+    color: var(--darkGrey);
+    margin-left: 0.5rem;
+}
+   
 
-
-
-@media (prefers-reduced-motion: no-preference) {
+#btnLogin
+{
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-size: 18px;
+    margin-top: 3rem;
+}
+#forgotPassword
+{
+    color: var(--darkGrey);
+    font-size: 13px;
+    margin-top: 1rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+#forgotPassword:hover
+{
+    font-weight: bold;
+}
+#logoBlock
+{
+    height: 100vh;
+    width: 100%;
+    
+}
+#descBlock
+{
+    height: 100vh;
+    width: 100%;
 
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .carousel-indicators .active {
+    background-color: var(--darkGrey);
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
+/* .App {
+  
+
+} */
