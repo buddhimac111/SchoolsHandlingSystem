@@ -1,0 +1,14 @@
+/********** Side Navigation Bar **********/
+
+.sideLinks:hover{
+    font-weight: bold;
+    color: var(--darkGrey);
+}
+
+/********** Top Bar **********/
+
+#topBar
+{
+    background-color: var(--primary);
+    height: 50px;
+}
