@@ -7,13 +7,20 @@ import {
     CDBSidebarMenuItem
 } from "cdbreact";
 import { NavLink } from "react-router-dom";
-import useUser from "../hooks/tstHook";
+import UseUser from "../hooks/UserHook";
 import './Comp.css'
 
 const SideNav = () => {
+    
+    const handleLogout = () => {
+        sessionStorage.removeItem("sessionRole");
+        window.location.href = '/';
+    }
 
 
-    const { user } = useUser();
+
+    const { user } = UseUser();
+    console.log(user);
 
     return (
         <div style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}>
@@ -37,7 +44,6 @@ const SideNav = () => {
                     <CDBSidebarMenu>
 
                         <NavLink
-                            exact
                             to="/"
                             activeClassName="activeClicked"
                         >
@@ -49,12 +55,11 @@ const SideNav = () => {
                             </CDBSidebarMenuItem>
                         </NavLink>
 
-                        {/* School admins and teachers */}
+                        {/* School admins only */}
                         
-                        {user === 'teacher' || user === 'admin'
+                        {user === 'admin'
                         ?
                         <NavLink
-                            exact
                             to="/tables"
                             activeClassName="activeClicked"
                         >
@@ -70,7 +75,6 @@ const SideNav = () => {
                         {user === 'teacher' || user === 'admin'
                         ?
                         <NavLink
-                            exact
                             to="/profile"
                             activeClassName="activeClicked"
                         >
@@ -195,7 +199,7 @@ const SideNav = () => {
                         className="sideLinks"
                         icon="sign-out-alt"
                     >
-                        Logout
+                    <button style={{all:"unset"}} onClick={handleLogout}>Logout</button>    
                     </CDBSidebarMenuItem>
 
                 </CDBSidebarFooter>

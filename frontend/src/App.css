@@ -18,6 +18,11 @@
     margin-bottom: 3rem;
     margin-left: 0.5rem;
 }
+#loginErrorText
+{
+    color: red;
+    font-size: 13px;
+}
 .lblLog
 {
     color: var(--darkGrey);
