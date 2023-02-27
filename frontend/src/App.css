@@ -65,6 +65,32 @@
     background-color: var(--darkGrey);
   }
 
+/******** NotFound Page ********/
+.container404
+{
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 30%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.btnBack
+{
+   display: block;
+   position: absolute;
+   left: 20%;
+   background-color: var(--primary);
+}
+@media screen and (max-width: 700px) {
+    .btnBack
+    {
+        left: 10%;
+    }
+}
+    
+
+
 /* .App {
   
 

@@ -22,17 +22,17 @@ const HomePage = () => {
       }
       else if(response.data[0].role === 'admin'){
         sessionStorage.setItem("sessionRole", "admin");
-        window.location.href = '/admin';
+        window.location.href = '/admin/dashboard';
         console.log("admin");
       }
       else if(response.data[0].role === 'teacher'){
         sessionStorage.setItem("sessionRole", "teacher");
-        window.location.href = '/admin';
+        window.location.href = '/teacher/dashboard';
         console.log("teacher");
       }
       else if (response.data[0].role === 'student'){
         sessionStorage.setItem("sessionRole", "student");
-        window.location.href = '/admin';
+        window.location.href = '/student/dashboard';
         console.log("student");
       }
 
@@ -105,6 +105,7 @@ const HomePage = () => {
     </Carousel>
      
       </div>
+      
     </div>
   </div>
   </>

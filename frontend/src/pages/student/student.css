@@ -1,0 +1,67 @@
+/**********Common**********/
+:root
+{
+    --borderRadius: 15px;
+    --blockColor: var(--darkGrey);
+   
+}
+/**********Dashboard**********/
+#bodyContainer
+{
+    overflow: auto;
+    height: 89vh;
+}
+
+#profileBox
+{
+    background-color: var(--blockColor);
+    max-width: 500px;
+    border-radius: var(--borderRadius);
+    height: 88vh;
+    
+}
+
+#profileImage
+{
+    width: 100px;
+}
+#nameText
+{
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--secondary);
+
+}
+#roleTag
+{
+    background-color: var(--primary);
+}
+#idTag
+{
+    color: var(--grey);
+    
+}
+#schoolImage
+{
+    width: 75px;
+}
+#schoolTag
+{
+   color: var(--secondary);
+   font-size: 20px;
+   font-weight: 100;
+
+}
+.infoHeader
+{
+    color: var(--darkGrey);
+    font-weight: bold;
+    font-size: 13px;
+}
+.infoBody
+{
+    color: var(--secondary);
+}
+
+
+
