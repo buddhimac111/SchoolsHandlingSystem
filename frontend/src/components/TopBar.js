@@ -1,6 +1,6 @@
 import { CDBNavbar} from "cdbreact";
 import {FaUserCircle} from 'react-icons/fa';
-import './Comp.css'
+import './NavBars.scss'
 
 const TopBar = () => {
     return (

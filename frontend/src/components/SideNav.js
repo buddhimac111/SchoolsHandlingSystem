@@ -8,7 +8,7 @@ import {
 } from "cdbreact";
 import { NavLink } from "react-router-dom";
 import UseUser from "../hooks/UserHook";
-import './Comp.css'
+import './NavBars.scss'
 
 const SideNav = () => {
     

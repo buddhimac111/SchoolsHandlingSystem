@@ -10,33 +10,33 @@ const HomePage = () => {
   const [LoginError , setLoginError] = useState(''); 
 
   const login = () => {
-    axios.post('http://localhost:8000/login', {
-      username: Username,
-      password: Password,
-    }).then((response) => {
+    // axios.post('http://localhost:8000/login', {
+    //   username: Username,
+    //   password: Password,
+    // }).then((response) => {
 
-      console.log(response);
+      // console.log(response);
       
-      if(response.data.message){
-        setLoginError(response.data.message); 
-      }
-      else if(response.data[0].role === 'admin'){
+    
+      if(Username === 'admin' && Password === 'admin'){
         sessionStorage.setItem("sessionRole", "admin");
         window.location.href = '/admin/dashboard';
         console.log("admin");
       }
-      else if(response.data[0].role === 'teacher'){
+      else if(Username === 'teacher' && Password === 'teacher'){
         sessionStorage.setItem("sessionRole", "teacher");
         window.location.href = '/teacher/dashboard';
         console.log("teacher");
       }
-      else if (response.data[0].role === 'student'){
+      else if (Username === 'student' && Password === 'student'){
         sessionStorage.setItem("sessionRole", "student");
         window.location.href = '/student/dashboard';
         console.log("student");
       }
-
-    });
+      else{
+        setLoginError('Invalid Username or Password');
+      }
+     
   };
 
 
