@@ -80,8 +80,11 @@ router.delete("/:id", async (req, res) => {
     return res.status(400).send("Invalid school id");
 
   const school = await School.findByIdAndDelete(id);
-  if (school) return res.send(school);
-
-  res.status(404).send("School already deleted");
+  if (!school) return res.status(404).send("School already deleted");
+  if (!/default.png/.test(school.picture))
+    fs.unlink(`./public/${school.picture}`, (err) => {
+      if (err && err.code !== "ENOENT") res.status(500).send(err);
+    });
+  res.send(school);
 });
 module.exports = router;
