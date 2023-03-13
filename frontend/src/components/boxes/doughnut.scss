@@ -1,0 +1,14 @@
+.doughnutBox
+{
+        background-color: azure;
+        border-radius: 10px;
+        margin-top: 13px;
+       
+}
+@media screen and (max-width: 420px)
+{
+        .doughnutBox
+        {
+                width: 270px;
+        }
+}

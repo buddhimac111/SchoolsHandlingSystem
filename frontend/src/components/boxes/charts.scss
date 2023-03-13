@@ -1,0 +1,15 @@
+.chartBox
+{
+        background-color: azure;
+        border-radius: 10px;
+        margin-top: 20px;
+       
+}
+@media screen and (max-width: 420px)
+{
+        .chartBox
+        {
+                width: 270px;
+        }
+}
+        
