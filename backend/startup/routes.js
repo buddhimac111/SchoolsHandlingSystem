@@ -11,6 +11,7 @@ const home = require("../routes/home");
 const users = require("../routes/users");
 const students = require("../routes/students");
 const classes = require("../routes/classes");
+const timetables = require("../routes/timetables");
 
 module.exports = function (app) {
   // middlewares
@@ -33,6 +34,7 @@ module.exports = function (app) {
   app.use("/users", users);
   app.use("/students", students);
   app.use("/classes", classes);
+  app.use("/timetables", timetables);
 
   app.use(error);
 };
