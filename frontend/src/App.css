@@ -1,16 +1,15 @@
 /******** HomePage ********/
 
-#loginBox
-{
+#loginBox {
     background-color: var(--secondary);
 }
-#contentBox
-{
+
+#contentBox {
     background-color: var(--grey);
-   
+
 }
-#loginText
-{
+
+#loginText {
     color: var(--primary);
     font-size: 30px;
     font-weight: bold;
@@ -18,56 +17,82 @@
     margin-bottom: 3rem;
     margin-left: 0.5rem;
 }
-#loginErrorText
-{
+
+#loginErrorText {
     color: red;
     font-size: 13px;
 }
-.lblLog
-{
+
+.lblLog {
     color: var(--darkGrey);
     margin-left: 0.5rem;
 }
-   
 
-#btnLogin
-{
+
+#btnLogin {
     background-color: var(--primary);
     color: var(--secondary);
     font-size: 18px;
     margin-top: 3rem;
 }
-#forgotPassword
-{
+
+#forgotPassword {
     color: var(--darkGrey);
     font-size: 13px;
     margin-top: 1rem;
     cursor: pointer;
     margin-right: 1rem;
 }
-#forgotPassword:hover
-{
+
+#forgotPassword:hover {
     font-weight: bold;
 }
-#logoBlock
-{
-    height: 100vh;
-    width: 100%;
-    
-}
-#descBlock
-{
+
+#logoBlock {
     height: 100vh;
     width: 100%;
 
 }
-  .carousel-indicators .active {
+
+#descBlock {
+    height: 100vh;
+    width: 100%;
+
+}
+
+.carousel-indicators .active {
     background-color: var(--darkGrey);
-  }
+}
 
-/******** NotFound Page ********/
-.container404
+/******** Profile Page ********/
+#bodyArea{
+    overflow: auto;
+    height: 89vh;
+}
+.profileImage{
+    width: 200px;
+}
+.nameSection
 {
+    padding-left: 50px;
+}
+@media screen and (max-width: 500px)
+{
+    .nameSection
+        {
+            padding-left: 0px;
+        }
+}
+    
+/* .profileBox{;
+} */
+.roleTag
+{
+    width: 105px;
+    background-color: var(--primary);
+}
+/******** NotFound Page ********/
+.container404 {
     margin: 0;
     position: absolute;
     top: 45%;
@@ -75,20 +100,20 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-.btnBack
-{
-   display: block;
-   position: absolute;
-   left: 20%;
-   background-color: var(--primary);
+
+.btnBack {
+    display: block;
+    position: absolute;
+    left: 20%;
+    background-color: var(--primary);
 }
+
 @media screen and (max-width: 700px) {
-    .btnBack
-    {
+    .btnBack {
         left: 10%;
     }
 }
-    
+
 
 
 /* .App {
