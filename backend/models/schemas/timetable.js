@@ -1,20 +1,9 @@
 const { Schema } = require("mongoose");
 
-const periodSchema = new Schema(
-  {
-    subject: {
-      type: String,
-      minlength: 5,
-      maxlength: 20,
-      required: true,
-    },
-  },
-  { _id: false }
-);
 const dateSchema = new Schema(
   {
     periods: {
-      type: [periodSchema],
+      type: [{ type: String, minlength: 5, maxlength: 20, required: true }],
       required: true,
       validate: [(val) => val.length === 8, "periods should have 8 periods"],
     },
