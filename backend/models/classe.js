@@ -1,7 +1,6 @@
 const Joi = require("joi");
 const { model } = require("mongoose");
 const classSchema = require("./schemas/classe");
-const { Student } = require("./student");
 
 const Class = model("Class", classSchema);
 function validate(classe) {
@@ -14,12 +13,6 @@ function validate(classe) {
   if (result.error) return result.error.details[0].message;
   return null;
 }
-async function updateStudentCount(id) {
-  studentCount = await Student.find({ classe: id }).count();
-
-  return await Class.findByIdAndUpdate(id, { studentCount }, { new: true });
-}
 
 module.exports.Class = Class;
 module.exports.validateClass = validate;
-module.exports.updateStudentCount = updateStudentCount;

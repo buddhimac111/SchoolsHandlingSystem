@@ -1,12 +1,8 @@
-const { request } = require("express");
 const express = require("express");
 const mongoose = require("mongoose");
 
-const {
-  Class,
-  validateClass,
-  updateStudentCount,
-} = require("../models/classe");
+const { Class, validateClass } = require("../models/classe");
+const { Student } = require("../models/student");
 const router = express.Router();
 
 // get all the classes
@@ -21,7 +17,15 @@ router.get("/updateCount/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid class id");
 
-  res.send(await updateStudentCount(id));
+  studentCount = await Student.find({ classe: id }).count();
+
+  const result = await Class.findByIdAndUpdate(
+    id,
+    { studentCount },
+    { new: true }
+  );
+  if (result) return res.send(result);
+  res.status(404).send("Class not found");
 });
 
 // get class by id
