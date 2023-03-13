@@ -11,11 +11,11 @@ function goBack() {
     <>
    <div className="container404">
    <img
-          className="w-50"
+          className="w-50 rounded-5"
           src={image}
           alt="404Image"
         /> 
-  <Button className='btnBack' onClick={goBack}>Go Back</Button>
+  <Button className='btnBack mt-3' onClick={goBack}>Go Back</Button>
   </div>
  
   
