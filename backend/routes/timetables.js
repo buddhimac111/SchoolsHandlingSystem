@@ -1,4 +1,3 @@
-const { request } = require("express");
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -29,6 +28,9 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const errorMsg = validateTimetable(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
+
+  const result = await Class.findById(req.body.classe).select("_id");
+  if (!result) return res.status(400).send("Class not found");
 
   const classe = await Timetable.findOne({ classe: req.body.classe });
   if (classe)
