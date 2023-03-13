@@ -52,7 +52,7 @@ router.put("/:id", async (req, res) => {
     new: true,
   });
 
-  if (result) res.send(result);
+  if (result) return res.send(result);
   res.status(404).send("Timetable not found");
 });
 
