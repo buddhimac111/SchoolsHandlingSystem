@@ -17,6 +17,7 @@ module.exports = new Schema({
     minlength: 5,
     maxlength: 1024,
     required: true,
+    default: "schoolPic/default.png",
   },
   studentCount: {
     type: Number,
