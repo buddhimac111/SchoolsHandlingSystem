@@ -22,8 +22,8 @@ router.get("/:id", async (req, res) => {
 
 // create a new subject
 router.post("/", async (req, res) => {
-  const errorMsg = validateClass(req.body);
-  if (errorMsg) res.status(400).send(errorMsg);
+  const errorMsg = validateSubject(req.body);
+  if (errorMsg) return res.status(400).send(errorMsg);
 
   let subject = await Subject.findOne(req.body);
   if (subject) return res.status(400).send("Subject already exists");

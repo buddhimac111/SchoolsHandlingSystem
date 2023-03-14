@@ -57,7 +57,7 @@ router.put("/:id", async (req, res) => {
   const errorMsg = validateExam(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
 
-  const result = Exam.findByIdAndUpdate(
+  const result = await Exam.findByIdAndUpdate(
     id,
     { results: req.body.results },
     { new: true }
@@ -65,6 +65,18 @@ router.put("/:id", async (req, res) => {
   if (result) return res.send(result);
 
   res.status(404).send("Exam not found");
+});
+
+// delete exam
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.isValidObjectId(id))
+    return res.status(400).send("Invalid exam id");
+
+  const result = await Exam.findByIdAndDelete(id);
+  if (result) return res.send(result);
+
+  res.status(404).send("Exam already deleted");
 });
 
 module.exports = router;

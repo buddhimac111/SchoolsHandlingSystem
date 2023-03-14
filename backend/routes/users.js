@@ -29,34 +29,34 @@ router.post("/", async (req, res) => {
   const { userBody, otherBody } = req.body;
 
   const errorUser = validateUser(userBody);
-  if (errorUser) res.status(400).send(errorUser);
+  if (errorUser) return res.status(400).send(errorUser);
 
   const exist = await User.findOne({ email: userBody.email });
   if (exist)
     return res.status(400).send("User already exists with existing email");
 
   const user = new User(userBody);
-  otherBody.user = user._id;
+  otherBody.user = user._id.toHexString();
 
   const other = createUser(user.role, otherBody);
   if (other.errorBody) return res.status(400).send(other.errorBody);
-
   // starting session to perform task set
   // if anything goes wrong tasks will rollback
   const session = await User.startSession();
 
   try {
+    session.startTransaction();
     // add session parameter for each save({session})
     // transactions only supported by replica set
     await user.save();
     await other.body.save();
 
-    res.send(other);
-
     await session.commitTransaction();
+
+    res.send(other.body);
   } catch (err) {
-    res.status(400).send(err.message);
     await session.abortTransaction();
+    res.status(400).send(err.message);
   } finally {
     session.endSession();
   }
@@ -92,7 +92,7 @@ router.patch("/picture/:id", async (req, res) => {
 
   if (!/default.png/.test(user.picture))
     fs.unlink(`./public/${user.picture}`, (err) => {
-      if (err && err.code !== "ENOENT") res.status(500).send(err);
+      if (err && err.code !== "ENOENT") return res.status(500).send(err);
     });
 
   user.picture = await saveImage(picture, `profilePic/${user._id}`);
@@ -111,7 +111,7 @@ router.delete("/:id", async (req, res) => {
   if (!user) return res.status(404).send("User already deleted");
   if (!/default.png/.test(user.picture))
     fs.unlink(`./public/${user.picture}`, (err) => {
-      if (err && err.code !== "ENOENT") res.status(500).send(err);
+      if (err && err.code !== "ENOENT") return res.status(500).send(err);
     });
   const result = await deleteUser(id, user.role);
   result.user = user;

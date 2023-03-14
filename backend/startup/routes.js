@@ -38,10 +38,10 @@ module.exports = function (app) {
   // assign route paths
   app.use("/", home);
   app.use("/api/classes", classes);
-  app.use("/api/divisionalAdmin", divisionalAdmins);
+  app.use("/api/divisionalAdmins", divisionalAdmins);
   app.use("/api/exams", exams);
   app.use("/api/schools", schools);
-  app.use("/api/schoolAdmin", schoolAdmins);
+  app.use("/api/schoolAdmins", schoolAdmins);
   app.use("/api/students", students);
   app.use("/api/subjects", subjects);
   app.use("/api/teachers", teachers);

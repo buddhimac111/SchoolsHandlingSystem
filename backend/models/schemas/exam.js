@@ -33,8 +33,11 @@ const examSchema = new Schema({
           maxlength: 100,
           required: true,
         },
+        _id: false,
       },
     ],
     required: true,
   },
 });
+
+module.exports = examSchema;

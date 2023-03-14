@@ -19,7 +19,7 @@ router.get("/:id", async (req, res) => {
   const student = await Student.findOne({ user: id })
     .select("-_id -__v -parent._id")
     .populate("user");
-  if (!student) return res.status(404).send("Student not found");
+  if (!student) return res.status(404).send("User not found");
   res.send(student);
 });
 
