@@ -14,6 +14,7 @@ const schools = require("../routes/schools");
 const schoolAdmins = require("../routes/schoolAdmins");
 const students = require("../routes/students");
 const subjects = require("../routes/subjects");
+const teachers = require("../routes/teachers");
 const timetables = require("../routes/timetables");
 const users = require("../routes/users");
 
@@ -41,6 +42,7 @@ module.exports = function (app) {
   app.use("/api/schoolAdmin", schoolAdmins);
   app.use("/api/students", students);
   app.use("/api/subjects", subjects);
+  app.use("/api/teachers", teachers);
   app.use("/api/timetables", timetables);
   app.use("/api/users", users);
 
