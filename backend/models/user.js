@@ -21,32 +21,5 @@ function validate(user) {
   return null;
 }
 
-async function deleteUser(id, role) {
-  if (role === undefined) {
-    return undefined;
-  }
-
-  if (role === "student") {
-    const { Student } = require("./student");
-    return await Student.findOneAndDelete({ user: id });
-  }
-
-  if (role === "teacher") {
-    const { Teacher } = require("./teacher");
-    return await Teacher.findOneAndDelete({ user: id });
-  }
-
-  if (role === "sAdmin") {
-    const { SchoolAdmin } = require("./schoolAdmin");
-    return await SchoolAdmin.findOneAndDelete({ user: id });
-  }
-
-  if (role === "dAdmin") {
-    const { DivisionalAdmin } = require("./divisionalAdmin");
-    return await DivisionalAdmin.findOneAndDelete({ user: id });
-  }
-}
-
 module.exports.User = User;
 module.exports.validateUser = validate;
-module.exports.deleteUser = deleteUser;

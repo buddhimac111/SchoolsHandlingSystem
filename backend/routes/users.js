@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const saveImage = require("../utils/saveImage");
 const fs = require("fs");
+const createUser = require("../utils/createUser");
+const deleteUser = require("../utils/deleteUser");
 
-const { User, validateUser, deleteUser } = require("../models/user");
+const { User, validateUser } = require("../models/user");
 const router = express.Router();
 
 // get all the users
@@ -20,6 +22,44 @@ router.get("/:id", async (req, res) => {
   const user = await User.findById(id);
   if (user) return res.send(user);
   res.status(404).send("User not found");
+});
+
+// create user
+router.post("/", async (req, res) => {
+  const { userBody, otherBody } = req.body;
+
+  const errorUser = validateUser(userBody);
+  if (errorUser) res.status(400).send(errorUser);
+
+  const exist = await User.findOne({ email: userBody.email });
+  if (exist)
+    return res.status(400).send("User already exists with existing email");
+
+  const user = new User(userBody);
+  otherBody.user = user._id;
+
+  const other = createUser(user.role, otherBody);
+  if (other.errorBody) return res.status(400).send(other.errorBody);
+
+  // starting session to perform task set
+  // if anything goes wrong tasks will rollback
+  const session = await User.startSession();
+
+  try {
+    // add session parameter for each save({session})
+    // transactions only supported by replica set
+    await user.save();
+    await other.body.save();
+
+    res.send(other);
+
+    await session.commitTransaction();
+  } catch (err) {
+    res.status(400).send(err.message);
+    await session.abortTransaction();
+  } finally {
+    session.endSession();
+  }
 });
 
 // update user by id
