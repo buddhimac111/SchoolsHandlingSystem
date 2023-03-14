@@ -8,14 +8,14 @@ const fileUpload = require("express-fileupload");
 
 // routes
 const home = require("../routes/home");
-const users = require("../routes/users");
-const students = require("../routes/students");
 const classes = require("../routes/classes");
-const timetables = require("../routes/timetables");
-const schools = require("../routes/schools");
 const divisionalAdmins = require("../routes/divisionalAdmins");
+const schools = require("../routes/schools");
 const schoolAdmins = require("../routes/schoolAdmins");
+const students = require("../routes/students");
 const subjects = require("../routes/subjects");
+const timetables = require("../routes/timetables");
+const users = require("../routes/users");
 
 module.exports = function (app) {
   // middlewares
@@ -35,14 +35,14 @@ module.exports = function (app) {
 
   // assign route paths
   app.use("/", home);
-  app.use("/users", users);
-  app.use("/students", students);
-  app.use("/classes", classes);
-  app.use("/timetables", timetables);
-  app.use("/schools", schools);
-  app.use("/divisionalAdmin", divisionalAdmins);
-  app.use("/schoolAdmin", schoolAdmins);
-  app.use("/subjects", subjects);
+  app.use("/api/classes", classes);
+  app.use("/api/divisionalAdmin", divisionalAdmins);
+  app.use("/api/schools", schools);
+  app.use("/api/schoolAdmin", schoolAdmins);
+  app.use("/api/students", students);
+  app.use("/api/subjects", subjects);
+  app.use("/api/timetables", timetables);
+  app.use("/api/users", users);
 
   app.use(error);
 };
