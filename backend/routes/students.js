@@ -68,21 +68,15 @@ router.put("/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid user id");
 
-  const { userBody, studentBody } = req.body;
-  studentBody.user = id;
+  req.body.user = id;
 
-  const errorUser = validateUser(userBody);
-  if (errorUser) return res.status(400).send(errorUser);
-
-  const errorStudent = validateStudent(studentBody);
+  const errorStudent = validateStudent(req.body);
   if (errorStudent) return res.status(400).send(errorStudent);
 
-  let result = await User.findByIdAndUpdate(id, userBody, { new: true });
-
-  if (!result) return res.status(404).send("User not found");
-  result = await Student.findOneAndUpdate({ user: id }, studentBody, {
+  const result = await Student.findOneAndUpdate({ user: id }, req.body, {
     new: true,
   });
+  if (!result) return res.status(404).send("User not found");
 
   res.send(result);
 });
