@@ -10,6 +10,7 @@ const fileUpload = require("express-fileupload");
 const home = require("../routes/home");
 const classes = require("../routes/classes");
 const divisionalAdmins = require("../routes/divisionalAdmins");
+const exams = require("../routes/exams");
 const schools = require("../routes/schools");
 const schoolAdmins = require("../routes/schoolAdmins");
 const students = require("../routes/students");
@@ -38,6 +39,7 @@ module.exports = function (app) {
   app.use("/", home);
   app.use("/api/classes", classes);
   app.use("/api/divisionalAdmin", divisionalAdmins);
+  app.use("/api/exams", exams);
   app.use("/api/schools", schools);
   app.use("/api/schoolAdmin", schoolAdmins);
   app.use("/api/students", students);
