@@ -7,7 +7,7 @@ function validate(school) {
   const schema = new Joi.object({
     name: Joi.string().min(5).max(255).required(),
     address: Joi.string().required(),
-    picture: Joi.string().min(5).max(1024).required(),
+    picture: Joi.string().min(5).max(1024),
   });
   const result = schema.validate(school);
   if (result.error) return result.error.details[0].message;

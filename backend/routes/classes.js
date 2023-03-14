@@ -1,27 +1,14 @@
-const { request } = require("express");
 const express = require("express");
 const mongoose = require("mongoose");
 
-const {
-  Class,
-  validateClass,
-  updateStudentCount,
-} = require("../models/classe");
+const { Class, validateClass } = require("../models/classe");
+const { Student } = require("../models/student");
 const router = express.Router();
 
 // get all the classes
 router.get("/", async (req, res) => {
   const classes = await Class.find({});
   res.send(classes);
-});
-
-// update student count of a class
-router.get("/updateCount/:id", async (req, res) => {
-  const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid class id");
-
-  res.send(await updateStudentCount(id));
 });
 
 // get class by id
@@ -38,13 +25,17 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const errorMsg = validateClass(req.body);
   if (errorMsg) res.status(400).send(errorMsg);
+
   let classe = await Class.findOne(req.body);
   if (classe) return res.status(400).send("Class already exists");
+
   classe = new Class(req.body);
   await classe.save();
+
   res.send(classe);
 });
 
+// update a new class
 router.put("/:id", async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
@@ -70,6 +61,23 @@ router.delete("/:id", async (req, res) => {
   const result = await Class.findByIdAndDelete(id);
   if (result) return res.send(result);
   res.status(400).send("Class already deleted");
+});
+
+// update student count of a class
+router.get("/updateCount/:id", async (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.isValidObjectId(id))
+    return res.status(400).send("Invalid class id");
+
+  studentCount = await Student.find({ classe: id }).count();
+
+  const result = await Class.findByIdAndUpdate(
+    id,
+    { studentCount },
+    { new: true }
+  );
+  if (result) return res.send(result);
+  res.status(404).send("Class not found");
 });
 
 module.exports = router;

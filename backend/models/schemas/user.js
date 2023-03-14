@@ -13,7 +13,7 @@ module.exports = new Schema({
     minlength: 5,
     maxlength: 1024,
     required: true,
-    default: "default.png",
+    default: "profilePic/default.png",
   },
   email: {
     type: String,

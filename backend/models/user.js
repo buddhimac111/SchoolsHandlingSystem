@@ -7,7 +7,7 @@ const User = model("User", userSchema);
 function validate(user) {
   const schema = new Joi.object({
     name: Joi.string().min(5).max(20).required(),
-    picture: Joi.string(),
+    picture: Joi.string().min(5).max(1024),
     email: Joi.string().min(5).max(255).required(),
     role: Joi.string()
       .min(5)
