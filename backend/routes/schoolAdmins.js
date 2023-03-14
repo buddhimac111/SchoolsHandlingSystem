@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
   const schoolAdmin = await SchoolAdmin.findById(id);
 
   if (schoolAdmin) return res.send(schoolAdmin);
-  res.status(404).send("School Admin not found");
+  res.status(404).send("User not found");
 });
 
 // update schoolAdmin
@@ -29,7 +29,7 @@ router.put("/:id", async (req, res) => {
 
   req.body.user = id;
   const errorSAdmin = validateSAdmin(req.body);
-  if (errorSAdmin) res.status(400).send(errorSAdmin);
+  if (errorSAdmin) return res.status(400).send(errorSAdmin);
 
   const schoolAdmin = await SchoolAdmin.findOneAndUpdate(id, req.body, {
     new: true,

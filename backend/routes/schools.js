@@ -64,7 +64,7 @@ router.patch("/picture/:id", async (req, res) => {
 
   if (!/default.png/.test(school.picture))
     fs.unlink(`./public/${school.picture}`, (err) => {
-      if (err && err.code !== "ENOENT") res.status(500).send(err);
+      if (err && err.code !== "ENOENT") return res.status(500).send(err);
     });
 
   school.picture = await saveImage(picture, `schoolPic/${school._id}`);
@@ -83,7 +83,7 @@ router.delete("/:id", async (req, res) => {
   if (!school) return res.status(404).send("School already deleted");
   if (!/default.png/.test(school.picture))
     fs.unlink(`./public/${school.picture}`, (err) => {
-      if (err && err.code !== "ENOENT") res.status(500).send(err);
+      if (err && err.code !== "ENOENT") return res.status(500).send(err);
     });
   res.send(school);
 });

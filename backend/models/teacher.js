@@ -10,7 +10,7 @@ function validate(teacher) {
     major: Joi.string().required(),
     address: Joi.string().min(5).max(20).required(),
     school: Joi.objectId().required(),
-    class: Joi.objectId().required(),
+    classe: Joi.objectId().required(),
     DOB: Joi.date().required(),
   });
   const result = schema.validate(teacher);

@@ -1,5 +1,5 @@
 const Joi = require("joi");
-Joi.objectId = require("joi.objectId")(Joi);
+Joi.objectId = require("joi-objectId")(Joi);
 const { model } = require("mongoose");
 const examSchema = require("./schemas/exam");
 
@@ -16,6 +16,7 @@ function validate(exam) {
           marks: Joi.number().min(0).max(100).required(),
         })
       )
+      .min(1)
       .required(),
   });
   const result = schema.validate(exam);

@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
   const divisionalAdmin = await DivisionalAdmin.findById(id);
 
   if (divisionalAdmin) return res.send(divisionalAdmin);
-  res.status(404).send("Divisional Admin not found");
+  res.status(404).send("User not found");
 });
 
 // update divisionalAdmin
@@ -32,7 +32,7 @@ router.put("/:id", async (req, res) => {
 
   req.body.user = id;
   const errorDAdmin = validateDAdmin(req.body);
-  if (errorDAdmin) res.status(400).send(errorDAdmin);
+  if (errorDAdmin) return res.status(400).send(errorDAdmin);
 
   const dAdmin = await DivisionalAdmin.findOneAndUpdate(id, req.body, {
     new: true,

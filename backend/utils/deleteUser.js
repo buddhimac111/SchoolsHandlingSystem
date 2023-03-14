@@ -1,7 +1,7 @@
-const { Student } = require("./student");
-const { Teacher } = require("./teacher");
-const { SchoolAdmin } = require("./schoolAdmin");
-const { DivisionalAdmin } = require("./divisionalAdmin");
+const { Student } = require("../models/student");
+const { Teacher } = require("../models/teacher");
+const { SchoolAdmin } = require("../models/schoolAdmin");
+const { DivisionalAdmin } = require("../models/divisionalAdmin");
 
 async function deleteUser(id, role) {
   if (role === undefined) {
