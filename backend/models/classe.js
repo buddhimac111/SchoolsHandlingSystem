@@ -1,10 +1,12 @@
 const Joi = require("joi");
+Joi.objectId = require("joi-objectId")(Joi);
 const { model } = require("mongoose");
 const classSchema = require("./schemas/classe");
 
 const Class = model("Class", classSchema);
 function validate(classe) {
   const schema = new Joi.object({
+    school: Joi.objectId().required(),
     grade: Joi.number().min(1).max(20).required(),
     name: Joi.string().min(1).max(20).required(),
     year: Joi.number().min(2000).max(2100).required(),

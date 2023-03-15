@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const { Class, validateClass } = require("../models/classe");
+const { School } = require("../models/school");
 const { Student } = require("../models/student");
 const router = express.Router();
 
@@ -24,7 +25,10 @@ router.get("/:id", async (req, res) => {
 // create a new class
 router.post("/", async (req, res) => {
   const errorMsg = validateClass(req.body);
-  if (errorMsg) res.status(400).send(errorMsg);
+  if (errorMsg) return res.status(400).send(errorMsg);
+
+  const school = await School.findById(req.body.school);
+  if (!school) return res.status(400).send("School not found");
 
   let classe = await Class.findOne(req.body);
   if (classe) return res.status(400).send("Class already exists");
