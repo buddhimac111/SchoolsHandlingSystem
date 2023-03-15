@@ -34,6 +34,12 @@ router.put("/:id", async (req, res) => {
   const errorStudent = validateStudent(req.body);
   if (errorStudent) return res.status(400).send(errorStudent);
 
+  const school = await School.findById(req.body.school);
+  if (!school) return res.status(400).send("School not found");
+
+  const classe = await Class.findById(req.body.classe);
+  if (!classe) return res.status(400).send("Class not found");
+
   const result = await Student.findOneAndUpdate({ user: id }, req.body, {
     new: true,
   });

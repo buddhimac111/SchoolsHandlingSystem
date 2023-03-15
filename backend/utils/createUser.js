@@ -5,13 +5,27 @@ const {
   DivisionalAdmin,
   validateDAdmin,
 } = require("../models/divisionalAdmin");
+const { School } = require("../models/school");
+const { Class } = require("../models/classe");
 
-function createUser(role, userBody) {
+async function createUser(role, userBody) {
   const final = { errorBody: undefined, body: undefined };
 
   if (role === "student") {
     final.errorBody = validateStudent(userBody);
     if (final.errorBody) return final;
+
+    const school = await School.findById(userBody.school);
+    if (!school) {
+      final.errorBody = "School not found";
+      return final;
+    }
+
+    const classe = await Class.findById(userBody.classe);
+    if (!classe) {
+      final.errorBody = "Class not found";
+      return final;
+    }
 
     final.body = new Student(userBody);
     return final;
@@ -21,6 +35,18 @@ function createUser(role, userBody) {
     final.errorBody = validateTeacher(userBody);
     if (final.errorBody) return final;
 
+    const school = await School.findById(userBody.school);
+    if (!school) {
+      final.errorBody = "School not found";
+      return final;
+    }
+
+    const classe = await Class.findById(userBody.classe);
+    if (!classe) {
+      final.errorBody = "Class not found";
+      return final;
+    }
+
     final.body = new Teacher(userBody);
     return final;
   }
@@ -28,6 +54,12 @@ function createUser(role, userBody) {
   if (role === "sAdmin") {
     final.errorBody = validateSAdmin(userBody);
     if (final.errorBody) return final;
+
+    const school = await School.findById(userBody.school);
+    if (!school) {
+      final.errorBody = "School not found";
+      return final;
+    }
 
     final.body = new SchoolAdmin(userBody);
     return final;

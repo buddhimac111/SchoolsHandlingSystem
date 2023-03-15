@@ -38,12 +38,12 @@ router.post("/", async (req, res) => {
   const user = new User(userBody);
   otherBody.user = user._id.toHexString();
 
-  const other = createUser(user.role, otherBody);
+  const other = await createUser(user.role, otherBody);
   if (other.errorBody) return res.status(400).send(other.errorBody);
+
   // starting session to perform task set
   // if anything goes wrong tasks will rollback
   const session = await User.startSession();
-
   try {
     session.startTransaction();
     // add session parameter for each save({session})
