@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const { Student, validateStudent } = require("../models/student");
+const { School } = require("../models/school");
+const { Class } = require("../models/classe");
 
 const router = express.Router();
 
