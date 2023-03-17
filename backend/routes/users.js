@@ -4,7 +4,7 @@ const saveImage = require("../utils/saveImage");
 const fs = require("fs");
 const createUser = require("../utils/createUser");
 const deleteUser = require("../utils/deleteUser");
-const { encrypt, validPassword } = require("../utils/hash");
+const { encrypt } = require("../utils/hash");
 
 const { User, validateUser } = require("../models/user");
 const router = express.Router();

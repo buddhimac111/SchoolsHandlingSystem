@@ -1,6 +1,14 @@
 const Joi = require("joi");
 const { model } = require("mongoose");
 const userSchema = require("./schemas/user");
+const jwt = require("jsonwebtoken");
+
+userSchema.methods.generateAuthToken = function () {
+  return jwt.sign(
+    { _id: this._id, role: this.role },
+    process.env.JWT_PRIVATE_KEY
+  );
+};
 
 const User = model("User", userSchema);
 

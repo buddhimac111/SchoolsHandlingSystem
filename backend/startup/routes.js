@@ -8,6 +8,7 @@ const fileUpload = require("express-fileupload");
 
 // routes
 const home = require("../routes/home");
+const auth = require("../routes/auth");
 const classes = require("../routes/classes");
 const divisionalAdmins = require("../routes/divisionalAdmins");
 const exams = require("../routes/exams");
@@ -37,6 +38,7 @@ module.exports = function (app) {
 
   // assign route paths
   app.use("/", home);
+  app.use("/api/auth", auth);
   app.use("/api/classes", classes);
   app.use("/api/divisionalAdmins", divisionalAdmins);
   app.use("/api/exams", exams);
