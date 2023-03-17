@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const { Class, validateClass } = require("../models/classe");
 const { School } = require("../models/school");
 const { Student } = require("../models/student");
+const getAvgMarks = require("../utils/pipelines/getAvgMarks");
 const router = express.Router();
 
 // get all the classes
@@ -82,6 +83,37 @@ router.get("/updateCount/:id", async (req, res) => {
   );
   if (result) return res.send(result);
   res.status(404).send("Class not found");
+});
+
+// get all the students for a class
+router.get("/students/:id", async (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.isValidObjectId(id))
+    return res.status(400).send("Invalid class id");
+
+  const classe = await Class.findById(id);
+  if (!classe) return res.status(404).send("Class not found");
+
+  const students = await Student.find({ classe: id });
+  res.send(students);
+});
+
+// get average marks for a class
+router.get("/marks/average/:id", async (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.isValidObjectId(id))
+    return res.status(400).send("Invalid class id");
+
+  const classe = await Class.findById(id);
+  if (!classe) return res.status(404).send("Class not found");
+
+  const results = {};
+
+  results.semester1 = await Class.aggregate(getAvgMarks(id, 1));
+  results.semester2 = await Class.aggregate(getAvgMarks(id, 2));
+  results.semester3 = await Class.aggregate(getAvgMarks(id, 3));
+
+  res.send(results);
 });
 
 module.exports = router;
