@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const { Teacher, validateTeacher } = require("../models/teacher");
+const { School } = require("../models/school");
+const { Class } = require("../models/classe");
 const router = express.Router();
 
 // get all the teachers
@@ -29,6 +31,12 @@ router.put("/:id", async (req, res) => {
 
   const errorMsg = validateTeacher(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
+
+  const school = await School.findById(req.body.school);
+  if (!school) return res.status(400).send("School not found");
+
+  const classe = await Class.findById(req.body.classe);
+  if (!classe) return res.status(400).send("Class not found");
 
   const result = await Teacher.findOneAndUpdate({ user: id }, req.body, {
     new: true,

@@ -4,13 +4,14 @@ const saveImage = require("../utils/saveImage");
 const fs = require("fs");
 const createUser = require("../utils/createUser");
 const deleteUser = require("../utils/deleteUser");
+const { encrypt } = require("../utils/hash");
 
 const { User, validateUser } = require("../models/user");
 const router = express.Router();
 
 // get all the users
 router.get("/", async (req, res) => {
-  const users = await User.find({}).sort("name");
+  const users = await User.find({}).sort("name").select("-__v -password");
   res.send(users);
 });
 
@@ -19,7 +20,7 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid user id");
-  const user = await User.findById(id);
+  const user = await User.findById(id).select("-__v -password");
   if (user) return res.send(user);
   res.status(404).send("User not found");
 });
@@ -35,15 +36,16 @@ router.post("/", async (req, res) => {
   if (exist)
     return res.status(400).send("User already exists with existing email");
 
+  userBody.password = await encrypt(userBody.password);
   const user = new User(userBody);
   otherBody.user = user._id.toHexString();
 
-  const other = createUser(user.role, otherBody);
+  const other = await createUser(user.role, otherBody);
   if (other.errorBody) return res.status(400).send(other.errorBody);
+
   // starting session to perform task set
   // if anything goes wrong tasks will rollback
   const session = await User.startSession();
-
   try {
     session.startTransaction();
     // add session parameter for each save({session})
@@ -53,7 +55,7 @@ router.post("/", async (req, res) => {
 
     await session.commitTransaction();
 
-    res.send(other.body);
+    res.send(user);
   } catch (err) {
     await session.abortTransaction();
     res.status(400).send(err.message);
