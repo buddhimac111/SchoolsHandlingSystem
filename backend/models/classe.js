@@ -2,6 +2,15 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectId")(Joi);
 const { model } = require("mongoose");
 const classSchema = require("./schemas/classe");
+const getAvgMarksPipe = require("../utils/pipelines/getAvgMarks");
+const getStudentsPipe = require("../utils/pipelines/getStudents");
+
+classSchema.methods.getStudents = async function () {
+  return await Class.aggregate(getStudentsPipe(this._id));
+};
+classSchema.methods.getAvgMarks = async function (semester) {
+  return await Class.aggregate(getAvgMarksPipe(this.id, semester));
+};
 
 const Class = model("Class", classSchema);
 function validate(classe) {

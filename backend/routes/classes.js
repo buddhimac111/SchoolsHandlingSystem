@@ -3,9 +3,6 @@ const mongoose = require("mongoose");
 
 const { Class, validateClass } = require("../models/classe");
 
-const getAvgMarks = require("../utils/pipelines/getAvgMarks");
-const getStudents = require("../utils/pipelines/getStudents");
-
 const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
 
 const router = express.Router();
@@ -35,7 +32,7 @@ router.get("/students", teacherAuth, async (req, res) => {
   });
   if (!classe) return res.status(404).send("Class not found");
 
-  const students = await Class.aggregate(getStudents(classe._id));
+  const students = await classe.getStudents();
   res.send(students);
 });
 
@@ -126,12 +123,29 @@ router.get("/students/:id", sAdminAuth, async (req, res) => {
   const classe = await Class.findOne({ _id, school: req.user.school });
   if (!classe) return res.status(404).send("Class not found");
 
-  const students = await Class.aggregate(getStudents(classe._id));
+  const students = await classe.getStudents();
   res.send(students);
 });
 
+// get average marks for teachers class
+router.get("/marks/average", teacherAuth, async (req, res) => {
+  const classe = await Class.findOne({
+    _id: req.user.classe,
+    school: req.user.school,
+  });
+  if (!classe) return res.status(404).send("Class not found");
+
+  const results = {};
+
+  results.semester1 = await classe.getAvgMarks(1);
+  results.semester2 = await classe.getAvgMarks(2);
+  results.semester3 = await classe.getAvgMarks(3);
+
+  res.send(results);
+});
+
 // get average marks for a class
-router.get("/marks/average/:id", async (req, res) => {
+router.get("/marks/average/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid class id");
@@ -141,9 +155,9 @@ router.get("/marks/average/:id", async (req, res) => {
 
   const results = {};
 
-  results.semester1 = await Class.aggregate(getAvgMarks(id, 1));
-  results.semester2 = await Class.aggregate(getAvgMarks(id, 2));
-  results.semester3 = await Class.aggregate(getAvgMarks(id, 3));
+  results.semester1 = await classe.getAvgMarks(1);
+  results.semester2 = await classe.getAvgMarks(2);
+  results.semester3 = await classe.getAvgMarks(3);
 
   res.send(results);
 });
