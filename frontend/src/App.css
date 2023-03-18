@@ -65,32 +65,66 @@
 }
 
 /******** Profile Page ********/
-#bodyArea{
+
+#bodyArea {
     overflow: auto;
     height: 89vh;
 }
-.profileImage{
+
+.profileImage {
     width: 200px;
 }
-.nameSection
-{
+
+.nameSection {
     padding-left: 50px;
 }
-@media screen and (max-width: 500px)
-{
-    .nameSection
-        {
-            padding-left: 0px;
-        }
-}
-    
-/* .profileBox{;
-} */
-.roleTag
-{
+
+.roleTag {
     width: 105px;
     background-color: var(--primary);
 }
+
+.schoolImage {
+    width: 100px;
+    height: 100px;
+}
+
+.schoolBox {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--darkGrey);
+    border-radius: 10px;
+    
+    
+}
+
+.classBox {
+    color: var(--secondary);
+    justify-content: space-between;
+    background-color: var(--darkGrey);
+    border-radius: 10px;
+    margin-left: 20px;
+    overflow: auto;
+
+}
+
+.schoolTexts {
+    color: var(--secondary);
+}
+
+@media screen and (max-width: 500px) {
+    .nameSection {
+        padding-left: 0px;
+    }
+
+    .classBox {
+        margin-left: 0px;
+        margin-top: 10px;
+        padding-bottom: 20px;
+    }
+
+}
+
 /******** NotFound Page ********/
 .container404 {
     margin: 0;
