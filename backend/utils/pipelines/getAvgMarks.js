@@ -1,4 +1,5 @@
-function getAvgMarks(classe, semester) {
+const mongoose = require("mongoose");
+module.exports = function (classe, semester) {
   return [
     {
       $match: {
@@ -37,6 +38,4 @@ function getAvgMarks(classe, semester) {
       },
     },
   ];
-}
-
-module.exports = getAvgMarks;
+};
