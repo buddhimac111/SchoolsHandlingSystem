@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { SchoolAdmin } = require("../models/schoolAdmin");
+const { Student } = require("../models/student");
+const { Teacher } = require("../models/teacher");
 
 function auth(req, res, next) {
   const result = authorize(req);
@@ -28,30 +30,47 @@ async function sAdminAuth(req, res, next) {
     return res.status(status).send(message);
   }
   req.user = result;
-  const sAdmin = await SchoolAdmin.findOne({ user: req.user._id });
+  const sAdmin = await SchoolAdmin.findOne({ user: req.user._id }).select(
+    "school -_id"
+  );
   if (!sAdmin) return res.status(400).send("User not found");
 
   req.user.school = sAdmin.school.toHexString();
   next();
 }
 
-function studentAuth(req, res, next) {
+async function studentAuth(req, res, next) {
   const result = authorize(req, "student");
   if (result.error) {
     const { status, message } = result.error;
     return res.status(status).send(message);
   }
   req.user = result;
+  const student = await Student.findOne({ user: req.user._id }).select(
+    "classe school -_id"
+  );
+  if (!student) return res.status(400).send("User not found");
+
+  req.user.school = student.school;
+  req.user.classe = student.classe;
   next();
 }
 
-function teacherAuth(req, res, next) {
+async function teacherAuth(req, res, next) {
   const result = authorize(req, "teacher");
   if (result.error) {
     const { status, message } = result.error;
     return res.status(status).send(message);
   }
+
   req.user = result;
+  const teacher = await Teacher.findOne({ user: req.user._id }).select(
+    "classe school -_id"
+  );
+  if (!teacher) return res.status(400).send("User not found");
+
+  req.user.school = teacher.school;
+  req.user.classe = teacher.classe;
   next();
 }
 
