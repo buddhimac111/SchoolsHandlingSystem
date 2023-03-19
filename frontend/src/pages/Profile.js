@@ -2,7 +2,7 @@ import SideNav from "../components/SideNav";
 import TopBar from "../components/TopBar";
 import Prof from "../assets/proff.png";
 import School from "../assets/school.png";
-import { FaIdCard, FaAt, FaUsers } from "react-icons/fa";
+import { FaIdCard, FaAt,} from "react-icons/fa";
 
 const userProfile = () => {
 

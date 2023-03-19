@@ -1,4 +1,18 @@
-#bodyContainer{
+/* #bodyContainer{
     overflow: auto;
     height: 89vh;
+    
+} */
+.searchContainer
+{
+  height: 50px;
+  padding: 0px;
+
 }
+@media screen and (max-width: 800px) {
+   
+#tblContainer{
+  width: 290px;
+}
+}
+    
