@@ -2,6 +2,11 @@ const { Schema } = require("mongoose");
 
 // for Classe model
 module.exports = new Schema({
+  school: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "School",
+  },
   grade: {
     type: Number,
     minlength: 1,
