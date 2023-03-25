@@ -58,8 +58,8 @@ async function studentAuth(req, res, next) {
   );
   if (!student) return res.status(400).send("User not found");
 
-  req.user.school = student.school;
-  req.user.classe = student.classe;
+  req.user.school = student.school.toHexString();
+  req.user.classe = student.classe.toHexString();
   next();
 }
 
@@ -76,8 +76,8 @@ async function teacherAuth(req, res, next) {
   );
   if (!teacher) return res.status(400).send("User not found");
 
-  req.user.school = teacher.school;
-  req.user.classe = teacher.classe;
+  req.user.school = teacher.school.toHexString();
+  req.user.classe = teacher.classe.toHexString();
   next();
 }
 
