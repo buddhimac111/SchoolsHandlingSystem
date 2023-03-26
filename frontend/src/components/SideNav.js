@@ -44,7 +44,7 @@ const SideNav = () => {
                     <CDBSidebarMenu>
 
                         <NavLink
-                            to="/"
+                            to="/admin/dashboard"
                             activeClassName="activeClicked"
                         >
                             <CDBSidebarMenuItem
@@ -75,7 +75,7 @@ const SideNav = () => {
                         {user === 'teacher' || user === 'admin'
                         ?
                         <NavLink
-                            to="/profile"
+                            to="/admin/students"
                             activeClassName="activeClicked"
                         >
                             <CDBSidebarMenuItem
