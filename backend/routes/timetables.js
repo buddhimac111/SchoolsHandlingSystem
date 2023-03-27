@@ -46,6 +46,10 @@ router.post("/", sAdminAuth, async (req, res) => {
     return res.status(400).send("Timetable already created for the class");
 
   const timetable = new Timetable(req.body);
+
+  const error = await timetable.validateSubject();
+  if (error) return res.status(400).send("Invalid subject");
+
   await timetable.save();
 
   res.send(timetable);
@@ -65,12 +69,17 @@ router.put("/:id", sAdminAuth, async (req, res) => {
   }).select("_id");
   if (!classe) return res.status(400).send("Class not found");
 
-  const result = await Timetable.findOneAndUpdate({ classe: id }, req.body, {
-    new: true,
-  }).select("-_id -__v");
+  const result = await Timetable.findOne({ classe: id });
+  if (!result) return res.status(404).send("Timetable not found");
 
-  if (result) return res.send(result);
-  res.status(404).send("Timetable not found");
+  result.dates = req.body.dates;
+  const error = await result.validateSubject();
+  if (error) return res.status(400).send("Invalid subject");
+
+  await result.save();
+  result.__v = undefined;
+  result._id = undefined;
+  res.send(result);
 });
 
 // delete timetable
