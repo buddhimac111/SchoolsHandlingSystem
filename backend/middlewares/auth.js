@@ -4,6 +4,13 @@ const { Student } = require("../models/student");
 const { Teacher } = require("../models/teacher");
 
 function auth(req, res, next) {
+  const secret = req.header("x-super-secret");
+  if (secret) {
+    if (secret !== process.env.JWT_PRIVATE_KEY)
+      return res.status(403).send("Access denied, invalid secret");
+    req.user = { role: "super" };
+    return next();
+  }
   const result = authorize(req);
   if (result.error) {
     const { status, message } = result.error;
@@ -51,8 +58,8 @@ async function studentAuth(req, res, next) {
   );
   if (!student) return res.status(400).send("User not found");
 
-  req.user.school = student.school;
-  req.user.classe = student.classe;
+  req.user.school = student.school.toHexString();
+  req.user.classe = student.classe.toHexString();
   next();
 }
 
@@ -69,8 +76,18 @@ async function teacherAuth(req, res, next) {
   );
   if (!teacher) return res.status(400).send("User not found");
 
-  req.user.school = teacher.school;
-  req.user.classe = teacher.classe;
+  req.user.school = teacher.school.toHexString();
+  req.user.classe = teacher.classe.toHexString();
+  next();
+}
+
+function superAuth(req, res, next) {
+  const secret = req.header("x-super-secret");
+  if (!secret) return res.status(401).send("Access denied, no secret provided");
+
+  if (secret !== process.env.JWT_PRIVATE_KEY)
+    return res.status(403).send("Access denied, invalid secret");
+
   next();
 }
 
@@ -101,3 +118,4 @@ module.exports.dAdminAuth = dAdminAuth;
 module.exports.sAdminAuth = sAdminAuth;
 module.exports.studentAuth = studentAuth;
 module.exports.teacherAuth = teacherAuth;
+module.exports.superAuth = superAuth;
