@@ -9,6 +9,8 @@ const { encrypt } = require("../utils/hash");
 const { User, validateUser } = require("../models/user");
 const { SchoolAdmin } = require("../models/schoolAdmin");
 const { auth } = require("../middlewares/auth");
+const { Class } = require("../models/classe");
+const { School } = require("../models/school");
 const router = express.Router();
 
 // get user
@@ -60,6 +62,18 @@ router.post("/", auth, async (req, res) => {
     // transactions only supported by replica set
     await user.save();
     await other.body.save();
+    if (user.role === "student") {
+      await Class.findByIdAndUpdate(other.body.classe, {
+        $inc: { studentCount: 1 },
+      });
+      await School.findByIdAndUpdate(other.body.school, {
+        $inc: { studentCount: 1 },
+      });
+    } else if (user.role === "teacher") {
+      await School.findByIdAndUpdate(other.body.school, {
+        $inc: { teacherCount: 1 },
+      });
+    }
 
     await session.commitTransaction();
     user.password = undefined;
@@ -149,6 +163,18 @@ router.delete("/:id", auth, async (req, res) => {
       if (err && err.code !== "ENOENT") return res.status(500).send(err);
     });
   const result = await deleteUser(id, user.role);
+  if (user.role === "student") {
+    await Class.findByIdAndUpdate(result.classe, {
+      $inc: { studentCount: -1 },
+    });
+    await School.findByIdAndUpdate(result.school, {
+      $inc: { studentCount: -1 },
+    });
+  } else if (user.role === "teacher") {
+    await School.findByIdAndUpdate(result.school, {
+      $inc: { teacherCount: -1 },
+    });
+  }
   user.password = undefined;
   user.__v = undefined;
   result.user = undefined;
