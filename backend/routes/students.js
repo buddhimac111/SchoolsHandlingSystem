@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const { Student, validateStudent } = require("../models/student");
-const { School } = require("../models/school");
 const { Class } = require("../models/classe");
 const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
 
@@ -64,6 +63,30 @@ router.put("/:id", sAdminAuth, async (req, res) => {
   await student.save();
 
   res.send(student);
+});
+
+// update student class only
+router.patch("/:id", sAdminAuth, async (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.isValidObjectId(id))
+    return res.status(400).send("Invalid user id");
+
+  const classe = await Class.findOne({
+    _id: req.body.classe,
+    school: req.user.school,
+  }).select("_id");
+  if (!classe) return res.status(400).send("Class not found");
+
+  const student = await Student.findOne({ user: id }).select("-__v");
+  if (!student) return res.status(404).send("User not found");
+  if (student.school.toHexString() !== req.user.school)
+    return res
+      .status(401)
+      .send("Unauthorized access, Student doesent belong to your school");
+
+  student.classe = req.body.classe;
+  student.save();
+  return res.send(student);
 });
 
 module.exports = router;
