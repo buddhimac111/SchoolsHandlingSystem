@@ -32,24 +32,53 @@ router.get("/:id", sAdminAuth, async (req, res) => {
 // update teacher by user id
 router.put("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
+  if (!mongoose.isValidObjectId(id))
+    return res.status(400).send("Invalid user id");
+
   req.body.user = id;
-  req.body.school = req.user.school;
+  const teacher = await Teacher.findOne({ user: id }).select("-__v");
+  if (!teacher) return res.status(404).send("User not found");
+  if (teacher.school.toHexString() !== req.user.school)
+    return res
+      .status(401)
+      .send("Unauthorized access, Teacher doesent belong to your school");
+
+  req.body.school = teacher.school.toHexString();
+  req.body.classe = teacher.classe.toHexString();
 
   const errorMsg = validateTeacher(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
 
+  teacher.address = req.body.address;
+  teacher.major = req.body.major;
+  teacher.DOB = req.body.DOB;
+
+  await teacher.save();
+  res.send(teacher);
+});
+
+// update student class only
+router.patch("/:id", sAdminAuth, async (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.isValidObjectId(id))
+    return res.status(400).send("Invalid user id");
+
   const classe = await Class.findOne({
     _id: req.body.classe,
-    school: req.body.school,
-  });
+    school: req.user.school,
+  }).select("_id");
   if (!classe) return res.status(400).send("Class not found");
 
-  const result = await Teacher.findOneAndUpdate({ user: id }, req.body, {
-    new: true,
-  });
-  if (result) return res.send(result);
+  const teacher = await Teacher.findOne({ user: id }).select("-__v");
+  if (!teacher) return res.status(404).send("User not found");
+  if (teacher.school.toHexString() !== req.user.school)
+    return res
+      .status(401)
+      .send("Unauthorized access, Teacher doesent belong to your school");
 
-  res.status(404).send("User not found");
+  teacher.classe = req.body.classe;
+  teacher.save();
+  return res.send(teacher);
 });
 
 module.exports = router;
