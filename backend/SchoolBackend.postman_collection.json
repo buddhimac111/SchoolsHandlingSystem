@@ -1,1329 +1,1627 @@
 {
-	"info": {
-		"_postman_id": "2611c483-c854-4e29-b410-14cb7d595ac0",
-		"name": "SchoolBackend",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25338257"
-	},
-	"item": [
-		{
-			"name": "classes",
-			"item": [
-				{
-					"name": "get classes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/classes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"classes"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create class",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "grade",
-									"value": "11",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "C",
-									"type": "text"
-								},
-								{
-									"key": "year",
-									"value": "2022",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/classes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"classes"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete class",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/classes/6410a5acc74704c0ac556db8",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"classes",
-								"6410a5acc74704c0ac556db8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update student count",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/classes/updateCount/640dc5b7d4dc9d6ac741194b",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"classes",
-								"updateCount",
-								"640dc5b7d4dc9d6ac741194b"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update class",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "grade",
-									"value": "11",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "A",
-									"type": "text"
-								},
-								{
-									"key": "year",
-									"value": "2022",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/classes/640dc59d4394abd6b6598735",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"classes",
-								"640dc59d4394abd6b6598735"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "divisionalAdmins",
-			"item": [
-				{
-					"name": "get divisional admins",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/divisionalAdmins",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"divisionalAdmins"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get divisional admin",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/divisionalAdmins/6410a23f53c87b532c0df7e4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"divisionalAdmins",
-								"6410a23f53c87b532c0df7e4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update divisional admin",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "address",
-									"value": "new address",
-									"type": "text"
-								},
-								{
-									"key": "DOB",
-									"value": "2000-10-05",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/divisionalAdmins/6410a23f53c87b532c0df7e4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"divisionalAdmins",
-								"6410a23f53c87b532c0df7e4"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "exams",
-			"item": [
-				{
-					"name": "get exams",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/exams",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"exams"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get exam",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/exams/6410a23f53c87b532c0df7e4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"exams",
-								"6410a23f53c87b532c0df7e4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update exam",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"student\": \"640f6a8486fe33b66738fbfb\",\r\n    \"classe\": \"640dc5b7d4dc9d6ac741194b\",\r\n    \"semester\": 1,\r\n    \"results\": [\r\n        {\"subject\": \"Chemistry\", \"marks\": 80},\r\n        {\"subject\": \"Biology\", \"marks\": 75},\r\n        {\"subject\": \"Physics\", \"marks\": 75}\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/exams/6410ad3ee7c436fb00088f42",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"exams",
-								"6410ad3ee7c436fb00088f42"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create exam",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"student\": \"640f6a8486fe33b66738fbfb\",\r\n    \"classe\": \"640dc5b7d4dc9d6ac741194b\",\r\n    \"semester\": 1,\r\n    \"results\": [\r\n        {\"subject\": \"Chemistry\", \"marks\": 75},\r\n        {\"subject\": \"Biology\", \"marks\": 75},\r\n        {\"subject\": \"Physics\", \"marks\": 75}\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/exams",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"exams"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete exam",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/exams/6410ad3ee7c436fb00088f42",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"exams",
-								"6410ad3ee7c436fb00088f42"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "schools",
-			"item": [
-				{
-					"name": "get schools",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/schools",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schools"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get school",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/schools/640f63eb1387f9f4625592fe",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schools",
-								"640f63eb1387f9f4625592fe"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create school",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Walisinghe Harishchandra College",
-									"type": "text"
-								},
-								{
-									"key": "address",
-									"value": "Anuradhapura",
-									"type": "text"
-								},
-								{
-									"key": "picture",
-									"value": "asd",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/schools",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schools"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete school",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/schools/6410a67ac74704c0ac556dce",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schools",
-								"6410a67ac74704c0ac556dce"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update school",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "new Walisinghe",
-									"type": "text"
-								},
-								{
-									"key": "address",
-									"value": "new address",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/schools/640f63eb1387f9f4625592fe",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schools",
-								"640f63eb1387f9f4625592fe"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update picture",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "picture",
-									"type": "file",
-									"src": "/C:/Users/Iddhi Sulakshana/Downloads/circuit (1).png"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/schools/picture/640f63eb1387f9f4625592fe",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schools",
-								"picture",
-								"640f63eb1387f9f4625592fe"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "schoolAdmins",
-			"item": [
-				{
-					"name": "get school admins",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/schoolAdmins",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schoolAdmins"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get school admin",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/schoolAdmins/6410a4fac74704c0ac556daa",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schoolAdmins",
-								"6410a4fac74704c0ac556daa"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update school admin",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "address",
-									"value": "new address",
-									"type": "text"
-								},
-								{
-									"key": "DOB",
-									"value": "2000-10-05",
-									"type": "text"
-								},
-								{
-									"key": "school",
-									"value": "640f63eb1387f9f4625592fe",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/schoolAdmins/6410a4fac74704c0ac556daa",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"schoolAdmins",
-								"6410a4fac74704c0ac556daa"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "students",
-			"item": [
-				{
-					"name": "get students",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/students",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"students"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update student details",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"parent\": {\r\n        \"name\":\"New Parent\",\r\n        \"phone\":\"2134567890\"\r\n    },\r\n    \"address\":\"new address\",\r\n    \"school\":\"640d92ebe206dfcbf0ad1700\",\r\n    \"classe\":\"640dc5b7d4dc9d6ac741194b\",\r\n    \"DOB\":\"2000-10-05\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/students/640f6a8486fe33b66738fbfb",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"students",
-								"640f6a8486fe33b66738fbfb"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get student",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/students/640f6a8486fe33b66738fbfb",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"students",
-								"640f6a8486fe33b66738fbfb"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "subjects",
-			"item": [
-				{
-					"name": "get subjects",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/subjects",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"subjects"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get subject",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/subjects/6410af0b8536200adcfd4060",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"subjects",
-								"6410af0b8536200adcfd4060"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update subject",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Chemistry\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/subjects/6410af0b8536200adcfd4060",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"subjects",
-								"6410af0b8536200adcfd4060"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create subject",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Biology\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/subjects",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"subjects"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete subject",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/subjects/6410af0b8536200adcfd4060",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"subjects",
-								"6410af0b8536200adcfd4060"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "teachers",
-			"item": [
-				{
-					"name": "get teachers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/teachers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"teachers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get teacher",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/teachers/6410a1c453c87b532c0df7de",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"teachers",
-								"6410a1c453c87b532c0df7de"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update teacher",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "address",
-									"value": "new address",
-									"type": "text"
-								},
-								{
-									"key": "DOB",
-									"value": "2000-10-05",
-									"type": "text"
-								},
-								{
-									"key": "major",
-									"value": "Science",
-									"type": "text"
-								},
-								{
-									"key": "school",
-									"value": "640f63eb1387f9f4625592fe",
-									"type": "text"
-								},
-								{
-									"key": "classe",
-									"value": "640dc59d4394abd6b6598735",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/teachers/6410a1c453c87b532c0df7de",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"teachers",
-								"6410a1c453c87b532c0df7de"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "timetables",
-			"item": [
-				{
-					"name": "get timetables",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/timetables",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"timetables"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get timetable",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/timetables/640dc59d4394abd6b6598735",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"timetables",
-								"640dc59d4394abd6b6598735"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create timetable",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"classe\": \"640dc5b7d4dc9d6ac741194b\",\r\n    \"dates\": [\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]}\r\n    ] \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/timetables/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"timetables",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete timetable",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/timetables/640dc5b7d4dc9d6ac741194b",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"timetables",
-								"640dc5b7d4dc9d6ac741194b"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update timetable",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"dates\": [\r\n        {\"periods\": [\"Maths1\",\"Maths2\",\"Maths3\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]}\r\n    ] \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/timetables/640dc59d4394abd6b6598735",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"timetables",
-								"640dc59d4394abd6b6598735"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "users",
-			"item": [
-				{
-					"name": "get users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get user",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/users/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update image of the user",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "picture",
-									"type": "file",
-									"src": "/C:/Users/Iddhi Sulakshana/Downloads/circuit (1).png"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/users/picture/64109fb8f2c00c023acff988",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users",
-								"picture",
-								"64109fb8f2c00c023acff988"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update user",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Iddhi",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "iddhi@123.com",
-									"type": "text"
-								},
-								{
-									"key": "role",
-									"value": "student",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "123@123@",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/users/64109fb8f2c00c023acff988",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users",
-								"64109fb8f2c00c023acff988"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete user",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/users/6410a4b4137206666b90a200",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users",
-								"6410a4b4137206666b90a200"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create student",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"Student2\",\r\n        \"email\":\"student2@gmail.com\",\r\n        \"role\":\"student\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"parent\": {\r\n            \"name\":\"someone\",\r\n            \"phone\":\"0123456789\"\r\n        },\r\n        \"address\":\"some adderss\",\r\n        \"school\":\"640ca3418887fc1b8512b9d7\",\r\n        \"classe\":\"640dc5b7d4dc9d6ac741194b\",\r\n        \"DOB\":\"2023/1/15\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create teacher",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"Teacher1\",\r\n        \"email\":\"teacher1@gmail.com\",\r\n        \"role\":\"teacher\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"major\": \"English\",\r\n        \"address\": \"some address\",\r\n        \"school\": \"640f63eb1387f9f4625592fe\",\r\n        \"classe\": \"640dc59d4394abd6b6598735\",\r\n        \"DOB\": \"1985-10-05\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create divisional admin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"dadmin1\",\r\n        \"email\":\"dadmin1@gmail.com\",\r\n        \"role\":\"dAdmin\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"address\": \"some address\",\r\n        \"DOB\": \"1985-10-05\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create school admin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"sadmin1\",\r\n        \"email\":\"sadmin1@gmail.com\",\r\n        \"role\":\"sAdmin\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"address\": \"some address\",\r\n        \"school\": \"640f63eb1387f9f4625592fe\",\r\n        \"DOB\": \"1985-10-05\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "2611c483-c854-4e29-b410-14cb7d595ac0",
+    "name": "SchoolBackend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25338257"
+  },
+  "item": [
+    {
+      "name": "classes",
+      "item": [
+        {
+          "name": "get classes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get class",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/{{classe}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "{{classe}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get class teacher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/class",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "class"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update student count",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/updateCount/{{classe}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "updateCount", "{{classe}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get students in a class",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/students/{{classe}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "students", "{{classe}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get students in a class teacher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/students",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "students"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get average marks for a class",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/marks/average/{{classe}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "marks", "average", "{{classe}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get average marks for a class teacher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/marks/average",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "marks", "average"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create class",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "grade",
+                  "value": "11",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "B",
+                  "type": "text"
+                },
+                {
+                  "key": "year",
+                  "value": "2022",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/classes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update class",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "grade",
+                  "value": "11",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "A",
+                  "type": "text"
+                },
+                {
+                  "key": "year",
+                  "value": "2022",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/classes/6415eca0abc8a5a8e14d76ce",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "6415eca0abc8a5a8e14d76ce"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete class",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/classes/{{classe}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "classes", "{{classe}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "divisionalAdmins",
+      "item": [
+        {
+          "name": "get divisional admin",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/divisionalAdmins",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "divisionalAdmins"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update divisional admin",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "address",
+                  "value": "new address",
+                  "type": "text"
+                },
+                {
+                  "key": "DOB",
+                  "value": "2000-10-05",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/divisionalAdmins",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "divisionalAdmins"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "exams",
+      "item": [
+        {
+          "name": "get exams",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/exams",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "exams"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get exam",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/exams/class",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "exams", "class"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update exam",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"results\": [\r\n        {\"subject\": \"Chemistry\", \"marks\": 70},\r\n        {\"subject\": \"Biology\", \"marks\": 85},\r\n        {\"subject\": \"Physics\", \"marks\": 75}\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/exams/641f24e2a33c6bd6e7305553",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "exams", "641f24e2a33c6bd6e7305553"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create exam",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"student\": \"6416a22a5ff5c04115066207\",\r\n    \"semester\": 1,\r\n    \"results\": [\r\n        {\"subject\": \"Chemistry\", \"marks\": 35},\r\n        {\"subject\": \"Biology\", \"marks\": 12},\r\n        {\"subject\": \"Physics\", \"marks\": 65}\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/exams",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "exams"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete exam",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/exams/641f24e2a33c6bd6e7305553",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "exams", "641f24e2a33c6bd6e7305553"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "schools",
+      "item": [
+        {
+          "name": "get schools",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/schools",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schools"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get school",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/schools/6415e6973bb81329538e5622",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schools", "6415e6973bb81329538e5622"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create school",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Walisinghe Harishchandra College",
+                  "type": "text"
+                },
+                {
+                  "key": "address",
+                  "value": "Anuradhapura",
+                  "type": "text"
+                },
+                {
+                  "key": "picture",
+                  "value": "asd",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/schools",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schools"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete school",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/schools/6410a67ac74704c0ac556dce",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schools", "6410a67ac74704c0ac556dce"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update school",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "new Walisinghe",
+                  "type": "text"
+                },
+                {
+                  "key": "address",
+                  "value": "new address",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/schools/6415e6973bb81329538e5622",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schools", "6415e6973bb81329538e5622"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update picture",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "picture",
+                  "type": "file",
+                  "src": "/C:/Users/Iddhi Sulakshana/Downloads/circuit (1).png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/schools/picture/640f63eb1387f9f4625592fe",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schools", "picture", "640f63eb1387f9f4625592fe"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "schoolAdmins",
+      "item": [
+        {
+          "name": "get school admins",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/schoolAdmins",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schoolAdmins"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get school admin",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/schoolAdmins/6415e6e03bb81329538e562a",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schoolAdmins", "6415e6e03bb81329538e562a"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get school admin own",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/schoolAdmins/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schoolAdmins", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update school admin",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "address",
+                  "value": "new address",
+                  "type": "text"
+                },
+                {
+                  "key": "DOB",
+                  "value": "2000-10-05",
+                  "type": "text"
+                },
+                {
+                  "key": "school",
+                  "value": "640f63eb1387f9f4625592fe",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/schoolAdmins/6415e6e03bb81329538e562a",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schoolAdmins", "6415e6e03bb81329538e562a"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update school admin own",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "address",
+                  "value": "new new address",
+                  "type": "text"
+                },
+                {
+                  "key": "DOB",
+                  "value": "2000-10-05",
+                  "type": "text"
+                },
+                {
+                  "key": "school",
+                  "value": "640f63eb1387f9f4625592fe",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/schoolAdmins/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "schoolAdmins", "me"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "students",
+      "item": [
+        {
+          "name": "get students",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/students",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "students"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get students in class",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/students/class",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "students", "class"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update student details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"parent\": {\r\n        \"name\":\"New Parent\",\r\n        \"phone\":\"2134567890\"\r\n    },\r\n    \"address\":\"new address\",\r\n    \"DOB\":\"2000-10-05\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/students/6416a22a5ff5c04115066207",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "students", "6416a22a5ff5c04115066207"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "change student class",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"classe\": \"6415f740f84e00abc5a7fca0\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/students/6421ba415b914a3e14807513",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "students", "6421ba415b914a3e14807513"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "subjects",
+      "item": [
+        {
+          "name": "get subjects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/subjects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "subjects"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create subject",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Maths3\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/subjects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "subjects"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete subject",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/subjects/Biology",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "subjects", "Biology"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "teachers",
+      "item": [
+        {
+          "name": "get teachers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/teachers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "teachers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get teacher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/teachers/641f2a263efb738208b989e2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "teachers", "641f2a263efb738208b989e2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update teacher",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "address",
+                  "value": "new address",
+                  "type": "text"
+                },
+                {
+                  "key": "DOB",
+                  "value": "2000-10-05",
+                  "type": "text"
+                },
+                {
+                  "key": "major",
+                  "value": "Science",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/teachers/6421bbada7eaf9c3e8b5b118",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "teachers", "6421bbada7eaf9c3e8b5b118"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "change teachers class",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "classe",
+                  "value": "6415f740f84e00abc5a7fca0",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/teachers/6421bbada7eaf9c3e8b5b118",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "teachers", "6421bbada7eaf9c3e8b5b118"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "timetables",
+      "item": [
+        {
+          "name": "get timetable for student",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{studentToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/timetables",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "timetables"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get timetable",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/timetables/6415f740f84e00abc5a7fca0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "timetables", "6415f740f84e00abc5a7fca0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create timetable",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"classe\": \"6415f740f84e00abc5a7fca0\",\r\n    \"dates\": [\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]}\r\n    ] \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/timetables/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "timetables", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete timetable",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/timetables/6415f740f84e00abc5a7fca0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "timetables", "6415f740f84e00abc5a7fca0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update timetable",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dates\": [\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]},\r\n        {\"periods\": [\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\",\"Maths\"]}\r\n    ] \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/timetables/6415f740f84e00abc5a7fca0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "timetables", "6415f740f84e00abc5a7fca0"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "get user",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{teacherToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update image of the user",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "picture",
+                  "type": "file",
+                  "src": "/C:/Users/Iddhi Sulakshana/Downloads/attachment_121815626.jpeg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users/picture/641600745af360d18bd56179",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users", "picture", "641600745af360d18bd56179"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Iddhi",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "iddhi@123.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "123@123@",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users/641600745af360d18bd56179",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users", "641600745af360d18bd56179"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/users/6421ba615b914a3e14807529",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users", "6421ba615b914a3e14807529"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"Student2\",\r\n        \"email\":\"student2@gmail.com\",\r\n        \"role\":\"student\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"parent\": {\r\n            \"name\":\"someone\",\r\n            \"phone\":\"0123456789\"\r\n        },\r\n        \"address\":\"some adderss\",\r\n        \"classe\":\"6415f740f84e00abc5a7fca0\",\r\n        \"DOB\":\"2023/1/15\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create teacher",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{sAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"Teacher2\",\r\n        \"email\":\"teacher2@gmail.com\",\r\n        \"role\":\"teacher\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"major\": \"English\",\r\n        \"address\": \"some address\",\r\n        \"classe\": \"{{classe}}\",\r\n        \"DOB\": \"1985-10-05\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create divisional admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-super-secret",
+                "value": "{{superSecret}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"dadmin2\",\r\n        \"email\":\"dadmin2@gmail.com\",\r\n        \"role\":\"dAdmin\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"address\": \"some address\",\r\n        \"DOB\": \"1985-10-05\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create school admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{dAdminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userBody\": {\r\n        \"name\":\"sadmin2\",\r\n        \"email\":\"sadmin2@gmail.com\",\r\n        \"role\":\"sAdmin\",\r\n        \"password\":\"123456\"\r\n    },\r\n    \"otherBody\":{\r\n        \"address\": \"some address\",\r\n        \"school\": \"6415e6973bb81329538e5622\",\r\n        \"DOB\": \"1985-10-05\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "authenticate dAdmin",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"dadmin1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "authenticate sAdmin",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"sadmin1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "authenticate teacher",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"teacher1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "authenticate student",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"student1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "sAdminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "dAdminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "studentToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "teacherToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "classe",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "school",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "superSecret",
+      "value": "",
+      "type": "string"
+    }
+  ]
 }
