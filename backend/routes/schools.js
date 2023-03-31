@@ -4,28 +4,29 @@ const fs = require("fs");
 const saveImage = require("../utils/saveImage");
 
 const { School, validateSchool } = require("../models/school");
+const { dAdminAuth, sAdminAuth } = require("../middlewares/auth");
 const router = express.Router();
 
 // get all the schools
-router.get("/", async (req, res) => {
-  const schools = await School.find({});
+router.get("/", dAdminAuth, async (req, res) => {
+  const schools = await School.find({}).select("-__v");
   res.send(schools);
 });
 
 // get school by id
-router.get("/:id", async (req, res) => {
+router.get("/:id", dAdminAuth, async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid school id");
 
-  const school = await School.findById(id);
+  const school = await School.findById(id).select("-__v");
   if (school) return res.send(school);
 
   res.status(404).send("School not found");
 });
 
-// create a new class
-router.post("/", async (req, res) => {
+// create a new school
+router.post("/", dAdminAuth, async (req, res) => {
   const errorMsg = validateSchool(req.body);
   if (errorMsg) res.status(400).send(errorMsg);
 
@@ -36,10 +37,15 @@ router.post("/", async (req, res) => {
 });
 
 // update school
-router.put("/:id", async (req, res) => {
+router.put("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid school id");
+
+  if (req.user.school !== id)
+    return res
+      .status(401)
+      .send("Unauthorized access, you are not the owner of this school");
 
   const errorMsg = validateSchool(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
@@ -50,7 +56,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // update school image
-router.patch("/picture/:id", async (req, res) => {
+router.patch("/picture/:id", sAdminAuth, async (req, res) => {
   const picture = req.files ? req.files.picture || undefined : undefined;
   if (!picture || !/image/.test(picture.mimetype))
     return res.status(400).send("Picture required or Invalid picture type");
@@ -58,6 +64,11 @@ router.patch("/picture/:id", async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid user id");
+
+  if (req.user.school !== id)
+    return res
+      .status(401)
+      .send("Unauthorized access, you are not the owner of this school");
 
   const school = await School.findById(id);
   if (!school) return res.status(404).send("School not found");
@@ -74,7 +85,7 @@ router.patch("/picture/:id", async (req, res) => {
 });
 
 // delete school
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", dAdminAuth, async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
     return res.status(400).send("Invalid school id");
