@@ -20,17 +20,17 @@ const HomePage = () => {
     
       if(Username === 'admin' && Password === 'admin'){
         sessionStorage.setItem("sessionRole", "admin");
-        window.location.href = '/admin/dashboard';
+        window.location.href = '/dashboard';
         console.log("admin");
       }
       else if(Username === 'teacher' && Password === 'teacher'){
         sessionStorage.setItem("sessionRole", "teacher");
-        window.location.href = '/teacher/dashboard';
+        window.location.href = '/dashboard';
         console.log("teacher");
       }
       else if (Username === 'student' && Password === 'student'){
         sessionStorage.setItem("sessionRole", "student");
-        window.location.href = '/student/dashboard';
+        window.location.href = '/dashboard';
         console.log("student");
       }
       else{
