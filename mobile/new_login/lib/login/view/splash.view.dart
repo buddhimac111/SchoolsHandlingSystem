@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_login/utils/global.colors.dart';
 import 'package:new_login/view/login.view.dart';
+import 'package:new_login/view/utils/global.colors.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -28,3 +28,4 @@ class SplashView extends StatelessWidget {
     );
   }
 }
+
