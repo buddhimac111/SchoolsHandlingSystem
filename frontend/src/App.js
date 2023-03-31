@@ -21,7 +21,7 @@ function App() {
           < Route path="*" element={<NotFoundPage />} />
           < Route path="/profile" element={<UserProfile />} />
 
-          < Route path="/admin/dashboard" element={<AdminDashboard />} />
+          < Route path="/dashboard" element={<AdminDashboard />} />
           < Route path="/admin/students" element={<Students />} />
 
           < Route path="/teacher/dashboard" element={<TeacherDashboard />} />

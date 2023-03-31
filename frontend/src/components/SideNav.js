@@ -44,7 +44,7 @@ const SideNav = () => {
                     <CDBSidebarMenu>
 
                         <NavLink
-                            to="/admin/dashboard"
+                            to="/dashboard"
                             activeClassName="activeClicked"
                         >
                             <CDBSidebarMenuItem
