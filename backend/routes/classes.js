@@ -55,7 +55,9 @@ router.post("/", sAdminAuth, async (req, res) => {
   let classe = await Class.findOne(req.body);
   if (classe) return res.status(400).send("Class already exists");
 
-  const exist = await Class.findOne({}).sort({ _id: -1 }).select("_id");
+  const exist = await Class.findOne({ school: req.body.school })
+    .sort({ _id: -1 })
+    .select("_id");
   if (!exist) req.body._id = `${req.body.school}1`;
   else req.body._id = `${req.body.school}${parseInt(exist._id.slice(3)) + 1}`;
 
