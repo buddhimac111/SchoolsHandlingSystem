@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:new_login/view/utils/global.colors.dart';
-import 'package:new_login/view/widgets/button.global.dart';
-import 'package:new_login/view/widgets/text.form.global.dart';
+import 'package:new_login/login/view/utils/global.colors.dart';
+import 'package:new_login/login/view/widgets/button.global.dart';
+import 'package:new_login/login/view/widgets/text.form.global.dart';
+
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
