@@ -9,7 +9,7 @@ module.exports = function () {
   mongoose
     .connect(databaseString)
     .then(() =>
-      winston.info("Connected to MongoDB at " + databaseString + " ✔️")
+      winston.info("Connected to MongoDB at " + databaseString + " ✅")
     )
     .catch((ex) => {
       winston.error(

@@ -1,3 +1,4 @@
+console.clear();
 require("./startup/config")();
 const app = require("express")();
 const winston = require("./startup/logging")();
