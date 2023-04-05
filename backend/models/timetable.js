@@ -1,5 +1,4 @@
 const Joi = require("joi");
-Joi.objectId = require("joi-objectId")(Joi);
 const { model } = require("mongoose");
 const { Subject } = require("./subject");
 const timetableSchema = require("./schemas/timetable");

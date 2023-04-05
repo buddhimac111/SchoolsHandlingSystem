@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 
 const { SchoolAdmin, validateSAdmin } = require("../models/schoolAdmin");
 const { dAdminAuth, sAdminAuth } = require("../middlewares/auth");

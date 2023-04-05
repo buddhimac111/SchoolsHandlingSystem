@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 
 const { Class, validateClass } = require("../models/classe");
 
