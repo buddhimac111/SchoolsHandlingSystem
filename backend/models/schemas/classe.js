@@ -2,9 +2,19 @@ const { Schema } = require("mongoose");
 
 // for Classe model
 module.exports = new Schema({
-  school: {
-    type: Schema.Types.ObjectId,
+  _id: {
+    type: String,
+    minlength: 4,
+    maxlength: 100,
     required: true,
+    match: /^[A-Z]{3}\d+$/,
+  },
+  school: {
+    type: String,
+    minlength: 3,
+    maxlength: 3,
+    required: true,
+    match: /^[A-Z]{3}$/,
     ref: "School",
   },
   grade: {
@@ -17,6 +27,7 @@ module.exports = new Schema({
     type: String,
     minlength: 1,
     maxlenth: 20,
+    match: /^[A-Z]$/,
     required: true,
   },
   year: {

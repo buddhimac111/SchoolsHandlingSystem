@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/", studentAuth, async (req, res) => {
   const classe = req.user.classe;
 
-  const timetable = await Timetable.findOne({ classe }).select("-_id -__v");
+  const timetable = await Timetable.findById(classe).select("-_id -__v");
   if (timetable) return res.send(timetable);
   res.status(404).send("Timetable not found");
 });
@@ -20,12 +20,7 @@ router.get("/", studentAuth, async (req, res) => {
 router.get("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
 
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid class id");
-
-  const timetable = await Timetable.findOne({
-    classe: id,
-  }).select("-_id -__v");
+  const timetable = await Timetable.findById(id).select("-_id -__v");
   if (timetable) return res.send(timetable);
   res.status(404).send("Timetable not found");
 });
@@ -34,14 +29,13 @@ router.get("/:id", sAdminAuth, async (req, res) => {
 router.post("/", sAdminAuth, async (req, res) => {
   const errorMsg = validateTimetable(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
-
   const result = await Class.findOne({
-    _id: req.body.classe,
+    _id: req.body._id,
     school: req.user.school,
   }).select("_id");
   if (!result) return res.status(400).send("Class not found");
 
-  const classe = await Timetable.findOne({ classe: req.body.classe });
+  const classe = await Timetable.findById(req.body._id);
   if (classe)
     return res.status(400).send("Timetable already created for the class");
 
@@ -57,22 +51,24 @@ router.post("/", sAdminAuth, async (req, res) => {
 
 // update timetable with class id
 router.put("/:id", sAdminAuth, async (req, res) => {
-  const id = req.params.id;
-  req.body.classe = id;
+  req.body._id = req.params.id;
 
   const errorMsg = validateTimetable(req.body);
   if (errorMsg) res.status(400).send(errorMsg);
 
   const classe = await Class.findOne({
-    _id: req.body.classe,
+    _id: req.body._id,
     school: req.user.school,
   }).select("_id");
   if (!classe) return res.status(400).send("Class not found");
 
-  const result = await Timetable.findOne({ classe: id });
+  const result = await Timetable.findById(req.body._id);
   if (!result) return res.status(404).send("Timetable not found");
 
-  result.dates = req.body.dates;
+  for (const key in req.body) {
+    if (key === "_id") continue;
+    result[key] = req.body[key];
+  }
   const error = await result.validateSubject();
   if (error) return res.status(400).send("Invalid subject");
 
@@ -86,18 +82,13 @@ router.put("/:id", sAdminAuth, async (req, res) => {
 router.delete("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
 
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid class id");
-
   const classe = await Class.findOne({
     _id: id,
     school: req.user.school,
   }).select("_id");
   if (!classe) return res.status(400).send("Class not found");
 
-  const timetable = await Timetable.findOneAndDelete({ classe: id }).select(
-    "-_id -__v"
-  );
+  const timetable = await Timetable.findByIdAndDelete(id).select("-__v");
   if (timetable) return res.send(timetable);
   res.status(400).send("Timetable already deleted");
 });

@@ -11,6 +11,7 @@ const { SchoolAdmin } = require("../models/schoolAdmin");
 const { auth } = require("../middlewares/auth");
 const { Class } = require("../models/classe");
 const { School } = require("../models/school");
+const generateId = require("../utils/generateId");
 const router = express.Router();
 
 // get user
@@ -34,21 +35,26 @@ router.post("/", auth, async (req, res) => {
     return res.status(403).send("Access denied, not enough permissions");
 
   if (userBody.role === "teacher" || userBody.role === "student") {
-    const sAdmin = await SchoolAdmin.findOne({ user: req.user._id }).select(
+    const sAdmin = await SchoolAdmin.findById(req.user._id).select(
       "school -_id"
     );
-    otherBody.school = sAdmin.school.toHexString();
+    otherBody.school = sAdmin.school;
   }
-  const errorUser = validateUser(userBody);
 
+  result = await generateId(userBody.role, otherBody.school);
+  if (result.error) return res.status(400).send(result.error);
+  userBody._id = result;
+
+  const errorUser = validateUser(userBody);
   if (errorUser) return res.status(400).send(errorUser);
+
   const exist = await User.findOne({ email: userBody.email });
   if (exist)
     return res.status(400).send("User already exists with existing email");
 
   userBody.password = await encrypt(userBody.password);
   const user = new User(userBody);
-  otherBody.user = user._id.toHexString();
+  otherBody._id = user._id;
 
   const other = await createUser(user.role, otherBody);
   if (other.errorBody) return res.status(400).send(other.errorBody);
@@ -94,13 +100,11 @@ router.post("/", auth, async (req, res) => {
 // update user by id
 router.put("/:id", auth, async (req, res) => {
   const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid user id");
 
   const user = await User.findById(id);
   if (!user) return res.status(404).send("User not found");
   req.body.role = user.role;
-
+  req.body._id = id;
   let error = validAccess(req.user.role, req.body.role);
 
   if (error)
@@ -108,6 +112,10 @@ router.put("/:id", auth, async (req, res) => {
 
   const errorUser = validateUser(req.body);
   if (errorUser) return res.status(400).send(errorUser);
+
+  const exist = await User.findOne({ email: req.body.email });
+  if (exist && exist._id !== id)
+    return res.status(400).send("User already exists with existing email");
 
   const result = await User.findByIdAndUpdate(id, req.body, { new: true });
   if (result) return res.send(result);
@@ -127,8 +135,6 @@ router.patch("/picture/:id", auth, async (req, res) => {
     return res.status(400).send("Picture required or Invalid picture type");
 
   const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid user id");
 
   const user = await User.findById(id);
   if (!user) return res.status(404).send("User not found");
@@ -147,11 +153,10 @@ router.patch("/picture/:id", auth, async (req, res) => {
 // delete user and its relations
 router.delete("/:id", auth, async (req, res) => {
   const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid user id");
 
   let user = await User.findById(id);
   if (!user) user = { role: "" };
+
   let error = validAccess(req.user.role, user.role);
   if (error)
     return res.status(403).send("Access denied, not enough permissions");
@@ -162,7 +167,9 @@ router.delete("/:id", auth, async (req, res) => {
     fs.unlink(`./public/${user.picture}`, (err) => {
       if (err && err.code !== "ENOENT") return res.status(500).send(err);
     });
+
   const result = await deleteUser(id, user.role);
+
   if (user.role === "student") {
     await Class.findByIdAndUpdate(result.classe, {
       $inc: { studentCount: -1 },

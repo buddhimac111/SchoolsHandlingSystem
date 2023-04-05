@@ -6,8 +6,14 @@ const examSchema = require("./schemas/exam");
 const Exam = model("Exam", examSchema);
 function validate(exam) {
   const schema = new Joi.object({
-    student: Joi.objectId().required(),
-    classe: Joi.objectId().required(),
+    student: Joi.string()
+      .required()
+      .regex(/^ST[A-Z]{3}\d+$/),
+    classe: Joi.string()
+      .min(4)
+      .max(100)
+      .required()
+      .regex(/^[A-Z]{3}\d+$/),
     semester: Joi.number().min(1).max(20).required(),
     results: Joi.array()
       .items(

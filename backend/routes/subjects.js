@@ -7,7 +7,7 @@ const router = express.Router();
 
 // get all the subjects
 router.get("/", auth, async (req, res) => {
-  const subjects = await Subject.find({}).select("-_id -__v");
+  const subjects = await Subject.find({}).select("-__v");
   res.send(subjects);
 });
 
@@ -25,10 +25,10 @@ router.post("/", dAdminAuth, async (req, res) => {
   res.send(subject);
 });
 
-// remove subject using name
-router.delete("/:name", async (req, res) => {
-  const name = req.params.name;
-  const result = await Subject.findOneAndDelete({ name });
+// remove subject using _id
+router.delete("/:_id", async (req, res) => {
+  const _id = req.params._id;
+  const result = await Subject.findByIdAndDelete(_id);
   if (result) return res.send(result);
   res.status(400).send("Subject already deleted");
 });

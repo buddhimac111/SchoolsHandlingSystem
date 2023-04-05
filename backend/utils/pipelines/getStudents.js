@@ -4,7 +4,7 @@ module.exports = function (classe) {
   return [
     {
       $match: {
-        _id: new mongoose.Types.ObjectId(classe),
+        _id: classe,
       },
     },
     {

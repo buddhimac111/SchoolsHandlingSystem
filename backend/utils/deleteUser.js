@@ -9,19 +9,19 @@ async function deleteUser(id, role) {
   }
 
   if (role === "student") {
-    return await Student.findOneAndDelete({ user: id });
+    return await Student.findByIdAndDelete(id);
   }
 
   if (role === "teacher") {
-    return await Teacher.findOneAndDelete({ user: id });
+    return await Teacher.findByIdAndDelete(id);
   }
 
   if (role === "sAdmin") {
-    return await SchoolAdmin.findOneAndDelete({ user: id });
+    return await SchoolAdmin.findByIdAndDelete(id);
   }
 
   if (role === "dAdmin") {
-    return await DivisionalAdmin.findOneAndDelete({ user: id });
+    return await DivisionalAdmin.findByIdAndDelete(id);
   }
 }
 

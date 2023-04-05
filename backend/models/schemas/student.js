@@ -20,11 +20,10 @@ const parentSchema = new Schema(
 
 // for Student model
 module.exports = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+  _id: {
+    type: String,
     required: true,
-    unique: true,
+    match: /^ST[A-Z]{3}\d+$/,
   },
   parent: {
     type: parentSchema,
@@ -35,14 +34,20 @@ module.exports = new Schema({
     required: true,
   },
   school: {
-    type: Schema.Types.ObjectId,
-    ref: "School",
+    type: String,
+    minlength: 3,
+    maxlength: 3,
     required: true,
+    match: /^[A-Z]{3}$/,
+    ref: "School",
   },
   classe: {
-    type: Schema.Types.ObjectId,
-    ref: "Class",
+    type: String,
+    minlength: 4,
+    maxlength: 100,
     required: true,
+    match: /^[A-Z]{3}\d+$/,
+    ref: "Class",
   },
   DOB: {
     type: Date,

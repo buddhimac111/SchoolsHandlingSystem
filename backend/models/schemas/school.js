@@ -2,6 +2,13 @@ const { Schema } = require("mongoose");
 
 // for School model
 module.exports = new Schema({
+  _id: {
+    type: String,
+    minlength: 3,
+    maxlength: 3,
+    required: true,
+    match: /^[A-Z]{3}$/,
+  },
   name: {
     type: String,
     minlength: 5,

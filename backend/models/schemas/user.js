@@ -2,6 +2,11 @@ const { Schema } = require("mongoose");
 
 // for User model
 module.exports = new Schema({
+  _id: {
+    type: String,
+    required: true,
+    match: /^DA\d+|SA[A-Z]{3}\d+|TE[A-Z]{3}\d+|ST[A-Z]{3}\d+$/,
+  },
   name: {
     type: String,
     minlength: 5,
@@ -20,6 +25,7 @@ module.exports = new Schema({
     minlength: 5,
     maxlength: 255,
     required: true,
+    index: true,
     unique: true,
     trim: true,
   },

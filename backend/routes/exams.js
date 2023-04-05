@@ -4,7 +4,6 @@ const _ = require("lodash");
 
 const { Exam, validateExam } = require("../models/exam");
 const { Student } = require("../models/student");
-const { Class } = require("../models/classe");
 const { studentAuth, teacherAuth } = require("../middlewares/auth");
 
 const router = express.Router();
@@ -15,7 +14,7 @@ router.get("/", studentAuth, async (req, res) => {
   res.send(exams);
 });
 
-// get exam for a class
+// get exams for a class
 router.get("/class", teacherAuth, async (req, res) => {
   const exams = await Exam.find({ classe: req.user.classe });
   res.send(exams);
@@ -28,7 +27,7 @@ router.post("/", teacherAuth, async (req, res) => {
   const errorMsg = validateExam(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
 
-  const student = await Student.findOne({ user: req.body.student });
+  const student = await Student.findById(req.body.student);
   if (!student) return res.status(400).send("Student not found");
 
   const exist = await Exam.findOne(
@@ -42,7 +41,7 @@ router.post("/", teacherAuth, async (req, res) => {
   res.send(exam);
 });
 
-// update new exam by id
+// update exam by its id
 router.put("/:id", teacherAuth, async (req, res) => {
   const id = req.params.id;
   if (!mongoose.isValidObjectId(id))
@@ -52,8 +51,8 @@ router.put("/:id", teacherAuth, async (req, res) => {
   const exam = await Exam.findById(id).select("-__v");
   if (!exam) return res.status(404).send("Exam not found");
 
-  req.body.classe = exam.classe.toHexString();
-  req.body.student = exam.student.toHexString();
+  req.body.classe = exam.classe;
+  req.body.student = exam.student;
   req.body.semester = exam.semester;
 
   const errorMsg = validateExam(req.body);

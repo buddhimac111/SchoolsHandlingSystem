@@ -2,11 +2,10 @@ const { Schema } = require("mongoose");
 
 // for SchoolAdmin model
 module.exports = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+  _id: {
+    type: String,
     required: true,
-    unique: true,
+    match: /^SA[A-Z]{3}\d+$/,
   },
   address: {
     type: String,
@@ -15,9 +14,11 @@ module.exports = new Schema({
     required: true,
   },
   school: {
-    type: Schema.Types.ObjectId,
-    ref: "School",
+    type: String,
+    minlength: 3,
+    maxlength: 3,
     required: true,
+    match: /^[A-Z]{3}$/,
   },
   DOB: {
     type: Date,

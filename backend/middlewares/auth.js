@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 const { SchoolAdmin } = require("../models/schoolAdmin");
 const { Student } = require("../models/student");
 const { Teacher } = require("../models/teacher");
+const { User } = require("../models/user");
 
-function auth(req, res, next) {
+async function auth(req, res, next) {
   const secret = req.header("x-super-secret");
   if (secret) {
     if (secret !== process.env.JWT_PRIVATE_KEY)
@@ -16,16 +17,23 @@ function auth(req, res, next) {
     const { status, message } = result.error;
     return res.status(status).send(message);
   }
+  const exist = await User.findById(result._id);
+  if (!exist) return res.status(400).send("Invalid Token User");
+
   req.user = result;
   next();
 }
 
-function dAdminAuth(req, res, next) {
+async function dAdminAuth(req, res, next) {
   const result = authorize(req, "dAdmin");
   if (result.error) {
     const { status, message } = result.error;
     return res.status(status).send(message);
   }
+
+  const exist = await User.findById(result._id);
+  if (!exist) return res.status(400).send("Invalid Token User");
+
   req.user = result;
   next();
 }
@@ -37,12 +45,10 @@ async function sAdminAuth(req, res, next) {
     return res.status(status).send(message);
   }
   req.user = result;
-  const sAdmin = await SchoolAdmin.findOne({ user: req.user._id }).select(
-    "school -_id"
-  );
-  if (!sAdmin) return res.status(400).send("User not found");
+  const sAdmin = await SchoolAdmin.findById(req.user._id).select("school -_id");
+  if (!sAdmin) return res.status(400).send("Invalid Token User");
+  req.user.school = sAdmin.school;
 
-  req.user.school = sAdmin.school.toHexString();
   next();
 }
 
@@ -53,13 +59,13 @@ async function studentAuth(req, res, next) {
     return res.status(status).send(message);
   }
   req.user = result;
-  const student = await Student.findOne({ user: req.user._id }).select(
+  const student = await Student.findById(req.user._id).select(
     "classe school -_id"
   );
-  if (!student) return res.status(400).send("User not found");
+  if (!student) return res.status(400).send("Invalid Token User");
+  req.user.school = student.school;
+  req.user.classe = student.classe;
 
-  req.user.school = student.school.toHexString();
-  req.user.classe = student.classe.toHexString();
   next();
 }
 
@@ -71,13 +77,13 @@ async function teacherAuth(req, res, next) {
   }
 
   req.user = result;
-  const teacher = await Teacher.findOne({ user: req.user._id }).select(
+  const teacher = await Teacher.findById(req.user._id).select(
     "classe school -_id"
   );
-  if (!teacher) return res.status(400).send("User not found");
+  if (!teacher) return res.status(400).send("Invalid Token User");
 
-  req.user.school = teacher.school.toHexString();
-  req.user.classe = teacher.classe.toHexString();
+  req.user.school = teacher.school;
+  req.user.classe = teacher.classe;
   next();
 }
 

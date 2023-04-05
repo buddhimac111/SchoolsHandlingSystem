@@ -15,9 +15,22 @@ classSchema.methods.getAvgMarks = async function (semester) {
 const Class = model("Class", classSchema);
 function validate(classe) {
   const schema = new Joi.object({
-    school: Joi.objectId().required(),
+    _id: Joi.string()
+      .min(4)
+      .max(100)
+      .required()
+      .regex(/^[A-Z]{3}\d+$/),
+    school: Joi.string()
+      .min(3)
+      .max(3)
+      .required()
+      .regex(/^[A-Z]{3}$/),
     grade: Joi.number().min(1).max(20).required(),
-    name: Joi.string().min(1).max(20).required(),
+    name: Joi.string()
+      .min(1)
+      .max(20)
+      .required()
+      .regex(/^[A-Z]$/),
     year: Joi.number().min(2000).max(2100).required(),
   });
   const result = schema.validate(classe);

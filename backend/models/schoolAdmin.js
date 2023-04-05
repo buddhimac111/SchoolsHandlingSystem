@@ -6,9 +6,15 @@ const sAdminSchema = require("./schemas/schoolAdmin");
 const SchoolAdmin = model("SchoolAdmin", sAdminSchema);
 function validate(sAdmin) {
   const schema = new Joi.object({
-    user: Joi.objectId().required(),
+    _id: Joi.string()
+      .required()
+      .regex(/^SA[A-Z]{3}\d+$/),
     address: Joi.string().min(5).max(512).required(),
-    school: Joi.objectId().required(),
+    school: Joi.string()
+      .min(3)
+      .max(3)
+      .required()
+      .regex(/^[A-Z]{3}$/),
     DOB: Joi.date().required(),
   });
   const result = schema.validate(sAdmin);

@@ -2,11 +2,11 @@ const { Schema } = require("mongoose");
 
 // for DivisionalAdmin model
 module.exports = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+  _id: {
+    type: String,
+    minlength: 3,
     required: true,
-    unique: true,
+    match: /^DA\d+$/,
   },
   address: {
     type: String,

@@ -3,7 +3,7 @@ module.exports = function (classe, semester) {
   return [
     {
       $match: {
-        _id: new mongoose.Types.ObjectId(classe),
+        _id: classe,
       },
     },
     {

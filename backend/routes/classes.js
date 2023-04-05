@@ -39,10 +39,10 @@ router.get("/students", teacherAuth, async (req, res) => {
 // get class by id
 router.get("/:id", sAdminAuth, async (req, res) => {
   const _id = req.params.id;
-  if (!mongoose.isValidObjectId(_id))
-    return res.status(400).send("Invalid class id");
 
-  const classe = await Class.findOne({ _id, school: req.user.school });
+  const classe = await Class.findOne({ _id, school: req.user.school }).select(
+    "-__v"
+  );
   if (classe) return res.send(classe);
 
   res.status(404).send("Class not found");
@@ -52,11 +52,15 @@ router.get("/:id", sAdminAuth, async (req, res) => {
 router.post("/", sAdminAuth, async (req, res) => {
   req.body.school = req.user.school;
 
-  const errorMsg = validateClass(req.body);
-  if (errorMsg) return res.status(400).send(errorMsg);
-
   let classe = await Class.findOne(req.body);
   if (classe) return res.status(400).send("Class already exists");
+
+  const exist = await Class.findOne({}).sort({ _id: -1 }).select("_id");
+  if (!exist) req.body._id = `${req.body.school}1`;
+  else req.body._id = `${req.body.school}${parseInt(exist._id.slice(3)) + 1}`;
+
+  const errorMsg = validateClass(req.body);
+  if (errorMsg) return res.status(400).send(errorMsg);
 
   classe = new Class(req.body);
   await classe.save();
@@ -67,16 +71,19 @@ router.post("/", sAdminAuth, async (req, res) => {
 // update a new class
 router.put("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid class id");
-
   req.body.school = req.user.school;
 
+  let classe = await Class.findOne(req.body);
+
+  if (classe) {
+    if (classe.id === id) return res.send(classe);
+    return res.status(400).send("Class already exists");
+  }
+
+  req.body._id = id;
   const errorMsg = validateClass(req.body);
   if (errorMsg) res.status(400).send(errorMsg);
-
-  let classe = await Class.findOne(req.body);
-  if (classe) return res.status(400).send("Class already exists");
+  req.body._id = undefined;
 
   classe = await Class.findByIdAndUpdate(id, req.body, { new: true });
   if (classe) return res.send(classe);
@@ -86,8 +93,6 @@ router.put("/:id", sAdminAuth, async (req, res) => {
 // remove class using id
 router.delete("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid class id");
 
   const result = await Class.findOneAndDelete({
     _id: id,
@@ -97,34 +102,15 @@ router.delete("/:id", sAdminAuth, async (req, res) => {
   res.status(400).send("Class already deleted");
 });
 
-// update student count of a class
-router.get("/updateCount/:id", sAdminAuth, async (req, res) => {
-  const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid class id");
-
-  studentCount = await Student.find({ classe: id }).count();
-
-  const result = await Class.findOneAndUpdate(
-    { _id: id, school: req.user.school },
-    { studentCount },
-    { new: true }
-  );
-  if (result) return res.send(result);
-  res.status(404).send("Class not found");
-});
-
 // get all the students for a class
 router.get("/students/:id", sAdminAuth, async (req, res) => {
   const _id = req.params.id;
-  if (!mongoose.isValidObjectId(_id))
-    return res.status(400).send("Invalid class id");
 
   const classe = await Class.findOne({ _id, school: req.user.school });
   if (!classe) return res.status(404).send("Class not found");
 
   const students = await classe.getStudents();
-  res.send(students);
+  res.send(students[0].students);
 });
 
 // get average marks for teachers class
@@ -147,8 +133,6 @@ router.get("/marks/average", teacherAuth, async (req, res) => {
 // get average marks for a class
 router.get("/marks/average/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
-  if (!mongoose.isValidObjectId(id))
-    return res.status(400).send("Invalid class id");
 
   const classe = await Class.findById(id);
   if (!classe) return res.status(404).send("Class not found");

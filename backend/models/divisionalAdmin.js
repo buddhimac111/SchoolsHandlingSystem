@@ -6,7 +6,10 @@ const dAdminSchema = require("./schemas/divisionalAdmin");
 const DivisionalAdmin = model("DivisionalAdmin", dAdminSchema);
 function validate(dAdmin) {
   const schema = new Joi.object({
-    user: Joi.objectId().required(),
+    _id: Joi.string()
+      .min(3)
+      .required()
+      .regex(/^DA\d+$/),
     address: Joi.string().min(5).max(512).required(),
     DOB: Joi.date().required(),
   });

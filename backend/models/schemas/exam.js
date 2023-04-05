@@ -3,14 +3,18 @@ const { Schema } = require("mongoose");
 // for Exam model
 const examSchema = new Schema({
   student: {
-    type: Schema.Types.ObjectId,
+    type: String,
     required: true,
+    match: /^ST[A-Z]{3}\d+$/,
     ref: "Student",
+    index: true,
   },
   classe: {
-    type: Schema.Types.ObjectId,
+    type: String,
+    minlength: 4,
+    maxlength: 100,
     required: true,
-    ref: "Class",
+    match: /^[A-Z]{3}\d+$/,
   },
   semester: {
     type: Number,
