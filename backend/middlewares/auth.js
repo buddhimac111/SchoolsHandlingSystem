@@ -3,6 +3,7 @@ const { SchoolAdmin } = require("../models/schoolAdmin");
 const { Student } = require("../models/student");
 const { Teacher } = require("../models/teacher");
 const { User } = require("../models/user");
+const getUser = require("../utils/getUser");
 
 async function auth(req, res, next) {
   const secret = req.header("x-super-secret");
@@ -19,6 +20,11 @@ async function auth(req, res, next) {
   }
   const exist = await User.findById(result._id);
   if (!exist) return res.status(400).send("Invalid Token User");
+
+  const user = await getUser(result._id, result.role);
+  if (!user) return res.status(400).send("Invalid Token User");
+  if (user.school) result.school = user.school;
+  if (user.classe) result.classe = user.classe;
 
   req.user = result;
   next();

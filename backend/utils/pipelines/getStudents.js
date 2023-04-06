@@ -17,7 +17,8 @@ module.exports = function (classe) {
     },
     {
       $project: {
-        students: true,
+        _id: 0,
+        ids: "$students._id",
       },
     },
   ];

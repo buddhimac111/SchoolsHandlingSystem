@@ -8,10 +8,13 @@ const router = express.Router();
 
 // get all the teachers
 router.get("/", sAdminAuth, async (req, res) => {
-  const teachers = await Teacher.find({ school: req.user.school }).select(
-    "-__v"
-  );
-  res.send(teachers);
+  const teachers = await Teacher.aggregate([
+    { $match: { school: req.user.school } },
+    { $project: { _id: 1 } },
+    { $group: { _id: null, ids: { $push: "$_id" } } },
+    { $project: { _id: 0, ids: 1 } },
+  ]);
+  res.send(teachers[0].ids);
 });
 
 // get teacher by user id
@@ -32,12 +35,11 @@ router.put("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
 
   req.body._id = id;
-  const teacher = await Teacher.findById(id).select("-__v");
+  const teacher = await Teacher.findOne({
+    _id: id,
+    school: req.user.school,
+  }).select("-__v");
   if (!teacher) return res.status(404).send("User not found");
-  if (teacher.school !== req.user.school)
-    return res
-      .status(401)
-      .send("Unauthorized access, Teacher doesent belong to your school");
 
   req.body.school = teacher.school;
   req.body.classe = teacher.classe;

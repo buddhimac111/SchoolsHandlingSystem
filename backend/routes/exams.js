@@ -10,13 +10,17 @@ const router = express.Router();
 
 // get all the exams for student
 router.get("/", studentAuth, async (req, res) => {
-  const exams = await Exam.find({ student: req.user._id }).select("-__v");
+  const exams = await Exam.find({ student: req.user._id }).select(
+    "semester results"
+  );
   res.send(exams);
 });
 
 // get exams for a class
 router.get("/class", teacherAuth, async (req, res) => {
-  const exams = await Exam.find({ classe: req.user.classe });
+  const exams = await Exam.find({ classe: req.user.classe }).select(
+    "-__v -classe"
+  );
   res.send(exams);
 });
 

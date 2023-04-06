@@ -2,18 +2,25 @@ const express = require("express");
 
 const { Class, validateClass } = require("../models/classe");
 
-const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
+const { sAdminAuth, teacherAuth, auth } = require("../middlewares/auth");
 
 const router = express.Router();
 
 // get all the classes
 router.get("/", sAdminAuth, async (req, res) => {
-  const classes = await Class.find({ school: req.user.school });
-  res.send(classes);
+  const classes = await Class.aggregate([
+    { $match: { school: req.user.school } }, // filter by school
+    { $project: { _id: 1 } }, // extract _id field
+    { $group: { _id: null, ids: { $push: "$_id" } } }, // group all ids into an array
+    { $project: { _id: 0, ids: 1 } }, // return only the ids array
+  ]);
+  res.send(classes[0].ids);
 });
 
-// get teachers class
-router.get("/class", teacherAuth, async (req, res) => {
+// get teachers and students current assigned class
+router.get("/me", auth, async (req, res) => {
+  if (req.user.role !== "student" && req.user.role !== "teacher")
+    return res.status(400).send("Invalid request");
   const classe = await Class.findOne({
     _id: req.user.classe,
     school: req.user.school,
@@ -21,18 +28,6 @@ router.get("/class", teacherAuth, async (req, res) => {
   if (!classe) return res.status(404).send("Class not found");
 
   res.send(classe);
-});
-
-// get students for teachers class
-router.get("/students", teacherAuth, async (req, res) => {
-  const classe = await Class.findOne({
-    _id: req.user.classe,
-    school: req.user.school,
-  });
-  if (!classe) return res.status(404).send("Class not found");
-
-  const students = await classe.getStudents();
-  res.send(students);
 });
 
 // get class by id
@@ -75,7 +70,6 @@ router.put("/:id", sAdminAuth, async (req, res) => {
   req.body.school = req.user.school;
 
   let classe = await Class.findOne(req.body);
-
   if (classe) {
     if (classe.id === id) return res.send(classe);
     return res.status(400).send("Class already exists");
@@ -111,7 +105,7 @@ router.get("/students/:id", sAdminAuth, async (req, res) => {
   if (!classe) return res.status(404).send("Class not found");
 
   const students = await classe.getStudents();
-  res.send(students[0].students);
+  res.send(students[0].ids);
 });
 
 // get average marks for teachers class
@@ -133,9 +127,9 @@ router.get("/marks/average", teacherAuth, async (req, res) => {
 
 // get average marks for a class
 router.get("/marks/average/:id", sAdminAuth, async (req, res) => {
-  const id = req.params.id;
+  const _id = req.params.id;
 
-  const classe = await Class.findById(id);
+  const classe = await Class.findOne({ _id, school: req.user.school });
   if (!classe) return res.status(404).send("Class not found");
 
   const results = {};
