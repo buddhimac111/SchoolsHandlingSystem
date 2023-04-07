@@ -108,21 +108,40 @@ router.get("/students/:id", sAdminAuth, async (req, res) => {
   res.send(students[0].ids);
 });
 
+// analytics for class
+
+async function getAverageMarks(_id, school) {
+  const classe = await Class.aggregate([
+    { $match: { _id, school } },
+    {
+      $lookup: {
+        localField: "_id",
+        from: "exams",
+        foreignField: "classe",
+        as: "exams",
+      },
+    },
+    { $project: { exams: "$exams.results", _id: 0 } },
+    { $unwind: { path: "$exams" } },
+    { $unwind: { path: "$exams" } },
+    { $group: { _id: "$exams.subject", marks: { $avg: "$exams.marks" } } },
+    { $sort: { _id: 1 } },
+    {
+      $group: {
+        _id: null,
+        subjects: { $push: "$_id" },
+        marks: { $push: "$marks" },
+      },
+    },
+  ]);
+  return classe;
+}
+
 // get average marks for teachers class
 router.get("/marks/average", teacherAuth, async (req, res) => {
-  const classe = await Class.findOne({
-    _id: req.user.classe,
-    school: req.user.school,
-  });
-  if (!classe) return res.status(404).send("Class not found");
+  const result = await getAverageMarks(req.user.classe, req.user.school);
 
-  const results = {};
-
-  results.semester1 = await classe.getAvgMarks(1);
-  results.semester2 = await classe.getAvgMarks(2);
-  results.semester3 = await classe.getAvgMarks(3);
-
-  res.send(results);
+  res.send(result[0]);
 });
 
 // get average marks for a class
@@ -132,13 +151,9 @@ router.get("/marks/average/:id", sAdminAuth, async (req, res) => {
   const classe = await Class.findOne({ _id, school: req.user.school });
   if (!classe) return res.status(404).send("Class not found");
 
-  const results = {};
+  const result = await getAverageMarks(_id, req.user.school);
 
-  results.semester1 = await classe.getAvgMarks(1);
-  results.semester2 = await classe.getAvgMarks(2);
-  results.semester3 = await classe.getAvgMarks(3);
-
-  res.send(results);
+  res.send(result[0]);
 });
 
 module.exports = router;

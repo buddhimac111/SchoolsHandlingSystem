@@ -1,10 +1,34 @@
 const express = require("express");
-const mongoose = require("mongoose");
 
 const { Teacher, validateTeacher } = require("../models/teacher");
+const { Exam } = require("../models/exam");
 const { Class } = require("../models/classe");
-const { sAdminAuth } = require("../middlewares/auth");
+const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
 const router = express.Router();
+
+// teachers analytics
+// get previous results for all the subjects attend
+router.get("/progress", teacherAuth, async (req, res) => {
+  const exams = await Exam.aggregate([
+    { $match: { classe: req.user.classe } },
+    { $unwind: { path: "$results" } },
+    {
+      $group: {
+        _id: { subject: "$results.subject", semester: "$semester" },
+        marks: { $avg: "$results.marks" },
+      },
+    },
+    {
+      $group: {
+        _id: "$_id.semester",
+        subjects: { $push: "$_id.subject" },
+        marks: { $push: "$marks" },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+  res.send(exams);
+});
 
 // get all the teachers
 router.get("/", sAdminAuth, async (req, res) => {

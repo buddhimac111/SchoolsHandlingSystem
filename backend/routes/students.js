@@ -136,11 +136,6 @@ router.get("/progress", studentAuth, async (req, res) => {
         year: "$classe.year",
       },
     },
-    {
-      $project: {
-        classe: 0,
-      },
-    },
     { $unwind: { path: "$year" } },
     { $unwind: { path: "$results" } },
     {
