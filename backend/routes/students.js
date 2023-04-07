@@ -2,7 +2,8 @@ const express = require("express");
 
 const { Student, validateStudent } = require("../models/student");
 const { Class } = require("../models/classe");
-const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
+const { Exam } = require("../models/exam");
+const { sAdminAuth, teacherAuth, studentAuth } = require("../middlewares/auth");
 
 const router = express.Router();
 
@@ -92,6 +93,93 @@ router.patch("/:id", sAdminAuth, async (req, res) => {
   console.log(old, newC);
   await student.save();
   return res.send(student);
+});
+
+// analyzing student data routes
+
+// get average result for all the subjects attend with previous exams
+router.get("/averages", studentAuth, async (req, res) => {
+  const exams = await Exam.aggregate([
+    { $match: { student: req.user._id } },
+    { $project: { results: 1, _id: 0 } },
+    { $unwind: { path: "$results" } },
+    { $group: { _id: "$results.subject", marks: { $avg: "$results.marks" } } },
+    { $sort: { _id: 1 } },
+    {
+      $group: {
+        _id: null,
+        subjects: { $push: "$_id" },
+        marks: { $push: "$marks" },
+      },
+    },
+  ]);
+  res.send(exams[0]);
+});
+
+// get previous results for all the subjects attend
+router.get("/progress", studentAuth, async (req, res) => {
+  const exams = await Exam.aggregate([
+    { $match: { student: req.user._id } },
+    {
+      $lookup: {
+        from: "classes",
+        localField: "classe",
+        foreignField: "_id",
+        as: "classe",
+      },
+    },
+    {
+      $project: {
+        results: 1,
+        _id: 0,
+        semester: 1,
+        year: "$classe.year",
+      },
+    },
+    {
+      $project: {
+        classe: 0,
+      },
+    },
+    { $unwind: { path: "$year" } },
+    { $unwind: { path: "$results" } },
+    {
+      $group: {
+        _id: "$results.subject",
+        results: {
+          $push: "$results.marks",
+        },
+        label: {
+          $push: {
+            $concat: [{ $toString: "$year" }, " ", { $toString: "$semester" }],
+          },
+        },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+  res.send(exams);
+});
+
+// get class semester marks
+router.get("/semester", studentAuth, async (req, res) => {
+  const exams = await Exam.aggregate([
+    { $match: { student: req.user._id, classe: req.user.classe } },
+    { $sort: { semester: -1 } },
+    { $limit: 1 },
+    { $project: { results: 1 } },
+    {
+      $group: {
+        _id: null,
+        subjects: { $push: "$results.subject" },
+        marks: { $push: "$results.marks" },
+      },
+    },
+
+    { $unwind: { path: "$subjects" } },
+    { $unwind: { path: "$marks" } },
+  ]);
+  res.send(exams[0]);
 });
 
 module.exports = router;

@@ -8,11 +8,12 @@ const { studentAuth, teacherAuth } = require("../middlewares/auth");
 
 const router = express.Router();
 
-// get all the exams for student
+// get all the exams for students current assigned class
 router.get("/", studentAuth, async (req, res) => {
-  const exams = await Exam.find({ student: req.user._id }).select(
-    "semester results"
-  );
+  const exams = await Exam.find({
+    student: req.user._id,
+    classe: req.user.classe,
+  }).select("-__v -student");
   res.send(exams);
 });
 
