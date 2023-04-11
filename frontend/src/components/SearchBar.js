@@ -9,7 +9,7 @@ const SearchBar = () => {
       <>
       <InputGroup className="mb-3 p-0">
         <Form.Control
-          placeholder="Search Students"
+          placeholder="Search"
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
         />

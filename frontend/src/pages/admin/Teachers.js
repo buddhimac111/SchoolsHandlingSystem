@@ -26,7 +26,7 @@ const Students = () => {
                                     <SearchBar />
                                 </div>
                                 <div className="col-md-2 p-0 ps-2">
-                                    <MDBBtn className="w-100 text-nowrap" onClick={event}>+ Add Student</MDBBtn>
+                                    <MDBBtn className="w-100 text-nowrap" onClick={event}>+ Add Teacher</MDBBtn>
                                 </div>
                             </div>
                         </div>
@@ -35,14 +35,14 @@ const Students = () => {
                                 <MDBTableHead dark>
                                     <tr>
                                         <th scope='col'>#</th>
-                                        <th scope='col'>Student ID</th>
+                                        <th scope='col'>Teacher ID</th>
                                         <th scope='col'>Name & Email</th>
-                                        <th scope='col'>Class & Teacher</th>
+                                        <th scope='col'>Class</th>
                                         <th scope='col'>Section</th>
                                         <th scope='col'>Actions</th>
                                     </tr>
                                 </MDBTableHead>
-                                <MDBTableBody>                                  
+                                <MDBTableBody>
                                     <tr>
                                         <td>
                                             <p className="mt-3">1</p>
@@ -66,7 +66,6 @@ const Students = () => {
                                         </td>
                                         <td>
                                             <p className='fw-normal mb-1'>13 - M2</p>
-                                            <p className='text-muted mb-0'>Mrs. G M C K Gunasekara</p>
                                         </td>
                                         <td>
                                             <h6>
@@ -110,7 +109,6 @@ const Students = () => {
                                         </td>
                                         <td>
                                             <p className='fw-normal mb-1'>13 - M2</p>
-                                            <p className='text-muted mb-0'>Mrs. G M C K Gunasekara</p>
                                         </td>
                                         <td>
                                             <h6>
@@ -130,8 +128,6 @@ const Students = () => {
 
                                         </td>
                                     </tr>
-                                    
-                                    
                                     
                                    
 
