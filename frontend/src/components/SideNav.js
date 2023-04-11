@@ -60,7 +60,7 @@ const SideNav = () => {
                         {user === 'admin'
                         ?
                         <NavLink
-                            to="/tables"
+                            to="/admin/teachers"
                             activeClassName="activeClicked"
                         >
                             <CDBSidebarMenuItem
@@ -90,7 +90,7 @@ const SideNav = () => {
                         {user === 'teacher'
                             ? <NavLink
                                 exact
-                                to="/"
+                                to="/admin/teachers"
                                 activeClassName="activeClicked"
                             >
                                 <CDBSidebarMenuItem
@@ -110,7 +110,7 @@ const SideNav = () => {
                          {user === 'admin'
                             ? <NavLink
                                 exact
-                                to="/"
+                                to="/admin/requests"
                                 activeClassName="activeClicked"
                             >
                                 <CDBSidebarMenuItem

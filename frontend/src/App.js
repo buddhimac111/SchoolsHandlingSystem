@@ -7,6 +7,8 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Students from './pages/admin/Students';
+import Teachers from './pages/admin/Teachers';
+import Requests from './pages/admin/Requests';
 
 import StudentDashboard from './pages/student/StudentDashboard';
 import TeacherDashboard from './pages/teacher/TeacherDashboard';
@@ -23,6 +25,8 @@ function App() {
 
           < Route path="/dashboard" element={<AdminDashboard />} />
           < Route path="/admin/students" element={<Students />} />
+          < Route path="/admin/teachers" element={<Teachers />} />
+          < Route path="/admin/requests" element={<Requests />} />
 
           < Route path="/teacher/dashboard" element={<TeacherDashboard />} />
           < Route path="/student/dashboard" element={<StudentDashboard />} />
