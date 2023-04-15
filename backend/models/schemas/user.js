@@ -35,6 +35,11 @@ module.exports = new Schema({
     required: true,
     trim: true,
   },
+  gender: {
+    type: String,
+    enum: ["male", "female"],
+    required: true,
+  },
   password: {
     type: String,
     minlength: 5,

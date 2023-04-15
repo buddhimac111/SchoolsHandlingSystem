@@ -1,5 +1,4 @@
 const Joi = require("joi");
-Joi.objectId = require("joi-objectId")(Joi);
 const { model } = require("mongoose");
 const teacherSchema = require("./schemas/teacher");
 
@@ -10,7 +9,7 @@ function validate(teacher) {
       .required()
       .regex(/^TE[A-Z]{3}\d+$/),
     major: Joi.string().required(),
-    address: Joi.string().min(5).max(20).required(),
+    address: Joi.string().min(5).max(512).required(),
     school: Joi.string()
       .min(3)
       .max(3)

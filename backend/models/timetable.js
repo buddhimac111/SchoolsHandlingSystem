@@ -1,5 +1,4 @@
 const Joi = require("joi");
-Joi.objectId = require("joi-objectId")(Joi);
 const { model } = require("mongoose");
 const { Subject } = require("./subject");
 const timetableSchema = require("./schemas/timetable");
@@ -33,23 +32,23 @@ function validate(timetable) {
       .regex(/^[A-Z]{3}\d+$/),
     monday: Joi.array()
       .length(8)
-      .items(Joi.string().min(5).max(20).required())
+      .items(Joi.string().min(3).max(20).required())
       .required(),
     tuesday: Joi.array()
       .length(8)
-      .items(Joi.string().min(5).max(20).required())
+      .items(Joi.string().min(3).max(20).required())
       .required(),
     wednesday: Joi.array()
       .length(8)
-      .items(Joi.string().min(5).max(20).required())
+      .items(Joi.string().min(3).max(20).required())
       .required(),
     thursday: Joi.array()
       .length(8)
-      .items(Joi.string().min(5).max(20).required())
+      .items(Joi.string().min(3).max(20).required())
       .required(),
     friday: Joi.array()
       .length(8)
-      .items(Joi.string().min(5).max(20).required())
+      .items(Joi.string().min(3).max(20).required())
       .required(),
   });
   const result = schema.validate(timetable);

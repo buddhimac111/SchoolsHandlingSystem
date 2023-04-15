@@ -1,5 +1,4 @@
 const Joi = require("joi");
-Joi.objectId = require("joi-objectId")(Joi);
 const { model } = require("mongoose");
 const examSchema = require("./schemas/exam");
 
@@ -18,7 +17,7 @@ function validate(exam) {
     results: Joi.array()
       .items(
         Joi.object({
-          subject: Joi.string().min(5).max(20).required(),
+          subject: Joi.string().min(3).max(20).required(),
           marks: Joi.number().min(0).max(100).required(),
         })
       )

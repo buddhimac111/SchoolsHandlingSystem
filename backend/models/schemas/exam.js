@@ -27,7 +27,7 @@ const examSchema = new Schema({
       {
         subject: {
           type: String,
-          minlength: 5,
+          minlength: 3,
           maxlength: 20,
           required: true,
         },

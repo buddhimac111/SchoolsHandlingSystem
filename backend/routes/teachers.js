@@ -1,17 +1,44 @@
 const express = require("express");
-const mongoose = require("mongoose");
 
 const { Teacher, validateTeacher } = require("../models/teacher");
+const { Exam } = require("../models/exam");
 const { Class } = require("../models/classe");
-const { sAdminAuth } = require("../middlewares/auth");
+const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
 const router = express.Router();
+
+// teachers analytics
+// get previous results for all the subjects attend
+router.get("/progress", teacherAuth, async (req, res) => {
+  const exams = await Exam.aggregate([
+    { $match: { classe: req.user.classe } },
+    { $unwind: { path: "$results" } },
+    {
+      $group: {
+        _id: { subject: "$results.subject", semester: "$semester" },
+        marks: { $avg: "$results.marks" },
+      },
+    },
+    {
+      $group: {
+        _id: "$_id.semester",
+        subjects: { $push: "$_id.subject" },
+        marks: { $push: "$marks" },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+  res.send(exams);
+});
 
 // get all the teachers
 router.get("/", sAdminAuth, async (req, res) => {
-  const teachers = await Teacher.find({ school: req.user.school }).select(
-    "-__v"
-  );
-  res.send(teachers);
+  const teachers = await Teacher.aggregate([
+    { $match: { school: req.user.school } },
+    { $project: { _id: 1 } },
+    { $group: { _id: null, ids: { $push: "$_id" } } },
+    { $project: { _id: 0, ids: 1 } },
+  ]);
+  res.send(teachers[0].ids);
 });
 
 // get teacher by user id
@@ -32,12 +59,11 @@ router.put("/:id", sAdminAuth, async (req, res) => {
   const id = req.params.id;
 
   req.body._id = id;
-  const teacher = await Teacher.findById(id).select("-__v");
+  const teacher = await Teacher.findOne({
+    _id: id,
+    school: req.user.school,
+  }).select("-__v");
   if (!teacher) return res.status(404).send("User not found");
-  if (teacher.school !== req.user.school)
-    return res
-      .status(401)
-      .send("Unauthorized access, Teacher doesent belong to your school");
 
   req.body.school = teacher.school;
   req.body.classe = teacher.classe;

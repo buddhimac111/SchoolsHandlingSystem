@@ -4,13 +4,32 @@ const fs = require("fs");
 const saveImage = require("../utils/saveImage");
 
 const { School, validateSchool } = require("../models/school");
-const { dAdminAuth, sAdminAuth } = require("../middlewares/auth");
+const { dAdminAuth, sAdminAuth, auth } = require("../middlewares/auth");
 const router = express.Router();
 
 // get all the schools
 router.get("/", dAdminAuth, async (req, res) => {
-  const schools = await School.find({}).select("-__v");
-  res.send(schools);
+  const schools = await School.aggregate([
+    { $project: { _id: 1 } },
+    { $group: { _id: null, ids: { $push: "$_id" } } },
+    { $project: { _id: 0, ids: 1 } },
+  ]);
+  res.send(schools[0].ids);
+});
+
+// get school of user
+router.get("/me", auth, async (req, res) => {
+  if (
+    req.user.role !== "sAdmin" &&
+    req.user.role !== "teacher" &&
+    req.user.role !== "student"
+  )
+    return res.status(403).send("Access denied");
+
+  const school = await School.findById(req.user.school).select("-__v");
+  if (school) return res.send(school);
+
+  res.status(404).send("School not found");
 });
 
 // get school by id
@@ -39,6 +58,7 @@ router.post("/", dAdminAuth, async (req, res) => {
 
 // update school
 router.put("/", sAdminAuth, async (req, res) => {
+  req.body._id = req.user.school;
   const errorMsg = validateSchool(req.body);
   if (errorMsg) return res.status(400).send(errorMsg);
 
@@ -70,15 +90,16 @@ router.patch("/picture", sAdminAuth, async (req, res) => {
 });
 
 // delete school
-router.delete("/:id", dAdminAuth, async (req, res) => {
-  const id = req.params.id;
+// router.delete("/:id", dAdminAuth, async (req, res) => {
+//   const id = req.params.id;
 
-  const school = await School.findByIdAndDelete(id);
-  if (!school) return res.status(404).send("School already deleted");
-  if (!/default.png/.test(school.picture))
-    fs.unlink(`./public/${school.picture}`, (err) => {
-      if (err && err.code !== "ENOENT") return res.status(500).send(err);
-    });
-  res.send(school);
-});
+//   const school = await School.findByIdAndDelete(id);
+//   if (!school) return res.status(404).send("School already deleted");
+//   if (!/default.png/.test(school.picture))
+//     fs.unlink(`./public/${school.picture}`, (err) => {
+//       if (err && err.code !== "ENOENT") return res.status(500).send(err);
+//     });
+//   res.send(school);
+// });
+
 module.exports = router;
