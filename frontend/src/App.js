@@ -10,6 +10,7 @@ import Students from "./pages/admin/Students";
 import Teachers from "./pages/admin/Teachers";
 import Requests from "./pages/admin/Requests";
 import AddStudent from "./pages/admin/AddStudent";
+import AddTeacher from "./pages/admin/AddTeacher";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/admin/teachers" element={<Teachers />} />
           <Route path="/admin/requests" element={<Requests />} />
           <Route path="/admin/add-student" element={<AddStudent />} />
+          <Route path="/admin/add-teacher" element={<AddTeacher />} />
 
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} />
