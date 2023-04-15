@@ -1,37 +1,36 @@
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import HomePage from './pages/HomePage';
-import UserProfile from './pages/Profile';
-import NotFoundPage from './pages/NotFoundPage';
+import HomePage from "./pages/HomePage";
+import UserProfile from "./pages/Profile";
+import NotFoundPage from "./pages/NotFoundPage";
 
-import AdminDashboard from './pages/admin/AdminDashboard';
-import Students from './pages/admin/Students';
-import Teachers from './pages/admin/Teachers';
-import Requests from './pages/admin/Requests';
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import Students from "./pages/admin/Students";
+import Teachers from "./pages/admin/Teachers";
+import Requests from "./pages/admin/Requests";
+import AddStudent from "./pages/admin/AddStudent";
 
-import StudentDashboard from './pages/student/StudentDashboard';
-import TeacherDashboard from './pages/teacher/TeacherDashboard';
-
+import StudentDashboard from "./pages/student/StudentDashboard";
+import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          < Route path="/" element={<HomePage />} />
-          < Route path="*" element={<NotFoundPage />} />
-          < Route path="/profile" element={<UserProfile />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/profile" element={<UserProfile />} />
 
-          < Route path="/dashboard" element={<AdminDashboard />} />
-          < Route path="/admin/students" element={<Students />} />
-          < Route path="/admin/teachers" element={<Teachers />} />
-          < Route path="/admin/requests" element={<Requests />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/students" element={<Students />} />
+          <Route path="/admin/teachers" element={<Teachers />} />
+          <Route path="/admin/requests" element={<Requests />} />
+          <Route path="/admin/add-student" element={<AddStudent />} />
 
-          < Route path="/teacher/dashboard" element={<TeacherDashboard />} />
-          < Route path="/student/dashboard" element={<StudentDashboard />} />
-
-
+          <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+          <Route path="/student/dashboard" element={<StudentDashboard />} />
         </Routes>
       </div>
     </BrowserRouter>
