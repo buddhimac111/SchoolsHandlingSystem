@@ -11,6 +11,8 @@ import Teachers from "./pages/admin/Teachers";
 import Requests from "./pages/admin/Requests";
 import AddStudent from "./pages/admin/AddStudent";
 import AddTeacher from "./pages/admin/AddTeacher";
+import ClassTimetable from "./pages/admin/Timetables";
+import TimetableRenderer from "./pages/admin/TimetableRenderer";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
@@ -30,6 +32,8 @@ function App() {
           <Route path="/admin/requests" element={<Requests />} />
           <Route path="/admin/add-student" element={<AddStudent />} />
           <Route path="/admin/add-teacher" element={<AddTeacher />} />
+          <Route path="/admin/timetables" element={<ClassTimetable />} />
+          <Route path="/timetable/:className" element={<TimetableRenderer />} />
 
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} />
