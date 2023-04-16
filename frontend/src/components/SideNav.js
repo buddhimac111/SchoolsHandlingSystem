@@ -141,6 +141,34 @@ const SideNav = () => {
               <></>
             )}
 
+            {user === "teacher" ? (
+              <NavLink
+                exact
+                to="/teacher/requests"
+                activeClassName="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
+                  Requests
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
+            {user === "student" ? (
+              <NavLink
+                exact
+                to="/student/requests"
+                activeClassName="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
+                  Requests
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
             <NavLink exact to="/" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="sideLinks" icon="cog">
                 Options

@@ -15,7 +15,10 @@ import ClassTimetable from "./pages/admin/Timetables";
 import TimetableRenderer from "./pages/admin/TimetableRenderer";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
+import StudentRequestPage from "./pages/student/StudentRequests";
+
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
+import TeacherRequestPage from "./pages/teacher/TeacherRequests";
 
 function App() {
   return (
@@ -36,7 +39,10 @@ function App() {
           <Route path="/timetable/:className" element={<TimetableRenderer />} />
 
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+          <Route path="/teacher/requests" element={<TeacherRequestPage />} />
+
           <Route path="/student/dashboard" element={<StudentDashboard />} />
+          <Route path="/student/requests" element={<StudentRequestPage />} />
         </Routes>
       </div>
     </BrowserRouter>
