@@ -106,6 +106,20 @@ const SideNav = () => {
               <></>
             )}
 
+            {user === "admin" ? (
+              <NavLink
+                exact
+                to="/admin/timetables"
+                activeClassName="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
+                  Time-Tables
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
             {/* Students only */}
             {user === "student" ? (
               <NavLink exact to="/" activeClassName="activeClicked">
@@ -117,11 +131,15 @@ const SideNav = () => {
               <></>
             )}
 
-            <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
-                Time-Tables
-              </CDBSidebarMenuItem>
-            </NavLink>
+            {user === "teacher" || user === "student" ? (
+              <NavLink exact to="/timetables" activeClassName="activeClicked">
+                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
+                  Time-Tables
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
             <NavLink exact to="/" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="sideLinks" icon="cog">
