@@ -1,4 +1,5 @@
 console.clear();
+console.log(process.env)
 require("./startup/config")();
 const app = require("express")();
 const winston = require("./startup/logging")();

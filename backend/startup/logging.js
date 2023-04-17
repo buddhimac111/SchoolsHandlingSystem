@@ -23,8 +23,8 @@ module.exports = function () {
     winston.add(
       new winston.transports.MongoDB({
         db: process.env.NODE_ENV
-          ? `${process.env.db}_${process.env.NODE_ENV}`
-          : process.env.db,
+          ? `${process.env.DB}_${process.env.NODE_ENV}`
+          : process.env.DB,
         level: "error",
       })
     );
