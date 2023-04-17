@@ -3,7 +3,9 @@ const express = require("express");
 const { Student, validateStudent } = require("../models/student");
 const { Class } = require("../models/classe");
 const { Exam } = require("../models/exam");
+const { School } = require("../models/school");
 const { sAdminAuth, teacherAuth, studentAuth } = require("../middlewares/auth");
+const { upperFirst } = require("lodash");
 
 const router = express.Router();
 
@@ -175,6 +177,33 @@ router.get("/semester", studentAuth, async (req, res) => {
     { $unwind: { path: "$marks" } },
   ]);
   res.send(exams[0]);
+});
+
+router.get("/setAlumni/:id", teacherAuth, async (req, res) => {
+  const student = await Student.findOne({
+    _id: req.params.id,
+    classe: req.user.classe,
+  }).select("-__v");
+  if (!student) return res.status(404).send("User not found");
+  if (student.isAlumni)
+    return res.status(400).send("Student is already an alumni");
+  const classe = await Class.findByIdAndUpdate(
+    student.classe,
+    {
+      $inc: { studentCount: -1 },
+    },
+    { new: true }
+  );
+  const school = await School.findByIdAndUpdate(
+    student.school,
+    {
+      $inc: { studentCount: -1 },
+    },
+    { new: true }
+  );
+  student.isAlumni = true;
+  await student.save();
+  res.send(student);
 });
 
 module.exports = router;

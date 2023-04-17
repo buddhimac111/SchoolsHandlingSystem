@@ -1,9 +1,10 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const fs = require("fs");
 const saveImage = require("../utils/saveImage");
 
 const { School, validateSchool } = require("../models/school");
+const { Class } = require("../models/classe");
+const { Exam } = require("../models/exam");
 const { dAdminAuth, sAdminAuth, auth } = require("../middlewares/auth");
 const router = express.Router();
 
@@ -15,6 +16,11 @@ router.get("/", dAdminAuth, async (req, res) => {
     { $project: { _id: 0, ids: 1 } },
   ]);
   res.send(schools[0].ids);
+});
+
+router.get("/schoolStudentTeacher", dAdminAuth, async (req, res) => {
+  const schools = await School.find({}).select("studentCount teacherCount");
+  res.send(schools);
 });
 
 // get school of user
@@ -87,6 +93,47 @@ router.patch("/picture", sAdminAuth, async (req, res) => {
 
   await school.save();
   res.send(school);
+});
+
+// get average marks for a school
+router.get("/averageMarks/:schoolId", dAdminAuth, async (req, res) => {
+  const schoolId = req.params.schoolId;
+  const school = await School.findById(schoolId);
+  if (!school) return res.status(404).send("School not found");
+  let classes = await Class.aggregate([
+    { $match: { school: schoolId } },
+    {
+      $group: {
+        _id: null,
+        classes: { $push: "$_id" },
+      },
+    },
+  ]);
+  classes = classes[0].classes;
+  const average = await Exam.aggregate([
+    {
+      $match: {
+        classe: { $in: classes },
+      },
+    },
+    { $unwind: "$results" },
+    {
+      $group: {
+        _id: "$results.subject",
+        total_marks: { $sum: "$results.marks" },
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        subject: "$_id",
+        average_marks: { $divide: ["$total_marks", "$count"] },
+      },
+    },
+    { $sort: { subject: 1 } },
+  ]);
+  res.send(average);
 });
 
 // delete school
