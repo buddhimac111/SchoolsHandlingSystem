@@ -1,36 +1,53 @@
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        children: const [
-           Text(
-              'Profile',
-              style: TextStyle(
-                fontSize: 40,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-          ),
-          SizedBox(height: 100,),
-          CircleAvatar(
-            radius: 70,
-            child: Icon(
-                Icons.person_2,
-                size: 120
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Padding(
+          //   padding: EdgeInsets.all(16.0),
+          //   child: Image.network(
+          //     // profilePicture,
+          //     width: 100,
+          //     height: 100,
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Name: name',
+              style: TextStyle(fontSize: 24.0),
             ),
           ),
-          SizedBox(height: 100,),
-          Text(
-            'Profile Content',
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.black,
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Class: classOfUser',
+              style: TextStyle(fontSize: 24.0),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Age: age',
+              style: TextStyle(fontSize: 24.0),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Index Number: indexNumber',
+              style: TextStyle(fontSize: 24.0),
             ),
           ),
         ],
@@ -38,3 +55,4 @@ class Profile extends StatelessWidget {
     );
   }
 }
+
