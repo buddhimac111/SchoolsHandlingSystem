@@ -4,7 +4,7 @@ const { Schema } = require("mongoose");
 module.exports = new Schema({
   _id: {
     type: String,
-    minlength: 5,
+    minlength: 3,
     maxlength: 20,
     required: true,
   },

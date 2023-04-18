@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 module.exports = function () {
   const databaseString = process.env.NODE_ENV
-    ? `${process.env.db}_${process.env.NODE_ENV}`
-    : process.env.db;
+    ? `${process.env.DB}_${process.env.NODE_ENV}`
+    : process.env.DB;
   winston.info("Connecting to MongoDB at " + databaseString + "...");
   mongoose
     .connect(databaseString)

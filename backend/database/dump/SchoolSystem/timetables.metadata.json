@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"fb4e92c5b1e5419ba9ee278563fa6d67","collectionName":"timetables","type":"collection"}

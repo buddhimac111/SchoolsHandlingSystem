@@ -29,17 +29,12 @@ router.post("/", auth, async (req, res) => {
   const { userBody, otherBody } = req.body;
 
   let error = validAccess(req.user.role, userBody.role);
-
   // return error if user did not have access to update
   if (error)
     return res.status(403).send("Access denied, not enough permissions");
 
-  if (userBody.role === "teacher" || userBody.role === "student") {
-    const sAdmin = await SchoolAdmin.findById(req.user._id).select(
-      "school -_id"
-    );
-    otherBody.school = sAdmin.school;
-  }
+  if (userBody.role === "teacher" || userBody.role === "student")
+    otherBody.school = req.user.school;
 
   result = await generateId(userBody.role, otherBody.school);
   if (result.error) return res.status(400).send(result.error);
@@ -105,8 +100,8 @@ router.put("/:id", auth, async (req, res) => {
   if (!user) return res.status(404).send("User not found");
   req.body.role = user.role;
   req.body._id = id;
-  let error = validAccess(req.user.role, req.body.role);
 
+  let error = validAccess(req.user.role, req.body.role);
   if (error)
     return res.status(403).send("Access denied, not enough permissions");
 
@@ -154,6 +149,7 @@ router.patch("/picture/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   const id = req.params.id;
 
+  // check user is exist
   let user = await User.findById(id);
   if (!user) user = { role: "" };
 
