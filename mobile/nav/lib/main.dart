@@ -1,12 +1,16 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:nav/nav_Screens/dash.dart';
 import 'package:nav/nav_Screens/homeWork.dart';
 import 'package:nav/nav_Screens/profile.dart';
 import 'package:nav/nav_Screens/progress.dart';
 import 'package:nav/nav_Screens/settings.dart';
+import 'package:nav/nav_Screens/testProfile.dart';
 
-import 'nav_Screens/home.dart';
+
+import 'nav_Screens/results.dart';
+import 'nav_Screens/time_Table.dart';
 
 
 void main() => runApp(
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        brightness: Brightness.light,
+        splashColor: Colors.blue,
       ),
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
@@ -42,14 +46,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final items = const [
-    Icon(Icons.settings),
-    Icon(Icons.book),
-    Icon(Icons.home),
+
+    Icon(Icons.table_chart),
     Icon(Icons.bar_chart),
+    Icon(Icons.home),
+    Icon(Icons.newspaper),
     Icon(Icons.person_2),
   ];
 
-  int index = 1;
+  int index = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +79,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+      // appBar: AppBar(),
       bottomNavigationBar: CurvedNavigationBar(
         items: items,
         index: index,
@@ -101,22 +107,22 @@ class _HomeState extends State<Home> {
     Widget widget;
     switch(index){
       case 0:
-        widget = const Settings();
+        widget = const TimeTable();
         break;
       case 1:
-        widget = const HomeWork();
+        widget = Progress();
         break;
       case 2:
-        widget = const StHome();
+        widget = const Dashboard();
         break;
       case 3:
-        widget = const Progress();
+        widget = const Results();
         break;
       case 4:
-        widget = const Profile();
+        widget = const ProfileScreen();
         break;
       default:
-        widget = const StHome();
+        widget = const Dashboard();
         break;
 
     }
