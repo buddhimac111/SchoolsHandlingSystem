@@ -176,7 +176,7 @@ const SideNav = () => {
 
                         <NavLink
                             exact
-                            to="/"
+                            to="/options"
                             activeClassName="activeClicked"
                         >
                             <CDBSidebarMenuItem

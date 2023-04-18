@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import UserProfile from './pages/Profile';
 import NotFoundPage from './pages/NotFoundPage';
+import Options from './pages/Options';
 
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Students from './pages/admin/Students';
@@ -21,7 +22,9 @@ function App() {
         <Routes>
           < Route path="/" element={<HomePage />} />
           < Route path="*" element={<NotFoundPage />} />
+          < Route path="/options" element={<Options />} />
           < Route path="/profile" element={<UserProfile />} />
+
 
           < Route path="/dashboard" element={<AdminDashboard />} />
           < Route path="/admin/students" element={<Students />} />
