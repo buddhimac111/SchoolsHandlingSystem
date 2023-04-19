@@ -1,212 +1,180 @@
 import {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarFooter,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem
+  CDBSidebar,
+  CDBSidebarContent,
+  CDBSidebarFooter,
+  CDBSidebarHeader,
+  CDBSidebarMenu,
+  CDBSidebarMenuItem,
 } from "cdbreact";
-import { NavLink } from "react-router-dom";
-import UseUser from "../hooks/UserHook";
-import './NavBars.scss'
-
+import { NavLink, useNavigate, Link } from "react-router-dom";
+import "./NavBars.scss";
+import AppContext from "../appContext";
+import { useContext } from "react";
 const SideNav = () => {
-    
-    const handleLogout = () => {
-        sessionStorage.removeItem("sessionRole");
-        window.location.href = '/';
-    }
+  const { role } = useContext(AppContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    sessionStorage.removeItem("auth-token");
+    sessionStorage.removeItem("sessionRole");
+    navigate("/");
+  };
+  return (
+    <div
+      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
+    >
+      <CDBSidebar textColor="var(--secondary)" backgroundColor="var(--primary)">
+        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+          <Link
+            className="text-decoration-none"
+            to="/dashboard"
+            style={{ color: "inherit" }}
+          >
+            LOGO
+            <sup className="text-info">
+              {role === "dAdmin"
+                ? "Divisional Admin"
+                : role === "sAdmin"
+                ? "School Admin"
+                : role === "teacher"
+                ? "Teacher"
+                : "restrict"}
+            </sup>
+          </Link>
+        </CDBSidebarHeader>
 
+        <CDBSidebarContent className="sidebar-content">
+          <CDBSidebarMenu>
+            <NavLink to="/dashboard" activeclassname="activeClicked">
+              <CDBSidebarMenuItem className="sideLinks" icon="columns">
+                Dashboard
+              </CDBSidebarMenuItem>
+            </NavLink>
 
+            {/* School admins only */}
 
-    const { user } = UseUser();
-    console.log(user);
-
-    return (
-        <div style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}>
-
-            <CDBSidebar
-                textColor="var(--secondary)"
-                backgroundColor="var(--primary)"
-            >
-                <CDBSidebarHeader
-                    prefix={
-                        <i className="fa fa-bars fa-large"></i>
-                    }
+            {role === "sAdmin" ? (
+              <NavLink to="/admin/teachers" activeclassname="activeClicked">
+                <CDBSidebarMenuItem
+                  className="sideLinks"
+                  icon="chalkboard-teacher"
                 >
-                    <a href="/" className="text-decoration-none" style={{ color: "inherit" }}>
-                        LOGO
-                    </a>
-                </CDBSidebarHeader>
+                  Teachers
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-                <CDBSidebarContent className="sidebar-content">
+            {role === "teacher" || role === "sAdmin" ? (
+              <NavLink to="/admin/students" activeclassname="activeClicked">
+                <CDBSidebarMenuItem className="sideLinks" icon="user-graduate">
+                  Students
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-                    <CDBSidebarMenu>
+            {/* Teacher only */}
+            {role === "teacher" ? (
+              <NavLink
+                exact="true"
+                to="/admin/teachers"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="newspaper">
+                  Examinations
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-                        <NavLink
-                            to="/dashboard"
-                            activeClassName="activeClicked"
-                        >
-                            <CDBSidebarMenuItem
-                                className="sideLinks"
-                                icon="columns"
-                            >
-                                Dashboard
-                            </CDBSidebarMenuItem>
-                        </NavLink>
+            {/* divisional admin only */}
+            {role === "dAdmin" ? (
+              <NavLink
+                exact="true"
+                to="/admin/requests"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
+                  Requests
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+            {/* school admin only */}
+            {role === "sAdmin" ? (
+              <NavLink exact="true" to="/" activeclassname="activeClicked">
+                <CDBSidebarMenuItem className="sideLinks" icon="poll">
+                  Results
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-                        {/* School admins only */}
-                        
-                        {user === 'admin'
-                        ?
-                        <NavLink
-                            to="/tables"
-                            activeClassName="activeClicked"
-                        >
-                            <CDBSidebarMenuItem
-                                className="sideLinks"
-                                icon="chalkboard-teacher"
-                            >
-                                Teachers
-                            </CDBSidebarMenuItem>
-                        </NavLink>:<></>
-                        }
+            {role === "sAdmin" ? (
+              <NavLink
+                exact="true"
+                to="/admin/timetables"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
+                  Time-Tables
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-                        {user === 'teacher' || user === 'admin'
-                        ?
-                        <NavLink
-                            to="/admin/students"
-                            activeClassName="activeClicked"
-                        >
-                            <CDBSidebarMenuItem
-                                className="sideLinks"
-                                icon="user-graduate"
-                            >
-                                Students
-                            </CDBSidebarMenuItem>
-                        </NavLink>:<></>
-                        }
-                        {/* Teacher only */}
-                        {user === 'teacher'
-                            ? <NavLink
-                                exact
-                                to="/"
-                                activeClassName="activeClicked"
-                            >
-                                <CDBSidebarMenuItem
-                                    className="sideLinks"
-                                    icon="newspaper"
-                                >
-                                    Examinations
-                                </CDBSidebarMenuItem>
-                            </NavLink>
+            {role === "teacher" ? (
+              <NavLink
+                exact="true"
+                to="/timetables"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
+                  Time-Tables
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-                            : <></>
-                        }
+            {role === "teacher" ? (
+              <NavLink
+                exact="true"
+                to="/teacher/requests"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
+                  Requests
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
+            <NavLink exact="true" to="/" activeclassname="activeClicked">
+              <CDBSidebarMenuItem className="sideLinks" icon="cog">
+                Options
+              </CDBSidebarMenuItem>
+            </NavLink>
+          </CDBSidebarMenu>
+        </CDBSidebarContent>
 
-
-                         {/* admin only */}
-                         {user === 'admin'
-                            ? <NavLink
-                                exact
-                                to="/"
-                                activeClassName="activeClicked"
-                            >
-                                <CDBSidebarMenuItem
-                                    className="sideLinks"
-                                    icon="praying-hands"
-                                >
-                                    Requests
-                                </CDBSidebarMenuItem>
-                            </NavLink>
-
-                            : <></>
-                        }
-                        {/* admin only */}
-                        {user === 'admin'
-                            ? <NavLink
-                                exact
-                                to="/"
-                                activeClassName="activeClicked"
-                            >
-                                <CDBSidebarMenuItem
-                                    className="sideLinks"
-                                    icon="poll"
-                                >
-                                    Results
-                                </CDBSidebarMenuItem>
-                            </NavLink>
-
-                            : <></>
-                        }
-
-
-                        {/* Students only */}
-                        {user === 'student'
-                            ? <NavLink
-                                exact
-                                to="/"
-                                activeClassName="activeClicked"
-                            >
-                                <CDBSidebarMenuItem
-                                    className="sideLinks"
-                                    icon="file-invoice"
-                                >
-                                    Documents
-                                </CDBSidebarMenuItem>
-                            </NavLink>
-
-                            : <></>
-                        }
-
-                        <NavLink
-                            exact
-                            to="/"
-                            activeClassName="activeClicked"
-                        >
-                            <CDBSidebarMenuItem
-                                className="sideLinks"
-                                icon="calendar-alt"
-
-                            >
-                                Time-Tables
-                            </CDBSidebarMenuItem>
-                        </NavLink>
-
-                        <NavLink
-                            exact
-                            to="/"
-                            activeClassName="activeClicked"
-                        >
-                            <CDBSidebarMenuItem
-                                className="sideLinks"
-                                icon="cog"
-                            >
-                                Options
-                            </CDBSidebarMenuItem>
-                        </NavLink>
-
-                    </CDBSidebarMenu>
-
-
-                </CDBSidebarContent>
-
-
-                <CDBSidebarFooter>
-
-                    <CDBSidebarMenuItem
-                        className="sideLinks"
-                        icon="sign-out-alt"
-                    >
-                    <button style={{all:"unset"}} onClick={handleLogout}>Logout</button>    
-                    </CDBSidebarMenuItem>
-
-                </CDBSidebarFooter>
-            </CDBSidebar>
-        </div>
-    );
-
-}
+        <CDBSidebarFooter>
+          <CDBSidebarMenuItem className="sideLinks" icon="sign-out-alt">
+            <button style={{ all: "unset" }} onClick={handleLogout}>
+              Logout
+            </button>
+          </CDBSidebarMenuItem>
+        </CDBSidebarFooter>
+      </CDBSidebar>
+    </div>
+  );
+};
 
 export default SideNav;
