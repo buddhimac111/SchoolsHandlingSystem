@@ -1,6 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
-const path = require("path");
+const cors = require("cors");
 
 // middlewares
 const error = require("../middlewares/error");
@@ -22,6 +22,12 @@ const users = require("../routes/users");
 
 module.exports = function (app) {
   // middlewares
+  app.use(
+    cors({
+      origin: "http://localhost:3001",
+      credentials: true,
+    })
+  );
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
