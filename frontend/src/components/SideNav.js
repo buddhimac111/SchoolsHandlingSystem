@@ -6,37 +6,45 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
-import { NavLink } from "react-router-dom";
-import UseUser from "../hooks/UserHook";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import "./NavBars.scss";
-
+import AppContext from "../appContext";
+import { useContext } from "react";
 const SideNav = () => {
+  const { role } = useContext(AppContext);
+  const navigate = useNavigate();
   const handleLogout = () => {
+    sessionStorage.removeItem("auth-token");
     sessionStorage.removeItem("sessionRole");
-    window.location.href = "/";
+    navigate("/");
   };
-
-  const { user } = UseUser();
-  console.log(user);
-
   return (
     <div
       style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
     >
       <CDBSidebar textColor="var(--secondary)" backgroundColor="var(--primary)">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a
-            href="/"
+          <Link
             className="text-decoration-none"
+            to="/dashboard"
             style={{ color: "inherit" }}
           >
             LOGO
-          </a>
+            <sup className="text-info">
+              {role === "dAdmin"
+                ? "Divisional Admin"
+                : role === "sAdmin"
+                ? "School Admin"
+                : role === "teacher"
+                ? "Teacher"
+                : "restrict"}
+            </sup>
+          </Link>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink to="/dashboard" activeClassName="activeClicked">
+            <NavLink to="/dashboard" activeclassname="activeClicked">
               <CDBSidebarMenuItem className="sideLinks" icon="columns">
                 Dashboard
               </CDBSidebarMenuItem>
@@ -44,8 +52,8 @@ const SideNav = () => {
 
             {/* School admins only */}
 
-            {user === "admin" ? (
-              <NavLink to="/admin/teachers" activeClassName="activeClicked">
+            {role === "sAdmin" ? (
+              <NavLink to="/admin/teachers" activeclassname="activeClicked">
                 <CDBSidebarMenuItem
                   className="sideLinks"
                   icon="chalkboard-teacher"
@@ -57,8 +65,8 @@ const SideNav = () => {
               <></>
             )}
 
-            {user === "teacher" || user === "admin" ? (
-              <NavLink to="/admin/students" activeClassName="activeClicked">
+            {role === "teacher" || role === "sAdmin" ? (
+              <NavLink to="/admin/students" activeclassname="activeClicked">
                 <CDBSidebarMenuItem className="sideLinks" icon="user-graduate">
                   Students
                 </CDBSidebarMenuItem>
@@ -66,12 +74,13 @@ const SideNav = () => {
             ) : (
               <></>
             )}
+
             {/* Teacher only */}
-            {user === "teacher" ? (
+            {role === "teacher" ? (
               <NavLink
-                exact
+                exact="true"
                 to="/admin/teachers"
-                activeClassName="activeClicked"
+                activeclassname="activeClicked"
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="newspaper">
                   Examinations
@@ -81,12 +90,12 @@ const SideNav = () => {
               <></>
             )}
 
-            {/* admin only */}
-            {user === "admin" ? (
+            {/* divisional admin only */}
+            {role === "dAdmin" ? (
               <NavLink
-                exact
+                exact="true"
                 to="/admin/requests"
-                activeClassName="activeClicked"
+                activeclassname="activeClicked"
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
                   Requests
@@ -95,9 +104,9 @@ const SideNav = () => {
             ) : (
               <></>
             )}
-            {/* admin only */}
-            {user === "admin" ? (
-              <NavLink exact to="/" activeClassName="activeClicked">
+            {/* school admin only */}
+            {role === "sAdmin" ? (
+              <NavLink exact="true" to="/" activeclassname="activeClicked">
                 <CDBSidebarMenuItem className="sideLinks" icon="poll">
                   Results
                 </CDBSidebarMenuItem>
@@ -106,11 +115,11 @@ const SideNav = () => {
               <></>
             )}
 
-            {user === "admin" ? (
+            {role === "sAdmin" ? (
               <NavLink
-                exact
+                exact="true"
                 to="/admin/timetables"
-                activeClassName="activeClicked"
+                activeclassname="activeClicked"
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
                   Time-Tables
@@ -120,19 +129,12 @@ const SideNav = () => {
               <></>
             )}
 
-            {/* Students only */}
-            {user === "student" ? (
-              <NavLink exact to="/" activeClassName="activeClicked">
-                <CDBSidebarMenuItem className="sideLinks" icon="file-invoice">
-                  Documents
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-
-            {user === "teacher" || user === "student" ? (
-              <NavLink exact to="/timetables" activeClassName="activeClicked">
+            {role === "teacher" ? (
+              <NavLink
+                exact="true"
+                to="/timetables"
+                activeclassname="activeClicked"
+              >
                 <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
                   Time-Tables
                 </CDBSidebarMenuItem>
@@ -141,11 +143,11 @@ const SideNav = () => {
               <></>
             )}
 
-            {user === "teacher" ? (
+            {role === "teacher" ? (
               <NavLink
-                exact
+                exact="true"
                 to="/teacher/requests"
-                activeClassName="activeClicked"
+                activeclassname="activeClicked"
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
                   Requests
@@ -155,21 +157,7 @@ const SideNav = () => {
               <></>
             )}
 
-            {user === "student" ? (
-              <NavLink
-                exact
-                to="/student/requests"
-                activeClassName="activeClicked"
-              >
-                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
-                  Requests
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-
-            <NavLink exact to="/" activeClassName="activeClicked">
+            <NavLink exact="true" to="/" activeclassname="activeClicked">
               <CDBSidebarMenuItem className="sideLinks" icon="cog">
                 Options
               </CDBSidebarMenuItem>
