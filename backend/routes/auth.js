@@ -5,7 +5,7 @@ const getUser = require("../utils/getUser");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email: email }).select("-__v");
@@ -18,6 +18,7 @@ router.get("/", async (req, res) => {
 
   const other = await getUser(user._id, user.role);
   const token = user.generateAuthToken();
+  res.set("Access-Control-Expose-Headers", "x-auth-token");
   res.header("x-auth-token", token).send({ ...user._doc, ...other._doc });
 });
 
@@ -34,6 +35,7 @@ router.get("/student", async (req, res) => {
 
   const other = await getUser(user._id, user.role);
   const token = user.generateAuthToken();
+  res.set("Access-Control-Expose-Headers", "x-auth-token");
   res.header("x-auth-token", token).send({ ...user._doc, ...other._doc });
 });
 
