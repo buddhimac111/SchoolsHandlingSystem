@@ -157,9 +157,23 @@ const SideNav = () => {
               <></>
             )}
 
-            <NavLink exact="true" to="/" activeclassname="activeClicked">
+            {role === "student" ? (
+              <NavLink
+                exact
+                to="/student/requests"
+                activeClassName="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
+                  Requests
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
+            <NavLink exact to="/settings" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="sideLinks" icon="cog">
-                Options
+                Settings
               </CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
