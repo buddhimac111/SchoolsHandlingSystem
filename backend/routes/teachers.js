@@ -6,6 +6,15 @@ const { Class } = require("../models/classe");
 const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
 const router = express.Router();
 
+// get logged teacher details
+router.get("/me", teacherAuth, async (req, res) => {
+  const id = req.user._id;
+
+  const teacher = await Teacher.findById(id).select("-__v");
+
+  if (teacher) return res.send(teacher);
+  res.status(404).send("User not found");
+});
 // teachers analytics
 // get previous results for all the subjects attend
 router.get("/progress", teacherAuth, async (req, res) => {

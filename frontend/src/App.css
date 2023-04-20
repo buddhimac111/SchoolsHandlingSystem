@@ -148,6 +148,34 @@
     }
 }
 
+/********* Settings Page *********/
+
+.collapseHeader{
+    background-color: var(--darkGrey);
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    color: var(--secondary);
+    font-size: 18px;
+
+}
+.collapseBody{
+    background-color: var(--secondary);
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+
+
+}
+
+.lblSettings {
+    color: var(--black);
+    padding-left: 0.5rem;
+}
+
 
 
 /* .App {

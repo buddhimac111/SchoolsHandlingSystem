@@ -8,6 +8,15 @@ const { dAdminAuth } = require("../middlewares/auth");
 
 const router = express.Router();
 
+// get logged admin details
+router.get("/me", dAdminAuth, async (req, res) => {
+  const id = req.user._id;
+
+  const dAdmin = await DivisionalAdmin.findById(id).select("-__v");
+
+  if (dAdmin) return res.send(dAdmin);
+  res.status(404).send("User not found");
+});
 // get divisionalAdmin by id
 router.get("/", dAdminAuth, async (req, res) => {
   const id = req.user._id;
