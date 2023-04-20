@@ -6,6 +6,7 @@ import DoughnutChart from "../../components/boxes/Doughnut";
 import { useContext, useEffect } from "react";
 import AppContext from "../../appContext";
 import { useNavigate } from "react-router-dom";
+import BarChart from "../../components/boxes/BarChart";
 const AdminDashboard = () => {
   const { token, role, classe, school, profile } = useContext(AppContext);
   const navigate = useNavigate();
@@ -64,6 +65,9 @@ const AdminDashboard = () => {
                 </div>
                 <div className="col-lg-8">
                   <Charts />
+                </div>
+                <div className="col-lg-8">
+                  <BarChart />
                 </div>
               </div>
             </div>
