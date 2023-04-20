@@ -2,11 +2,12 @@ import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
 import { Widget } from "../../components/boxes/Widget.js";
 import Charts from "../../components/boxes/Charts";
-import DoughnutChart from "../../components/boxes/Doughnut";
 import { useContext, useEffect } from "react";
 import AppContext from "../../appContext";
 import { useNavigate } from "react-router-dom";
 import BarChart from "../../components/boxes/BarChart";
+import AverageClassMarkAll from "../../hooks/AverageClassMarkAll";
+import AverageClassMarks from "../../hooks/AverageClassMarks";
 const AdminDashboard = () => {
   const { token, role, classe, school, profile } = useContext(AppContext);
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const AdminDashboard = () => {
       navigate("/");
     }
   }, [token, navigate]);
+
   const widgets = [];
   if (role !== "dAdmin") {
     widgets.push({
@@ -60,14 +62,11 @@ const AdminDashboard = () => {
                     <Widget {...widget} />
                   </div>
                 ))}
-                <div className="col-lg-4 mt-2">
-                  <DoughnutChart />
+                <div className="col-lg-6">
+                  <Charts data={AverageClassMarkAll()} />
                 </div>
-                <div className="col-lg-8">
-                  <Charts />
-                </div>
-                <div className="col-lg-8">
-                  <BarChart />
+                <div className="col-lg-6">
+                  <BarChart data={AverageClassMarks()} />
                 </div>
               </div>
             </div>

@@ -3,13 +3,14 @@ import axios from "axios";
 import utils from "../utils";
 
 export default function useUserData(token, role, navigate) {
+  const networkError = false;
   const [user, setUser] = useState({});
   const [school, setSchool] = useState({});
   const [classe, setClasse] = useState({});
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    if (!token || !role) return;
+    if (!token || !role || networkError) return;
 
     let config = {
       method: "get",
@@ -41,7 +42,8 @@ export default function useUserData(token, role, navigate) {
       })
       .catch((error) => {
         console.log(error);
-        navigate("/");
+        networkError = true;
+        alert("Error: " + error.code);
       });
     if (role === "teacher") {
       config.url = `${utils.URI}/api/classes/me`;
@@ -58,7 +60,8 @@ export default function useUserData(token, role, navigate) {
         })
         .catch((error) => {
           console.log(error);
-          navigate("/");
+          networkError = true;
+          alert("Error: " + error.code);
         });
     }
     if (role !== "dAdmin") {
@@ -77,7 +80,8 @@ export default function useUserData(token, role, navigate) {
         })
         .catch((error) => {
           console.log(error);
-          navigate("/");
+          networkError = true;
+          alert("Error: " + error.code);
         });
     }
     config.url = `${utils.URI}/api/${
@@ -99,8 +103,9 @@ export default function useUserData(token, role, navigate) {
       })
       .catch((error) => {
         console.log(error);
-        navigate("/");
+        networkError = true;
+        alert("Error: " + error.code);
       });
-  }, [navigate, role, token]);
+  }, [role, token]);
   return { user, school, classe, profile };
 }
