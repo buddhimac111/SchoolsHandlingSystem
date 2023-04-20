@@ -12,17 +12,23 @@ async function generateId(role, school) {
     return `DA${parseInt(last._id.slice(2)) + 1}`;
   }
   if (role === "sAdmin") {
-    const last = await SchoolAdmin.findOne({}).sort({ _id: -1 }).select("_id");
+    const last = await SchoolAdmin.findOne({ school })
+      .sort({ _id: -1 })
+      .select("_id");
     if (!last) return `SA${school}1`;
     return `SA${school}${parseInt(last._id.slice(5)) + 1}`;
   }
   if (role === "teacher") {
-    const last = await Teacher.findOne({}).sort({ _id: -1 }).select("_id");
+    const last = await Teacher.findOne({ school })
+      .sort({ _id: -1 })
+      .select("_id");
     if (!last) return `TE${school}1`;
     return `TE${school}${parseInt(last._id.slice(5)) + 1}`;
   }
   if (role === "student") {
-    const last = await Student.findOne({}).sort({ _id: -1 }).select("_id");
+    const last = await Student.findOne({ school })
+      .sort({ _id: -1 })
+      .select("_id");
     if (!last) return `ST${school}1`;
     return `ST${school}${parseInt(last._id.slice(5)) + 1}`;
   }

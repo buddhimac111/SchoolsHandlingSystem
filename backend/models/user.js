@@ -25,6 +25,7 @@ function validate(user) {
       .max(20)
       .required()
       .valid("student", "teacher", "sAdmin", "dAdmin"),
+    gender: Joi.string().valid("male", "female").required(),
     password: Joi.string().min(5).max(1024).required(),
   });
   const result = schema.validate(user);

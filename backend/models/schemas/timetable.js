@@ -12,27 +12,27 @@ module.exports = new Schema({
     ref: "Class",
   },
   monday: {
-    type: [{ type: String, minlength: 5, maxlength: 20, required: true }],
+    type: [{ type: String, minlength: 3, maxlength: 20, required: true }],
     required: true,
     validate,
   },
   tuesday: {
-    type: [{ type: String, minlength: 5, maxlength: 20, required: true }],
+    type: [{ type: String, minlength: 3, maxlength: 20, required: true }],
     required: true,
     validate,
   },
   wednesday: {
-    type: [{ type: String, minlength: 5, maxlength: 20, required: true }],
+    type: [{ type: String, minlength: 3, maxlength: 20, required: true }],
     required: true,
     validate,
   },
   thursday: {
-    type: [{ type: String, minlength: 5, maxlength: 20, required: true }],
+    type: [{ type: String, minlength: 3, maxlength: 20, required: true }],
     required: true,
     validate,
   },
   friday: {
-    type: [{ type: String, minlength: 5, maxlength: 20, required: true }],
+    type: [{ type: String, minlength: 3, maxlength: 20, required: true }],
     required: true,
     validate,
   },
