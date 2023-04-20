@@ -4,8 +4,13 @@ const { Student, validateStudent } = require("../models/student");
 const { Class } = require("../models/classe");
 const { Exam } = require("../models/exam");
 const { School } = require("../models/school");
-const { sAdminAuth, teacherAuth, studentAuth } = require("../middlewares/auth");
-const { upperFirst } = require("lodash");
+const {
+  sAdminAuth,
+  teacherAuth,
+  studentAuth,
+  auth,
+} = require("../middlewares/auth");
+const { User } = require("../models/user");
 
 const router = express.Router();
 
@@ -29,6 +34,16 @@ router.get("/class", teacherAuth, async (req, res) => {
     { $project: { _id: 0, ids: 1 } },
   ]);
   res.send(students[0].ids);
+});
+
+// get student by id
+router.get("/:id", auth, async (req, res) => {
+  if (req.user === "dAdmin" || req.user === "student")
+    res.status(401).send("Unauthorized access");
+  const _id = req.params.id;
+  const student = await Student.findById(_id).select("-__v");
+  const user = await User.findById(_id).select("-password -__v");
+  res.send({ ...student._doc, ...user._doc });
 });
 
 // update a student by their user id
