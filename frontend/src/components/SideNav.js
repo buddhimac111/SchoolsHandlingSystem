@@ -49,6 +49,20 @@ const SideNav = () => {
                 Dashboard
               </CDBSidebarMenuItem>
             </NavLink>
+{/* Department admins only */}
+            {role === "dAdmin" ? (
+              <NavLink to="/admin/teachers" activeclassname="activeClicked">
+                <CDBSidebarMenuItem
+                  className="sideLinks"
+                  icon="chalkboard-teacher"
+                >
+                  Add School
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
 
              {/* divisional admins only */}
 

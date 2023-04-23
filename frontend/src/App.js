@@ -27,6 +27,7 @@ import Examinations from "./pages/teacher/Examinations";
 import { useEffect, useState } from "react";
 import useUserData from "./hooks/useUserData";
 import AppContext from "./appContext";
+import SAdmin from "./pages/admin/Sadmin";
 
 function App() {
   const [token, setToken] = useState("");
@@ -69,7 +70,6 @@ function App() {
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
           <Route path="/teacher/requests" element={<TeacherRequestPage />} />
           <Route path="/teacher/examinations" element={<Examinations />} />
-
           <Route path="/student/dashboard" element={<StudentDashboard />} />
           <Route path="/student/requests" element={<StudentRequestPage />} />
         </Routes>
