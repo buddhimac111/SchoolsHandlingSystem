@@ -68,6 +68,7 @@ const Students = () => {
                     <th scope="col">Name & Email</th>
                     <th scope="col">Parent Name</th>
                     <th scope="col">Phone</th>
+                    <th scope="col">Gender</th>
                     <th scope="col">DOB</th>
                     <th scope="col">Actions</th>
                   </tr>
@@ -107,6 +108,9 @@ const Students = () => {
                         </td>
                         <td>
                           <p className="mt-3">{student.parent.phone}</p>
+                        </td>
+                        <td>
+                          <p className="mt-3">{student.gender}</p>
                         </td>
                         <td>
                           <p className="mt-3">{student.DOB.split("T")[0]}</p>

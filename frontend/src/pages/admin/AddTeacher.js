@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
 import axios from "axios";
+import AppContext from "../../appContext";
 
 const AddTeacher = () => {
+  const { token } = useContext(AppContext);
+
   const [nic, setNic] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -17,6 +20,7 @@ const AddTeacher = () => {
   const [dob, setDob] = useState("");
 
   const navigate = useNavigate();
+  if (!token) return;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
