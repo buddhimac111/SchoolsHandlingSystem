@@ -79,7 +79,7 @@ const SideNav = () => {
             {role === "teacher" ? (
               <NavLink
                 exact="true"
-                to="/admin/teachers"
+                to="/teacher/examinations"
                 activeclassname="activeClicked"
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="newspaper">
