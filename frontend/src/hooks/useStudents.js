@@ -5,13 +5,15 @@ import axios from "axios";
 
 export default function useStudents() {
   const [students, setStudents] = useState();
-  const { token } = useContext(AppContext);
+  const { token, role } = useContext(AppContext);
   useEffect(() => {
     if (!token) return;
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: utils.URI + "/api/students/class",
+      url:
+        utils.URI +
+        (role === "teacher" ? "/api/students/class" : "/api/schools/students"),
       headers: {
         "x-auth-token": token,
       },
@@ -30,6 +32,6 @@ export default function useStudents() {
       .catch((error) => {
         console.log(error);
       });
-  }, [token]);
+  }, [token, role]);
   return students;
 }

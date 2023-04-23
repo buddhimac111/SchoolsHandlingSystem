@@ -97,17 +97,6 @@ router.delete("/:id", sAdminAuth, async (req, res) => {
   res.status(400).send("Class already deleted");
 });
 
-// get all the students for a class
-router.get("/students/:id", sAdminAuth, async (req, res) => {
-  const _id = req.params.id;
-
-  const classe = await Class.findOne({ _id, school: req.user.school });
-  if (!classe) return res.status(404).send("Class not found");
-
-  const students = await classe.getStudents();
-  res.send(students[0].ids);
-});
-
 // analytics for class
 
 async function getAverageMarks(_id, school) {

@@ -6,23 +6,27 @@ import SearchBar from "../../components/SearchBar";
 import "./admin.css";
 import { useNavigate } from "react-router-dom";
 import useStudents from "../../hooks/useStudents";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import utils from "../../utils";
+import StudentDetailsPopup from "../../components/StudentDetailsPopup";
 
 const Students = () => {
   const { token, role } = useContext(AppContext);
+  const [show, setShow] = useState(false);
+  const [viewData, setViewData] = useState({});
   const navigate = useNavigate();
+  if (role === "dAdmin") navigate("/");
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
   }, [token, navigate]);
-  const event = () => {
-    navigate("/admin/add-student");
-  };
   const students = useStudents();
-  console.log(students);
+  const handlePopUp = (student) => {
+    setViewData(student);
+    setShow(true);
+  };
   return (
     <>
       <div className="d-flex">
@@ -38,7 +42,12 @@ const Students = () => {
                       <SearchBar />
                     </div>
                     <div className="col-md-2 p-0 ps-2">
-                      <MDBBtn className="w-100 text-nowrap" onClick={event}>
+                      <MDBBtn
+                        className="w-100 text-nowrap"
+                        onClick={() => {
+                          navigate("/admin/add-student");
+                        }}
+                      >
                         + Add Student
                       </MDBBtn>
                     </div>
@@ -104,7 +113,14 @@ const Students = () => {
                         </td>
                         <td>
                           <div className="d-flex justify-content-center">
-                            <FaEye size={22} color="black" />
+                            <FaEye
+                              size={22}
+                              color="black"
+                              cursor="pointer"
+                              onClick={() => {
+                                handlePopUp(student);
+                              }}
+                            />
                             {role === "sAdmin" ? (
                               <>
                                 <FaEdit
@@ -127,32 +143,10 @@ const Students = () => {
                 </MDBTableBody>
               </MDBTable>
             </div>
-            {/* <div className="container-fluid ps-0 pe-0 pt-2">
-                                   <div className="row">
-                                        <div className="col-lg-3 mt-2">
-                                             <Widget type="student" />
-                                        </div>
-                                        <div className="col-lg-3 mt-2">
-                                             <Widget type="teacher" />
-                                        </div>
-                                        <div className="col-lg-3 mt-2">
-                                             <Widget type="subject" />
-                                        </div>
-                                        <div className="col-lg-3 mt-2">
-                                             <Widget type="rank" />
-                                        </div>
-                                        <div className="col-lg-4 mt-2">
-                                             <DoughnutChart/>
-                                        </div>
-                                        <div className="col-lg-8">
-                                             <Charts />
-                                        </div>
-                                   </div>
-                              
-                              </div> */}
           </div>
         </div>
       </div>
+      <StudentDetailsPopup show={show} setShow={setShow} data={viewData} />
     </>
   );
 };

@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import BarChart from "../../components/boxes/BarChart";
 import AverageClassMarkAll from "../../hooks/AverageClassMarkAll";
 import AverageClassMarks from "../../hooks/AverageClassMarks";
+import AverageSchoolMarks from "../../hooks/AverageSchoolMarks";
+import SchoolRank from "../../hooks/SchoolRank";
 const AdminDashboard = () => {
   const { token, role, classe, school, profile } = useContext(AppContext);
   const navigate = useNavigate();
@@ -18,12 +20,7 @@ const AdminDashboard = () => {
   }, [token, navigate]);
 
   const widgets = [];
-  if (role !== "dAdmin") {
-    widgets.push({
-      type: "student",
-      value: classe.studentCount,
-      title: "Students",
-    });
+  if (role === "dAdmin") {
   }
   if (role === "sAdmin") {
     widgets.push({
@@ -31,8 +28,18 @@ const AdminDashboard = () => {
       value: school.teacherCount,
       title: "Teachers",
     });
+    widgets.push({
+      type: "student",
+      value: school.studentCount,
+      title: "Students",
+    });
   }
   if (role === "teacher") {
+    widgets.push({
+      type: "student",
+      value: classe.studentCount,
+      title: "Students",
+    });
     widgets.push({
       type: "teacher",
       value: classe.grade + "-" + classe.name,
@@ -62,12 +69,28 @@ const AdminDashboard = () => {
                     <Widget {...widget} />
                   </div>
                 ))}
-                <div className="col-lg-6">
-                  <Charts data={AverageClassMarkAll()} />
-                </div>
-                <div className="col-lg-6">
-                  <BarChart data={AverageClassMarks()} />
-                </div>
+                {role === "dAdmin" ? null : (
+                  <>
+                    <div className="col-lg-6">
+                      <Charts
+                        data={
+                          role === "teacher"
+                            ? AverageClassMarkAll()
+                            : SchoolRank()
+                        }
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <BarChart
+                        data={
+                          role === "teacher"
+                            ? AverageClassMarks()
+                            : AverageSchoolMarks()
+                        }
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

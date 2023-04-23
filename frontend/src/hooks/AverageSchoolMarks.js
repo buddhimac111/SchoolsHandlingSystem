@@ -3,7 +3,7 @@ import AppContext from "../appContext";
 import axios from "axios";
 import utils from "../utils";
 
-export default function useAverageClassMarks() {
+export default function AverageSchoolMarks() {
   const { token } = useContext(AppContext);
   const [chartData, setChartData] = useState({
     labels: [],
@@ -15,7 +15,7 @@ export default function useAverageClassMarks() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: utils.URI + "/api/classes/marks/average",
+      url: utils.URI + "/api/schools/averageMarks",
       headers: {
         "x-auth-token": token,
       },
