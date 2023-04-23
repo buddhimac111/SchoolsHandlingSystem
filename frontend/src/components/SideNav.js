@@ -50,6 +50,33 @@ const SideNav = () => {
               </CDBSidebarMenuItem>
             </NavLink>
 
+             {/* divisional admins only */}
+
+             {role === "dAdmin" ? (
+              <NavLink to="/admin/schools" activeclassname="activeClicked">
+                <CDBSidebarMenuItem
+                  className="sideLinks"
+                  icon="school"
+                >
+                  Schools
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+               {role === "dAdmin" ? (
+              <NavLink to="/admin/schoolsadmins" activeclassname="activeClicked">
+                <CDBSidebarMenuItem
+                  className="sideLinks"
+                  icon="user-lock"
+                >
+                  School Admins
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
             {/* School admins only */}
 
             {role === "sAdmin" ? (
@@ -91,7 +118,7 @@ const SideNav = () => {
             )}
 
             {/* divisional admin only */}
-            {role === "dAdmin" ? (
+            {role === "sAdmin" ? (
               <NavLink
                 exact="true"
                 to="/admin/requests"
