@@ -1,9 +1,12 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
-import UserProfile from "./pages/Profile";
-import NotFoundPage from "./pages/NotFoundPage";
+import HomePage from './pages/HomePage';
+import UserProfile from './pages/Profile';
+import NotFoundPage from './pages/NotFoundPage';
+import Settings from './pages/Settings';
+
+import Schools from "./pages/dAdmin/School";
 
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Students from "./pages/admin/Students";
@@ -19,9 +22,12 @@ import StudentRequestPage from "./pages/student/StudentRequests";
 
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherRequestPage from "./pages/teacher/TeacherRequests";
+import Examinations from "./pages/teacher/Examinations";
+
 import { useEffect, useState } from "react";
 import useUserData from "./hooks/useUserData";
 import AppContext from "./appContext";
+import SAdmin from "./pages/admin/Sadmin";
 
 function App() {
   const [token, setToken] = useState("");
@@ -48,6 +54,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/settings" element={<Settings/>}/>
+
+          <Route path="/admin/schools" element={<Schools />} />
+
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/students" element={<Students />} />
           <Route path="/admin/teachers" element={<Teachers />} />
@@ -59,7 +69,7 @@ function App() {
 
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
           <Route path="/teacher/requests" element={<TeacherRequestPage />} />
-
+          <Route path="/teacher/examinations" element={<Examinations />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} />
           <Route path="/student/requests" element={<StudentRequestPage />} />
         </Routes>

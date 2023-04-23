@@ -49,6 +49,47 @@ const SideNav = () => {
                 Dashboard
               </CDBSidebarMenuItem>
             </NavLink>
+{/* Department admins only */}
+            {role === "dAdmin" ? (
+              <NavLink to="/admin/teachers" activeclassname="activeClicked">
+                <CDBSidebarMenuItem
+                  className="sideLinks"
+                  icon="chalkboard-teacher"
+                >
+                  Add School
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
+
+             {/* divisional admins only */}
+
+             {role === "dAdmin" ? (
+              <NavLink to="/admin/schools" activeclassname="activeClicked">
+                <CDBSidebarMenuItem
+                  className="sideLinks"
+                  icon="school"
+                >
+                  Schools
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+               {role === "dAdmin" ? (
+              <NavLink to="/admin/schoolsadmins" activeclassname="activeClicked">
+                <CDBSidebarMenuItem
+                  className="sideLinks"
+                  icon="user-lock"
+                >
+                  School Admins
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
             {/* School admins only */}
 
@@ -79,7 +120,7 @@ const SideNav = () => {
             {role === "teacher" ? (
               <NavLink
                 exact="true"
-                to="/admin/teachers"
+                to="/teacher/examinations"
                 activeclassname="activeClicked"
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="newspaper">
@@ -91,7 +132,7 @@ const SideNav = () => {
             )}
 
             {/* divisional admin only */}
-            {role === "dAdmin" ? (
+            {role === "sAdmin" ? (
               <NavLink
                 exact="true"
                 to="/admin/requests"
@@ -157,9 +198,23 @@ const SideNav = () => {
               <></>
             )}
 
-            <NavLink exact="true" to="/" activeclassname="activeClicked">
+            {role === "student" ? (
+              <NavLink
+                exact
+                to="/student/requests"
+                activeClassName="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
+                  Requests
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
+            <NavLink exact to="/settings" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="sideLinks" icon="cog">
-                Options
+                Settings
               </CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>

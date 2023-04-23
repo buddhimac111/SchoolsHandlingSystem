@@ -19,6 +19,7 @@ const subjects = require("../routes/subjects");
 const teachers = require("../routes/teachers");
 const timetables = require("../routes/timetables");
 const users = require("../routes/users");
+const upload = require("../routes/upload");
 
 module.exports = function (app) {
   // middlewares
@@ -55,6 +56,7 @@ module.exports = function (app) {
   app.use("/api/teachers", teachers);
   app.use("/api/timetables", timetables);
   app.use("/api/users", users);
+  app.use("/api/upload", upload);
 
   app.use(error);
 };
