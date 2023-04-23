@@ -6,6 +6,8 @@ import UserProfile from './pages/Profile';
 import NotFoundPage from './pages/NotFoundPage';
 import Settings from './pages/Settings';
 
+import Schools from "./pages/dAdmin/School";
+
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Students from "./pages/admin/Students";
 import Teachers from "./pages/admin/Teachers";
@@ -52,6 +54,8 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/settings" element={<Settings/>}/>
+
+          <Route path="/admin/schools" element={<Schools />} />
 
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/students" element={<Students />} />

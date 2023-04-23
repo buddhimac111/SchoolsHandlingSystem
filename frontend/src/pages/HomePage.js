@@ -70,7 +70,7 @@ const HomePage = () => {
               <form>
                 <div>
                   <label htmlFor="Username" className="lblLog">
-                    Username
+                    Email
                   </label>
                   <input
                     type="text"
@@ -94,7 +94,7 @@ const HomePage = () => {
                   />
                 </div>
 
-                <div>
+                {/* <div>
                   <a
                     href="/"
                     className="text-decoration-none d-flex justify-content-end"
@@ -102,7 +102,7 @@ const HomePage = () => {
                   >
                     Forgot Password?
                   </a>
-                </div>
+                </div> */}
 
                 <button
                   id="btnLogin"
