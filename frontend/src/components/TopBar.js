@@ -14,13 +14,15 @@ const TopBar = () => {
           <div className="ml-auto">
             <Link to="/profile" style={{ all: "unset", cursor: "pointer" }}>
               <p className="d-inline-flex pe-2 fs-6 fw-bold">{user.name}</p>
-              <img
-                src={`${utils.URI}/${user.picture}`}
-                className="rounded-circle"
-                alt="User Avatar"
-                width={25}
-                height={25}
-              />
+              {user.picture ? (
+                <img
+                  src={`${utils.URI}/${user.picture}`}
+                  className="rounded-circle"
+                  alt="User Avatar"
+                  width={25}
+                  height={25}
+                />
+              ) : null}
             </Link>
           </div>
         </CDBNavbar>

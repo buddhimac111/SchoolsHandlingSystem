@@ -2,29 +2,6 @@ const Joi = require("joi");
 const { model } = require("mongoose");
 const classSchema = require("./schemas/classe");
 
-classSchema.methods.getStudents = async function () {
-  return await Class.aggregate([
-    {
-      $match: {
-        _id: this._id,
-      },
-    },
-    {
-      $lookup: {
-        from: "students",
-        localField: "_id",
-        foreignField: "classe",
-        as: "students",
-      },
-    },
-    {
-      $project: {
-        _id: 0,
-        ids: "$students._id",
-      },
-    },
-  ]);
-};
 const Class = model("Class", classSchema);
 function validate(classe) {
   const schema = new Joi.object({

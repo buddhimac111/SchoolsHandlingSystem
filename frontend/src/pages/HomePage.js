@@ -43,7 +43,8 @@ const HomePage = () => {
         navigate("/dashboard");
       })
       .catch((error) => {
-        setLoginError(error.response.data);
+        if (error.response) setLoginError(error.response.data);
+        else setLoginError(error.message);
       });
   };
 
