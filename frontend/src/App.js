@@ -1,9 +1,10 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
-import UserProfile from "./pages/Profile";
-import NotFoundPage from "./pages/NotFoundPage";
+import HomePage from './pages/HomePage';
+import UserProfile from './pages/Profile';
+import NotFoundPage from './pages/NotFoundPage';
+import Settings from './pages/Settings';
 
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Students from "./pages/admin/Students";
@@ -48,6 +49,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/settings" element={<Settings/>}/>
+
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/students" element={<Students />} />
           <Route path="/admin/teachers" element={<Teachers />} />
