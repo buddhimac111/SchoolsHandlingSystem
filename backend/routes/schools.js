@@ -103,6 +103,58 @@ router.get("/averageMarks", sAdminAuth, async (req, res) => {
   res.send(average[0]);
 });
 
+// get average marks for a school
+router.get("/averageMarks/:id", dAdminAuth, async (req, res) => {
+  const id = req.params.id;
+  const school = await School.findById(id);
+  if (!school) return res.status(404).send("School not found");
+  let classes = await Class.aggregate([
+    { $match: { school: id } },
+    {
+      $group: {
+        _id: null,
+        classes: { $push: "$_id" },
+      },
+    },
+  ]);
+  classes = classes[0].classes;
+  const average = await Exam.aggregate([
+    {
+      $match: {
+        classe: { $in: classes },
+      },
+    },
+    { $unwind: "$results" },
+    {
+      $group: {
+        _id: "$results.subject",
+        total_marks: { $sum: "$results.marks" },
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        subject: "$_id",
+        average_marks: { $divide: ["$total_marks", "$count"] },
+      },
+    },
+    { $sort: { subject: 1 } },
+    {
+      $group: {
+        _id: null,
+        subjects: { $push: "$subject" },
+        marks: { $push: "$average_marks" },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+  ]);
+  res.send(average[0]);
+});
 // get school by id
 router.get("/:id", dAdminAuth, async (req, res) => {
   const id = req.params.id;

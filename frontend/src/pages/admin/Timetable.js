@@ -1,15 +1,13 @@
 import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
 import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
-import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar";
 import "./admin.css";
 import { useNavigate } from "react-router-dom";
-import useStudents from "../../hooks/useStudents";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
-import utils from "../../utils";
 import StudentDetailsPopup from "../../components/StudentDetailsPopup";
+import useSubjects from "../../hooks/useSubjects";
 
 const Timetable = () => {
   const { token, role } = useContext(AppContext);
@@ -22,11 +20,9 @@ const Timetable = () => {
       navigate("/");
     }
   }, [token, navigate]);
-  const students = useStudents();
-  const handlePopUp = (student) => {
-    setViewData(student);
-    setShow(true);
-  };
+  const subjects = useSubjects();
+  const dates = ["Monday", "Tuesday", "Wednsday", "Thursday", "Friday"];
+  const periods = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <>
       <div className="d-flex">
@@ -69,139 +65,35 @@ const Timetable = () => {
                     <th scope="col">Wednsday</th>
                     <th scope="col">Thuesday</th>
                     <th scope="col">Friday</th>
-                    
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                  {!students || students.length === 0 ? (
-                    <tr>
-                      <td colSpan="6" className="text-center">
-                        No Students Found
-                      </td>
-                    </tr>
-                  ) : (
-                    students.map((student, index) => (
-                      <tr key={index}>
-                        <td>01</td>
-                        <td>
-                          <p className="mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        <td>
-                          <p className="fw-bold mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        <td>
-                          <p className="fw-bold mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        <td>
-                          <p className="fw-bold mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        <td>
-                          <p className="fw-bold mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        <td>
-                          <p className="fw-bold mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        <td>
-                          <p className="fw-bold mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        <td>
-                          <p className="fw-bold mt-3">
-                            <select name="cars" id="cars">
-                                <option value="volvo">Maths</option>
-                                <option value="saab">English</option>
-                                <option value="mercedes">Sinhala</option>
-                                <option value="audi">History</option>
-                            </select>
-                          </p>
-                        </td>
-                        
-                        
-                        
-                        <td>
-                          <div className="d-flex justify-content-center">
-                            <FaEye
-                              size={22}
-                              color="black"
-                              cursor="pointer"
-                              onClick={() => {
-                                handlePopUp(student);
-                              }}
-                            />
-                            {role === "sAdmin" ? (
-                              <>
-                                <FaEdit
-                                  size={22}
-                                  color="black"
-                                  className="ms-3"
-                                />
-                                <FaTrash
-                                  size={22}
-                                  color="black"
-                                  className="ms-3"
-                                />
-                              </>
-                            ) : null}
-                          </div>
-                        </td>
+                  {periods.map((period) => {
+                    return (
+                      <tr>
+                        <td>{period}</td>
+                        {dates.map((date) => {
+                          return (
+                            <td>
+                              <p className="fw-bold mt-3">
+                                <select name="cars" id="cars">
+                                  {subjects.map((subject) => (
+                                    <option value="volvo">{subject}</option>
+                                  ))}
+                                </select>
+                              </p>
+                            </td>
+                          );
+                        })}
                       </tr>
-                    ))
-                  )}
+                    );
+                  })}
                 </MDBTableBody>
               </MDBTable>
             </div>
           </div>
         </div>
       </div>
-      <StudentDetailsPopup show={show} setShow={setShow} data={viewData} />
     </>
   );
 };
