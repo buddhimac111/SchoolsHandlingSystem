@@ -71,6 +71,15 @@ const SideNav = () => {
             ) : (
               <></>
             )}
+            {role === "dAdmin" ? (
+              <NavLink to="/admin/subjects" activeclassname="activeClicked">
+                <CDBSidebarMenuItem className="sideLinks" icon="book">
+                  Subjects
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
             {/* School admins only */}
             {role === "sAdmin" ? (
               <NavLink to="/admin/teachers" activeclassname="activeClicked">
@@ -92,15 +101,6 @@ const SideNav = () => {
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="chalkboard">
                   Classes
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-            {role === "sAdmin" ? (
-              <NavLink exact="true" to="/" activeclassname="activeClicked">
-                <CDBSidebarMenuItem className="sideLinks" icon="poll">
-                  Results
                 </CDBSidebarMenuItem>
               </NavLink>
             ) : (

@@ -3,21 +3,22 @@ import TopBar from "../../components/TopBar";
 import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar";
+import "./admin.css";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
-import useExams from "../../hooks/useExams";
+import useSubjects from "../../hooks/useSubjects";
 
 const Subjects = () => {
   const { token, role } = useContext(AppContext);
   const navigate = useNavigate();
-  if (role !== "teacher") navigate("/");
+  if (role !== "dAdmin") navigate("/");
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
   }, [token, navigate]);
-  const exams = useExams();
+  const subjects = useSubjects();
   return (
     <>
       <div className="d-flex">
@@ -37,60 +38,56 @@ const Subjects = () => {
                       navigate("/admin/add-subject");
                     }}
                   >
-                    + Add Exams
+                    + Add Subject
                   </MDBBtn>
                 </div>
               </div>
             </div>
             <div className="tblArea">
-              <MDBTable
-                align="middle"
-                style={{ textAlign: "center" }}
-                hover
-                responsive
-              >
+              <MDBTable align="middle" hover responsive>
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ID </th>
-                    <th scope="col">Name </th>
-                    <th scope="col">Semester </th>
-                    {!exams || exams.length === 0
-                      ? null
-                      : exams[0].results.map((result) => {
-                          return <th scope="col">{result.subject}</th>;
-                        })}
+                    <th scope="col">Subject </th>
+                    <th scope="col">Actions </th>
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                  {!exams || exams.length === 0 ? (
+                  {!subjects || subjects.length === 0 ? (
                     <tr>
                       <td colSpan="6" className="text-center">
-                        No Exams Found
+                        No Subject Found
                       </td>
                     </tr>
                   ) : (
-                    exams.map((exam, index) => (
+                    subjects.map((subject, index) => (
                       <tr key={index}>
                         <td>
                           <p className="mt-3">{index + 1}</p>
                         </td>
                         <td>
-                          <p className="fw-bold mt-3">{exam.student}</p>
+                          <p className="fw-bold mt-3">{subject}</p>
                         </td>
+
                         <td>
-                          <p className="fw-bold mt-3">{exam.name}</p>
+                          <div className="d-flex justify-content-center">
+                            <FaEye size={22} color="black" />
+                            {role === "sAdmin" ? (
+                              <>
+                                <FaEdit
+                                  size={22}
+                                  color="black"
+                                  className="ms-3"
+                                />
+                                <FaTrash
+                                  size={22}
+                                  color="black"
+                                  className="ms-3"
+                                />
+                              </>
+                            ) : null}
+                          </div>
                         </td>
-                        <td>
-                          <p className="fw-bold mt-3">{exam.semester}</p>
-                        </td>
-                        {exam.results.map((result) => {
-                          return (
-                            <td>
-                              <p className="fw-bold mt-3">{result.marks}</p>
-                            </td>
-                          );
-                        })}
                       </tr>
                     ))
                   )}
