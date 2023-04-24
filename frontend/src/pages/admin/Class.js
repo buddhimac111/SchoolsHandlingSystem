@@ -8,25 +8,17 @@ import { useNavigate } from "react-router-dom";
 import GetClasses from "../../hooks/getClasses";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
-import utils from "../../utils";
-import StudentDetailsPopup from "../../components/StudentDetailsPopup";
 
-const Class = () => {
+const Classes = () => {
   const { token, role } = useContext(AppContext);
-  const [show, setShow] = useState(false);
-  const [viewData, setViewData] = useState({});
   const navigate = useNavigate();
-  if (role === "dAdmin") navigate("/");
+  if (role === "dAdmin" || role === "teacher") navigate("/");
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
   }, [token, navigate]);
-  const Class = GetClasses();
-  const handlePopUp = (Class) => {
-    setViewData(Class);
-    setShow(true);
-  };
+  const classes = GetClasses();
   return (
     <>
       <div className="d-flex">
@@ -36,27 +28,19 @@ const Class = () => {
           <div className="ms-2 mb-0 me-2 mt-3" id="tblContainer">
             <div className="container-fluid">
               <div className="row d-flex">
-                {role === "sAdmin" ? (
-                  <>
-                    <div className="col-md-10 searchContainer d-flex">
-                      <SearchBar />
-                    </div>
-                    <div className="col-md-2 p-0 ps-2">
-                      <MDBBtn
-                        className="w-100 text-nowrap"
-                        onClick={() => {
-                          navigate("/admin/add-student");
-                        }}
-                      >
-                        + Add Class
-                      </MDBBtn>
-                    </div>
-                  </>
-                ) : (
-                  <div className="col-md-12 searchContainer d-flex">
-                    <SearchBar />
-                  </div>
-                )}
+                <div className="col-md-10 searchContainer d-flex">
+                  <SearchBar />
+                </div>
+                <div className="col-md-2 p-0 ps-2">
+                  <MDBBtn
+                    className="w-100 text-nowrap"
+                    onClick={() => {
+                      navigate("/admin/add-classes");
+                    }}
+                  >
+                    + Add Class
+                  </MDBBtn>
+                </div>
               </div>
             </div>
             <div className="tblArea">
@@ -64,53 +48,42 @@ const Class = () => {
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Class name</th>
-                    <th scope="col">School Name</th>
+                    <th scope="col">Class ID</th>
                     <th scope="col">Grade</th>
                     <th scope="col">Year</th>
-                    <th scope="col">studentCount</th>
-                    
+                    <th scope="col">StudentCount</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                  {!Class || Class.length === 0 ? (
+                  {!classes || classes.length === 0 ? (
                     <tr>
                       <td colSpan="6" className="text-center">
                         No Students Found
                       </td>
                     </tr>
                   ) : (
-                    Class.map((Class, index) => (
+                    classes.map((classe, index) => (
                       <tr key={index}>
                         <td>
                           <p className="mt-3">{index + 1}</p>
                         </td>
                         <td>
-                          <p className="fw-bold mt-3">{Class._id}</p>
+                          <p className="fw-bold mt-3">{classe._id}</p>
                         </td>
-                        
+
                         <td>
-                          <p className="mt-3">{Class.name}</p>
-                        </td>
-                        <td>
-                          <p className="mt-3">{Class.school}</p>
+                          <p className="mt-3">{`${classe.grade}-${classe.name}`}</p>
                         </td>
                         <td>
-                          <p className="mt-3">{Class.year}</p>
+                          <p className="mt-3">{classe.year}</p>
                         </td>
                         <td>
-                          <p className="mt-3">{Class.studentCount}</p>
+                          <p className="mt-3">{classe.studentCount}</p>
                         </td>
                         <td>
                           <div className="d-flex justify-content-center">
-                            <FaEye
-                              size={22}
-                              color="black"
-                              cursor="pointer"
-                              onClick={() => {
-                                handlePopUp(Class);
-                              }}
-                            />
+                            <FaEye size={22} color="black" />
                             {role === "sAdmin" ? (
                               <>
                                 <FaEdit
@@ -136,9 +109,8 @@ const Class = () => {
           </div>
         </div>
       </div>
-      <StudentDetailsPopup show={show} setShow={setShow} data={viewData} />
     </>
   );
 };
 
-export default Class;
+export default Classes;
