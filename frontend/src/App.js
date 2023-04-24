@@ -28,9 +28,13 @@ import { useEffect, useState } from "react";
 import useUserData from "./hooks/useUserData";
 import AppContext from "./appContext";
 import SAdmin from "./pages/admin/Sadmin";
+<<<<<<< HEAD
+import Timetable from './pages/admin/Timetable'
+=======
 import Classes from "./pages/admin/Class";
 import AddClasses from "./pages/admin/AddClass";
 import AddSAdmin from "./pages/admin/AddSAdmin";
+>>>>>>> 1921e025fd94a4241c8747acbd56d1c8487589a8
 
 function App() {
   const [token, setToken] = useState("");
@@ -79,6 +83,7 @@ function App() {
           <Route path="/teacher/examinations" element={<Examinations />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} />
           <Route path="/student/requests" element={<StudentRequestPage />} />
+          <Route path="/timetableaa" element={<Timetable />} />
         </Routes>
       </AppContext.Provider>
     </div>
