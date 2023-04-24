@@ -11,9 +11,7 @@ export default function useSAdmin() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url:
-        utils.URI +
-        (role === "SAdmin" ? "/api/sadmin/class" : "/api/schools/sadmin"),
+      url: utils.URI + "/api/schoolAdmins",
       headers: {
         "x-auth-token": token,
       },
@@ -23,7 +21,7 @@ export default function useSAdmin() {
       .then(async (response) => {
         const newSAdmin = [];
         for (const SAdmin of response.data) {
-          config.url = utils.URI + "/api/sadmin/" + SAdmin;
+          config.url = utils.URI + "/api/schoolAdmins/" + SAdmin;
           const response = await axios.request(config);
           newSAdmin.push(response.data);
         }

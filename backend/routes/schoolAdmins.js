@@ -3,6 +3,7 @@ const express = require("express");
 const { SchoolAdmin, validateSAdmin } = require("../models/schoolAdmin");
 const { Exam } = require("../models/exam");
 const { dAdminAuth, sAdminAuth } = require("../middlewares/auth");
+const { User } = require("../models/user");
 const router = express.Router();
 
 // get all the schoolAdmins
@@ -87,10 +88,12 @@ router.get("/me", sAdminAuth, async (req, res) => {
 router.get("/:id", dAdminAuth, async (req, res) => {
   const id = req.params.id;
 
-  const schoolAdmin = await SchoolAdmin.findById(id).select("-__v");
+  const sAdmin = await SchoolAdmin.findById(id).select("-__v");
+  if (!sAdmin) res.status(404).send("User not found");
 
-  if (schoolAdmin) return res.send(schoolAdmin);
-  res.status(404).send("User not found");
+  const user = await User.findById(id).select("-password -__v");
+
+  res.send({ ...sAdmin._doc, ...user._doc });
 });
 
 // update schoolAdmins own

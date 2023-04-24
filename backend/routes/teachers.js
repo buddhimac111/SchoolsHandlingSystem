@@ -3,6 +3,7 @@ const express = require("express");
 const { Teacher, validateTeacher } = require("../models/teacher");
 const { Exam } = require("../models/exam");
 const { Class } = require("../models/classe");
+const { User } = require("../models/user");
 const { sAdminAuth, teacherAuth } = require("../middlewares/auth");
 const router = express.Router();
 
@@ -58,9 +59,11 @@ router.get("/:id", sAdminAuth, async (req, res) => {
     _id: id,
     school: req.user.school,
   }).select("-__v");
-  if (teacher) return res.send(teacher);
+  if (!teacher) res.status(404).send("User not found");
 
-  res.status(404).send("User not found");
+  const user = await User.findById(id).select("-password -__v");
+
+  res.send({ ...teacher._doc, ...user._doc });
 });
 
 // update teacher by user id
