@@ -11,7 +11,7 @@ import AppContext from "../../appContext";
 import utils from "../../utils";
 import StudentDetailsPopup from "../../components/StudentDetailsPopup";
 
-const Students = () => {
+const Timetable = () => {
   const { token, role } = useContext(AppContext);
   const [show, setShow] = useState(false);
   const [viewData, setViewData] = useState({});
@@ -63,14 +63,13 @@ const Students = () => {
               <MDBTable align="middle" hover responsive>
                 <MDBTableHead dark>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Name & Email</th>
-                    <th scope="col">Parent Name</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">DOB</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">piriod</th>
+                    <th scope="col">Monday</th>
+                    <th scope="col">Tuesday</th>
+                    <th scope="col">Wednsday</th>
+                    <th scope="col">Thuesday</th>
+                    <th scope="col">Friday</th>
+                    
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
@@ -83,38 +82,90 @@ const Students = () => {
                   ) : (
                     students.map((student, index) => (
                       <tr key={index}>
+                        <td>01</td>
                         <td>
-                          <p className="mt-3">{index + 1}</p>
+                          <p className="mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
                         </td>
                         <td>
-                          <p className="fw-bold mt-3">{student._id}</p>
+                          <p className="fw-bold mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
                         </td>
                         <td>
-                          <div className="d-flex align-items-center">
-                            <img
-                              src={utils.URI + "/" + student.picture}
-                              alt=""
-                              style={{ width: "45px", height: "45px" }}
-                              className="rounded-circle"
-                            />
-                            <div className="ms-3">
-                              <p className="fw-bold mb-1">{student.name}</p>
-                              <p className="text-muted mb-0">{student.email}</p>
-                            </div>
-                          </div>
+                          <p className="fw-bold mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
                         </td>
                         <td>
-                          <p className="mt-3">{student.parent.name}</p>
+                          <p className="fw-bold mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
                         </td>
                         <td>
-                          <p className="mt-3">{student.parent.phone}</p>
+                          <p className="fw-bold mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
                         </td>
                         <td>
-                          <p className="mt-3">{student.gender}</p>
+                          <p className="fw-bold mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
                         </td>
                         <td>
-                          <p className="mt-3">{student.DOB.split("T")[0]}</p>
+                          <p className="fw-bold mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
                         </td>
+                        <td>
+                          <p className="fw-bold mt-3">
+                            <select name="cars" id="cars">
+                                <option value="volvo">Maths</option>
+                                <option value="saab">English</option>
+                                <option value="mercedes">Sinhala</option>
+                                <option value="audi">History</option>
+                            </select>
+                          </p>
+                        </td>
+                        
+                        
+                        
                         <td>
                           <div className="d-flex justify-content-center">
                             <FaEye
@@ -155,4 +206,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default Timetable;

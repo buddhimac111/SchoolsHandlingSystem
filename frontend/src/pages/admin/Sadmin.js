@@ -5,26 +5,27 @@ import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar";
 import "./admin.css";
 import { useNavigate } from "react-router-dom";
-import useStudents from "../../hooks/useStudents";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import utils from "../../utils";
 import StudentDetailsPopup from "../../components/StudentDetailsPopup";
+import useSAdmin from "../../hooks/useSAdmin";
+import SAdminDetailsPopup from "../../components/SAdminDetailsPopup";
 
-const Students = () => {
+const SAdmin = () => {
   const { token, role } = useContext(AppContext);
   const [show, setShow] = useState(false);
   const [viewData, setViewData] = useState({});
   const navigate = useNavigate();
-  if (role === "dAdmin") navigate("/");
   useEffect(() => {
+    if (role !== "dAdmin") navigate("/");
     if (!token) {
       navigate("/");
     }
   }, [token, navigate]);
-  const students = useStudents();
-  const handlePopUp = (student) => {
-    setViewData(student);
+  const SAdmin = useSAdmin();
+  const handlePopUp = (SAdmin) => {
+    setViewData(SAdmin);
     setShow(true);
   };
   return (
@@ -36,27 +37,19 @@ const Students = () => {
           <div className="ms-2 mb-0 me-2 mt-3" id="tblContainer">
             <div className="container-fluid">
               <div className="row d-flex">
-                {role === "sAdmin" ? (
-                  <>
-                    <div className="col-md-10 searchContainer d-flex">
-                      <SearchBar />
-                    </div>
-                    <div className="col-md-2 p-0 ps-2">
-                      <MDBBtn
-                        className="w-100 text-nowrap"
-                        onClick={() => {
-                          navigate("/admin/add-student");
-                        }}
-                      >
-                        + Add Student
-                      </MDBBtn>
-                    </div>
-                  </>
-                ) : (
-                  <div className="col-md-12 searchContainer d-flex">
-                    <SearchBar />
-                  </div>
-                )}
+                <div className="col-md-9 searchContainer d-flex">
+                  <SearchBar />
+                </div>
+                <div className="col-md-3 p-0 ps-2">
+                  <MDBBtn
+                    className="w-100 text-nowrap"
+                    onClick={() => {
+                      navigate("/admin/add-sadmin");
+                    }}
+                  >
+                    + Add School Admin
+                  </MDBBtn>
+                </div>
               </div>
             </div>
             <div className="tblArea">
@@ -64,56 +57,53 @@ const Students = () => {
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Name & Email</th>
-                    <th scope="col">Parent Name</th>
-                    <th scope="col">Phone</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Gender</th>
                     <th scope="col">DOB</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                  {!students || students.length === 0 ? (
+                  {!SAdmin || SAdmin.length === 0 ? (
                     <tr>
                       <td colSpan="6" className="text-center">
-                        No Students Found
+                        No School Admin Found
                       </td>
                     </tr>
                   ) : (
-                    students.map((student, index) => (
+                    SAdmin.map((sAdmin, index) => (
                       <tr key={index}>
                         <td>
                           <p className="mt-3">{index + 1}</p>
                         </td>
                         <td>
-                          <p className="fw-bold mt-3">{student._id}</p>
+                          <p className="fw-bold mt-3">{sAdmin._id}</p>
                         </td>
                         <td>
                           <div className="d-flex align-items-center">
                             <img
-                              src={utils.URI + "/" + student.picture}
+                              src={utils.URI + "/" + sAdmin.picture}
                               alt=""
                               style={{ width: "45px", height: "45px" }}
                               className="rounded-circle"
                             />
                             <div className="ms-3">
-                              <p className="fw-bold mb-1">{student.name}</p>
-                              <p className="text-muted mb-0">{student.email}</p>
+                              <p className="fw-bold mb-1">{sAdmin.name}</p>
+                              <p className="text-muted mb-0">{sAdmin.school}</p>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <p className="mt-3">{student.parent.name}</p>
+                          <p className="fw-bold mt-3">{sAdmin.email}</p>
                         </td>
                         <td>
-                          <p className="mt-3">{student.parent.phone}</p>
+                          <p className="fw-bold mt-3">{sAdmin.gender}</p>
                         </td>
+
                         <td>
-                          <p className="mt-3">{student.gender}</p>
-                        </td>
-                        <td>
-                          <p className="mt-3">{student.DOB.split("T")[0]}</p>
+                          <p className="mt-3">{sAdmin.DOB.split("T")[0]}</p>
                         </td>
                         <td>
                           <div className="d-flex justify-content-center">
@@ -122,7 +112,7 @@ const Students = () => {
                               color="black"
                               cursor="pointer"
                               onClick={() => {
-                                handlePopUp(student);
+                                handlePopUp(sAdmin);
                               }}
                             />
                             {role === "sAdmin" ? (
@@ -150,9 +140,9 @@ const Students = () => {
           </div>
         </div>
       </div>
-      <StudentDetailsPopup show={show} setShow={setShow} data={viewData} />
+      <SAdminDetailsPopup show={show} setShow={setShow} data={viewData} />
     </>
   );
 };
 
-export default Students;
+export default SAdmin;

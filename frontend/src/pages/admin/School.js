@@ -5,13 +5,13 @@ import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar";
 import "./admin.css";
 import { useNavigate } from "react-router-dom";
-import useStudents from "../../hooks/useStudents";
+import useSchool from "../../hooks/useStudents";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import utils from "../../utils";
 import StudentDetailsPopup from "../../components/StudentDetailsPopup";
 
-const Students = () => {
+const School = () => {
   const { token, role } = useContext(AppContext);
   const [show, setShow] = useState(false);
   const [viewData, setViewData] = useState({});
@@ -22,9 +22,9 @@ const Students = () => {
       navigate("/");
     }
   }, [token, navigate]);
-  const students = useStudents();
-  const handlePopUp = (student) => {
-    setViewData(student);
+  const School = useSchool();
+  const handlePopUp = (School) => {
+    setViewData(School);
     setShow(true);
   };
   return (
@@ -48,7 +48,7 @@ const Students = () => {
                           navigate("/admin/add-student");
                         }}
                       >
-                        + Add Student
+                        + Add School 
                       </MDBBtn>
                     </div>
                   </>
@@ -64,56 +64,62 @@ const Students = () => {
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Name & Email</th>
-                    <th scope="col">Parent Name</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">DOB</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">School ID</th>
+                    <th scope="col">School Name</th>
+                    <th scope="col">School Address</th>
+                    <th scope="col">Students Count</th>
+                    <th scope="col">Teachers Count</th>
+                    
+                    
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                  {!students || students.length === 0 ? (
+                  {!School || School.length === 0 ? (
                     <tr>
                       <td colSpan="6" className="text-center">
-                        No Students Found
+                        No School Admin Found
                       </td>
                     </tr>
                   ) : (
-                    students.map((student, index) => (
+                    School.map((School, index) => (
                       <tr key={index}>
                         <td>
                           <p className="mt-3">{index + 1}</p>
                         </td>
                         <td>
-                          <p className="fw-bold mt-3">{student._id}</p>
+                          <p className="fw-bold mt-3">{School._id}</p>
                         </td>
                         <td>
                           <div className="d-flex align-items-center">
                             <img
-                              src={utils.URI + "/" + student.picture}
+                              src={utils.URI + "/" + School.picture}
                               alt=""
                               style={{ width: "45px", height: "45px" }}
                               className="rounded-circle"
                             />
                             <div className="ms-3">
-                              <p className="fw-bold mb-1">{student.name}</p>
-                              <p className="text-muted mb-0">{student.email}</p>
+                              <p className="fw-bold mb-1">{School.name}</p>
+                              
+                              
+                              
+                              
+                              
                             </div>
                           </div>
                         </td>
                         <td>
-                          <p className="mt-3">{student.parent.name}</p>
+                        <p className="text-muted mb-0">{School.email}</p>
                         </td>
                         <td>
-                          <p className="mt-3">{student.parent.phone}</p>
+                        <p className="text-muted mb-0">{School.address}</p>
                         </td>
                         <td>
-                          <p className="mt-3">{student.gender}</p>
+                        <p className="text-muted mb-0">{School.StudentCount}</p>
                         </td>
+                        
+                        
                         <td>
-                          <p className="mt-3">{student.DOB.split("T")[0]}</p>
+                        <p className="text-muted mb-0">{School.TeacherCount}</p>
                         </td>
                         <td>
                           <div className="d-flex justify-content-center">
@@ -122,7 +128,7 @@ const Students = () => {
                               color="black"
                               cursor="pointer"
                               onClick={() => {
-                                handlePopUp(student);
+                                handlePopUp(School);
                               }}
                             />
                             {role === "sAdmin" ? (
@@ -155,4 +161,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default School;

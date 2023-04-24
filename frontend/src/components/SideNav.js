@@ -20,7 +20,7 @@ const SideNav = () => {
   };
   return (
     <div
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
+      style={{ display: "flex", height: "100vh", overflow: "scroll initial", background:"" }}
     >
       <CDBSidebar textColor="var(--secondary)" backgroundColor="var(--primary)">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
@@ -29,7 +29,9 @@ const SideNav = () => {
             to="/dashboard"
             style={{ color: "inherit" }}
           >
-            LOGO
+            <img src="../edu.png" 
+                  width={50}
+                  height={50} />
             <sup className="text-info">
               {role === "dAdmin"
                 ? "Divisional Admin"
@@ -49,36 +51,29 @@ const SideNav = () => {
                 Dashboard
               </CDBSidebarMenuItem>
             </NavLink>
-
-             {/* divisional admins only */}
-
-             {role === "dAdmin" ? (
+            {/* divisional admins only */}
+            {role === "dAdmin" ? (
               <NavLink to="/admin/schools" activeclassname="activeClicked">
-                <CDBSidebarMenuItem
-                  className="sideLinks"
-                  icon="school"
-                >
+                <CDBSidebarMenuItem className="sideLinks" icon="school">
                   Schools
                 </CDBSidebarMenuItem>
               </NavLink>
             ) : (
               <></>
             )}
-               {role === "dAdmin" ? (
-              <NavLink to="/admin/schoolsadmins" activeclassname="activeClicked">
-                <CDBSidebarMenuItem
-                  className="sideLinks"
-                  icon="user-lock"
-                >
+            {role === "dAdmin" ? (
+              <NavLink
+                to="/admin/schoolsadmins"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="user-lock">
                   School Admins
                 </CDBSidebarMenuItem>
               </NavLink>
             ) : (
               <></>
             )}
-
             {/* School admins only */}
-
             {role === "sAdmin" ? (
               <NavLink to="/admin/teachers" activeclassname="activeClicked">
                 <CDBSidebarMenuItem
@@ -86,6 +81,42 @@ const SideNav = () => {
                   icon="chalkboard-teacher"
                 >
                   Teachers
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+            {role === "sAdmin" ? (
+              <NavLink
+                exact="true"
+                to="/admin/classes"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="chalkboard">
+                  Classes
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+            {role === "sAdmin" ? (
+              <NavLink exact="true" to="/" activeclassname="activeClicked">
+                <CDBSidebarMenuItem className="sideLinks" icon="poll">
+                  Results
+                </CDBSidebarMenuItem>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
+            {role === "sAdmin" ? (
+              <NavLink
+                exact="true"
+                to="/admin/timetables"
+                activeclassname="activeClicked"
+              >
+                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
+                  Time-Tables
                 </CDBSidebarMenuItem>
               </NavLink>
             ) : (
@@ -116,47 +147,7 @@ const SideNav = () => {
             ) : (
               <></>
             )}
-
-            {/* divisional admin only */}
             {role === "sAdmin" ? (
-              <NavLink
-                exact="true"
-                to="/admin/requests"
-                activeclassname="activeClicked"
-              >
-                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
-                  Requests
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-            {/* school admin only */}
-            {role === "sAdmin" ? (
-              <NavLink exact="true" to="/" activeclassname="activeClicked">
-                <CDBSidebarMenuItem className="sideLinks" icon="poll">
-                  Results
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-
-            {role === "sAdmin" ? (
-              <NavLink
-                exact="true"
-                to="/admin/timetables"
-                activeclassname="activeClicked"
-              >
-                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
-                  Time-Tables
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-
-            {role === "teacher" ? (
               <NavLink
                 exact="true"
                 to="/timetables"
@@ -170,35 +161,11 @@ const SideNav = () => {
               <></>
             )}
 
-            {role === "teacher" ? (
-              <NavLink
-                exact="true"
-                to="/teacher/requests"
-                activeclassname="activeClicked"
-              >
-                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
-                  Requests
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-
-            {role === "student" ? (
-              <NavLink
-                exact
-                to="/student/requests"
-                activeClassName="activeClicked"
-              >
-                <CDBSidebarMenuItem className="sideLinks" icon="praying-hands">
-                  Requests
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-
-            <NavLink exact to="/settings" activeClassName="activeClicked">
+            <NavLink
+              exact="true"
+              to="/settings"
+              activeclassname="activeClicked"
+            >
               <CDBSidebarMenuItem className="sideLinks" icon="cog">
                 Settings
               </CDBSidebarMenuItem>
