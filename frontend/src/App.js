@@ -28,6 +28,7 @@ import { useEffect, useState } from "react";
 import useUserData from "./hooks/useUserData";
 import AppContext from "./appContext";
 import SAdmin from "./pages/admin/Sadmin";
+import Timetable from './pages/admin/Timetable'
 import Classes from "./pages/admin/Class";
 import AddClasses from "./pages/admin/AddClass";
 import AddSAdmin from "./pages/admin/AddSAdmin";
@@ -83,6 +84,7 @@ function App() {
           <Route path="/teacher/examinations" element={<Examinations />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} />
           <Route path="/student/requests" element={<StudentRequestPage />} />
+          <Route path="/timetableaa" element={<Timetable />} />
         </Routes>
       </AppContext.Provider>
     </div>

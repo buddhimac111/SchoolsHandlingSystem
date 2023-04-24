@@ -20,7 +20,7 @@ const SideNav = () => {
   };
   return (
     <div
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
+      style={{ display: "flex", height: "100vh", overflow: "scroll initial", background:"" }}
     >
       <CDBSidebar textColor="var(--secondary)" backgroundColor="var(--primary)">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
@@ -29,7 +29,9 @@ const SideNav = () => {
             to="/dashboard"
             style={{ color: "inherit" }}
           >
-            LOGO
+            <img src="../edu.png" 
+                  width={50}
+                  height={50} />
             <sup className="text-info">
               {role === "dAdmin"
                 ? "Divisional Admin"
