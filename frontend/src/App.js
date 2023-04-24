@@ -28,7 +28,7 @@ import { useEffect, useState } from "react";
 import useUserData from "./hooks/useUserData";
 import AppContext from "./appContext";
 import SAdmin from "./pages/admin/Sadmin";
-import Timetable from './pages/admin/Timetable'
+import Timetable from "./pages/admin/Timetable";
 import Classes from "./pages/admin/Class";
 import AddClasses from "./pages/admin/AddClass";
 import AddSAdmin from "./pages/admin/AddSAdmin";
@@ -75,7 +75,7 @@ function App() {
           <Route path="/admin/add-classes" element={<AddClasses />} />
           <Route path="/admin/add-sadmin" element={<AddSAdmin />} />
           <Route path="/admin/add-subject" element={<AddSubject />} />
-          <Route path="/admin/timetables" element={<ClassTimetable />} />
+          <Route path="/admin/timetables" element={<Timetable />} />
           <Route path="/admin/subjects" element={<Subjects />} />
           <Route path="/timetable/:className" element={<TimetableRenderer />} />
 
