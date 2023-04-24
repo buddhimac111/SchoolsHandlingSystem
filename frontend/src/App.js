@@ -1,10 +1,10 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import HomePage from './pages/HomePage';
-import UserProfile from './pages/Profile';
-import NotFoundPage from './pages/NotFoundPage';
-import Settings from './pages/Settings';
+import HomePage from "./pages/HomePage";
+import UserProfile from "./pages/Profile";
+import NotFoundPage from "./pages/NotFoundPage";
+import Settings from "./pages/Settings";
 
 import Schools from "./pages/dAdmin/School";
 
@@ -28,7 +28,13 @@ import { useEffect, useState } from "react";
 import useUserData from "./hooks/useUserData";
 import AppContext from "./appContext";
 import SAdmin from "./pages/admin/Sadmin";
+<<<<<<< HEAD
 import Timetable from './pages/admin/Timetable'
+=======
+import Classes from "./pages/admin/Class";
+import AddClasses from "./pages/admin/AddClass";
+import AddSAdmin from "./pages/admin/AddSAdmin";
+>>>>>>> 1921e025fd94a4241c8747acbd56d1c8487589a8
 
 function App() {
   const [token, setToken] = useState("");
@@ -55,16 +61,20 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/settings" element={<Settings/>}/>
+          <Route path="/settings" element={<Settings />} />
 
           <Route path="/admin/schools" element={<Schools />} />
 
           <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/schoolsadmins" element={<SAdmin />} />
           <Route path="/admin/students" element={<Students />} />
           <Route path="/admin/teachers" element={<Teachers />} />
+          <Route path="/admin/classes" element={<Classes />} />
           <Route path="/admin/requests" element={<Requests />} />
           <Route path="/admin/add-student" element={<AddStudent />} />
           <Route path="/admin/add-teacher" element={<AddTeacher />} />
+          <Route path="/admin/add-classes" element={<AddClasses />} />
+          <Route path="/admin/add-sadmin" element={<AddSAdmin />} />
           <Route path="/admin/timetables" element={<ClassTimetable />} />
           <Route path="/timetable/:className" element={<TimetableRenderer />} />
 

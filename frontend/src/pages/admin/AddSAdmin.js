@@ -1,26 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
 import axios from "axios";
 import DatePicker from "react-datepicker";
+import AppContext from "../../appContext";
 import "react-datepicker/dist/react-datepicker.css";
-
+import utils from "../../utils";
 
 const AddSAdmin = () => {
+  const { token, role } = useContext(AppContext);
   const [name, setName] = useState("");
-  
+
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [schoolname, setschoolname] = useState("");
+  const [school, setschool] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [DOB, setDOB] = useState("");
 
-  
-
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!token) return navigate("/");
+    if (role !== "dAdmin") return navigate("/");
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,28 +33,35 @@ const AddSAdmin = () => {
       userBody: {
         name,
         email,
-        role: "SAdmin",
+        role: "sAdmin",
         gender,
         password,
       },
       otherBody: {
-        
         address,
-        schoolname,
+        school,
         DOB,
       },
     };
-
-    console.log(newSAdmin);
-
-    setName("");
-    
-    setEmail("");
-    setAddress("");
-    setschoolname("");
-    setGender("");
-    setPassword("");
-    setDOB("");
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: utils.URI + "/api/users",
+      headers: {
+        "x-auth-token": token,
+      },
+      data: newSAdmin,
+    };
+    axios.request(config).then((res) => {
+      alert("Teacher added successfully");
+      setName("");
+      setEmail("");
+      setAddress("");
+      setschool("");
+      setGender("");
+      setPassword("");
+      setDOB("");
+    });
   };
 
   return (
@@ -102,13 +113,8 @@ const AddSAdmin = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </Form.Group>
-                  
 
                   <div className="row">
-                    
-
-                    
-                      
                     <Form.Group controlId="dob" className="col-6 mt-3">
                       <Form.Label>School Admin Date of birth</Form.Label>
                       <DatePicker
@@ -121,15 +127,15 @@ const AddSAdmin = () => {
                         dropdownMode="select"
                       />
                     </Form.Group>
-                    <Form.Group controlId="schoolname" className="col-12 mt-3">
-                    <Form.Label>School name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter school name"
-                      value={address}
-                      onChange={(e) => setschoolname(e.target.value)}
-                    />
-                  </Form.Group>
+                    <Form.Group controlId="school" className="col-12 mt-3">
+                      <Form.Label>School name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter school name"
+                        value={address}
+                        onChange={(e) => setschool(e.target.value)}
+                      />
+                    </Form.Group>
 
                     <Form.Group controlId="gender" className="col-6 mt-3">
                       <Form.Label>Student Gender</Form.Label>
