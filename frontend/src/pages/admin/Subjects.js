@@ -5,7 +5,7 @@ import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar";
 import "./admin.css";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AppContext from "../../appContext";
 import useSubjects from "../../hooks/useSubjects";
 

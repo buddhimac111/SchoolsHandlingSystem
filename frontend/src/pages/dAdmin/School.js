@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import utils from "../../utils";
 import useSchool from "../../hooks/useSchool";
-import SchoolDetailsPopup from "../../components/SchoolDetailsPopup";
+import SchoolDetailsPopup from "../../components/popups/SchoolDetailsPopup";
 
 const Schools = () => {
   const { token, role } = useContext(AppContext);

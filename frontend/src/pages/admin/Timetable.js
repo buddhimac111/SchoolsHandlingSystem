@@ -4,15 +4,12 @@ import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import SearchBar from "../../components/SearchBar";
 import "./admin.css";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AppContext from "../../appContext";
-import StudentDetailsPopup from "../../components/StudentDetailsPopup";
 import useSubjects from "../../hooks/useSubjects";
 
 const Timetable = () => {
   const { token, role } = useContext(AppContext);
-  const [show, setShow] = useState(false);
-  const [viewData, setViewData] = useState({});
   const navigate = useNavigate();
   if (role === "dAdmin") navigate("/");
   useEffect(() => {

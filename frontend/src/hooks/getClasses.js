@@ -22,7 +22,7 @@ export default function GetClasses() {
       .then(async (response) => {
         const newClasses = [];
         for (const data of response.data) {
-          config.url = utils.URI + "/api/classes" + "/" + data;
+          config.url = utils.URI + "/api/classes/" + data;
           const classData = await axios.request(config);
           newClasses.push(classData.data);
         }

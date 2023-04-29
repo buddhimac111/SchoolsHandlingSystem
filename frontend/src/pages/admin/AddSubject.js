@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
@@ -9,10 +8,8 @@ import AppContext from "../../appContext";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddSubject = () => {
-  const { token, role } = useContext(AppContext);
+  const { token } = useContext(AppContext);
   const [name, setName] = useState("");
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();

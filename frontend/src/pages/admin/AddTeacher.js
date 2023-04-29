@@ -6,8 +6,6 @@ import TopBar from "../../components/TopBar";
 import axios from "axios";
 import AppContext from "../../appContext";
 import GetClasses from "../../hooks/getClasses";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import utils from "../../utils";
 
 const AddTeacher = () => {

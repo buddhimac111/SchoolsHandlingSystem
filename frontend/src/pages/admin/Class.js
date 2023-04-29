@@ -6,7 +6,7 @@ import SearchBar from "../../components/SearchBar";
 import "./admin.css";
 import { useNavigate } from "react-router-dom";
 import GetClasses from "../../hooks/getClasses";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AppContext from "../../appContext";
 
 const Classes = () => {

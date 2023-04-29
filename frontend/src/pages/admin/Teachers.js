@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import useTeachers from "../../hooks/useTeachers";
 import utils from "../../utils";
-import TeacherDetailsPopup from "../../components/TeacherDetailsPopup";
+import TeacherDetailsPopup from "../../components/popups/TeacherDetailsPopup";
 
 const Teachers = () => {
   const { token, role } = useContext(AppContext);

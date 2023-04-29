@@ -14,7 +14,6 @@ import Teachers from "./pages/admin/Teachers";
 import Requests from "./pages/admin/Requests";
 import AddStudent from "./pages/admin/AddStudent";
 import AddTeacher from "./pages/admin/AddTeacher";
-import ClassTimetable from "./pages/admin/Timetables";
 import TimetableRenderer from "./pages/admin/TimetableRenderer";
 
 import StudentDashboard from "./pages/student/StudentDashboard";

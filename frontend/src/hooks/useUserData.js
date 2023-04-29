@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import utils from "../utils";
 
-export default function useUserData(token, role, navigate) {
-  const networkError = false;
+export default function useUserData(token, role) {
+  const networkError = useRef(false);
   const [user, setUser] = useState({});
   const [school, setSchool] = useState({});
   const [classe, setClasse] = useState({});
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    if (!token || !role || networkError) return;
+    if (!token || !role || networkError.current) return;
 
     let config = {
       method: "get",
@@ -42,7 +42,7 @@ export default function useUserData(token, role, navigate) {
       })
       .catch((error) => {
         console.log(error);
-        networkError = true;
+        networkError.current = true;
         alert("Error: " + error.code);
       });
     if (role === "teacher") {
@@ -60,7 +60,7 @@ export default function useUserData(token, role, navigate) {
         })
         .catch((error) => {
           console.log(error);
-          networkError = true;
+          networkError.current = true;
           alert("Error: " + error.code);
         });
     }
@@ -80,7 +80,7 @@ export default function useUserData(token, role, navigate) {
         })
         .catch((error) => {
           console.log(error);
-          networkError = true;
+          networkError.current = true;
           alert("Error: " + error.code);
         });
     }
@@ -103,7 +103,7 @@ export default function useUserData(token, role, navigate) {
       })
       .catch((error) => {
         console.log(error);
-        networkError = true;
+        networkError.current = true;
         alert("Error: " + error.code);
       });
   }, [role, token]);

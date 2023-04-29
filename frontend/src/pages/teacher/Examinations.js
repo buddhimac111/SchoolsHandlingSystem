@@ -1,10 +1,9 @@
 import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
 import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
-import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AppContext from "../../appContext";
 import useExams from "../../hooks/useExams";
 
