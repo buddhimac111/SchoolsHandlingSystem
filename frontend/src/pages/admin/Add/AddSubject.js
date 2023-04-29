@@ -1,29 +1,26 @@
 import React, { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import SideNav from "../../components/SideNav";
-import TopBar from "../../components/TopBar";
+import SideNav from "../../../components/SideNav";
+import TopBar from "../../../components/TopBar";
 import axios from "axios";
-import utils from "../../utils";
-import AppContext from "../../appContext";
+import utils from "../../../utils";
+import AppContext from "../../../appContext";
+import "react-datepicker/dist/react-datepicker.css";
 
-const AddClasses = () => {
+const AddSubject = () => {
   const { token } = useContext(AppContext);
   const [name, setName] = useState("");
-  const [grade, setgrade] = useState("");
-  const [year, setyear] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const newClass = {
-      name,
-      grade,
-      year,
+      _id: name,
     };
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: utils.URI + "/api/classes",
+      url: utils.URI + "/api/subjects",
       headers: {
         "x-auth-token": token,
       },
@@ -34,8 +31,6 @@ const AddClasses = () => {
       .then((res) => {
         alert("Class added successfully");
         setName("");
-        setgrade("");
-        setyear("");
       })
       .catch((err) => {
         if (err.response) alert("Error adding Class : " + err.response.data);
@@ -52,34 +47,16 @@ const AddClasses = () => {
           <div className="ms-2 mb-0 me-2 mt-3" id="tblContainer">
             <div className="container-fluid mt-5">
               <div className="row">
-                <h3 className="text-center">Add Class</h3>
+                <h3 className="text-center">Add Subject</h3>
 
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="sname" className="col-12 mt-3">
-                    <Form.Label>Grade</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter school name"
-                      value={grade}
-                      onChange={(e) => setgrade(e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="name" className="col-12 mt-3">
-                    <Form.Label>Class Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter class name"
+                      placeholder="Enter Subject Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="year" className="col-12 mt-3">
-                    <Form.Label>Year</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter year"
-                      value={year}
-                      onChange={(e) => setyear(e.target.value)}
                     />
                   </Form.Group>
 
@@ -96,4 +73,4 @@ const AddClasses = () => {
   );
 };
 
-export default AddClasses;
+export default AddSubject;

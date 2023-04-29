@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import SideNav from "../../components/SideNav";
-import TopBar from "../../components/TopBar";
+import SideNav from "../../../components/SideNav";
+import TopBar from "../../../components/TopBar";
 import axios from "axios";
-import AppContext from "../../appContext";
-import GetClasses from "../../hooks/getClasses";
-import utils from "../../utils";
+import AppContext from "../../../appContext";
+import GetClasses from "../../../hooks/getClasses";
+import utils from "../../../utils";
 
 const AddTeacher = () => {
   const { token, role } = useContext(AppContext);

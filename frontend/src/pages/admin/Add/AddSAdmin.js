@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import SideNav from "../../components/SideNav";
-import TopBar from "../../components/TopBar";
+import SideNav from "../../../components/SideNav";
+import TopBar from "../../../components/TopBar";
 import axios from "axios";
 import DatePicker from "react-datepicker";
-import AppContext from "../../appContext";
+import AppContext from "../../../appContext";
 import "react-datepicker/dist/react-datepicker.css";
-import utils from "../../utils";
+import utils from "../../../utils";
 
 const AddSAdmin = () => {
   const { token, role } = useContext(AppContext);

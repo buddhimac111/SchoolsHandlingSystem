@@ -12,8 +12,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import Students from "./pages/admin/Students";
 import Teachers from "./pages/admin/Teachers";
 import Requests from "./pages/admin/Requests";
-import AddStudent from "./pages/admin/AddStudent";
-import AddTeacher from "./pages/admin/AddTeacher";
+import AddStudent from "./pages/admin/Add/AddStudent";
+import AddTeacher from "./pages/admin/Add/AddTeacher";
 import TimetableRenderer from "./pages/admin/TimetableRenderer";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -29,10 +29,10 @@ import AppContext from "./appContext";
 import SAdmin from "./pages/admin/Sadmin";
 import Timetable from "./pages/admin/Timetable";
 import Classes from "./pages/admin/Class";
-import AddClasses from "./pages/admin/AddClass";
-import AddSAdmin from "./pages/admin/AddSAdmin";
+import AddClasses from "./pages/admin/Add/AddClass";
+import AddSAdmin from "./pages/admin/Add/AddSAdmin";
 import Subjects from "./pages/admin/Subjects";
-import AddSubject from "./pages/admin/AddSubject";
+import AddSubject from "./pages/admin/Add/AddSubject";
 
 function App() {
   const [token, setToken] = useState("");

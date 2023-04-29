@@ -3,21 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
-import axios from "axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 
 const AddSchool = () => {
   const [name, setName] = useState("");
-  
+
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [schoolCount, setschoolcount] = useState("");
   const [teacherCount, setteachercount] = useState("");
-  
-
-  
 
   const navigate = useNavigate();
 
@@ -28,11 +21,8 @@ const AddSchool = () => {
       userBody: {
         name,
         email,
-        
-        
       },
       otherBody: {
-        
         address,
         schoolCount,
         teacherCount,
@@ -42,7 +32,7 @@ const AddSchool = () => {
     console.log(newSchool);
 
     setName("");
-    
+
     setEmail("");
     setAddress("");
     setschoolcount("");
@@ -98,10 +88,7 @@ const AddSchool = () => {
                       onChange={(e) => setteachercount(e.target.value)}
                     />
                   </Form.Group>
-                  
-                  
 
-                  
                   <Button variant="primary" type="submit" className="mt-2">
                     Submit
                   </Button>
