@@ -7,30 +7,47 @@ import utils from "../../../utils";
 import AppContext from "../../../appContext";
 import axios from "axios";
 
-const AddSchool = () => {
-  const { token, role } = useContext(AppContext);
+const EditSchool = () => {
+  const { token, role, school } = useContext(AppContext);
+
   const [name, setName] = useState("");
-  const [id, setId] = useState("");
   const [address, setAddress] = useState("");
 
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!token || role !== "dAdmin") navigate("/");
+    if (!token || role !== "sAdmin") navigate("/");
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: utils.URI + "/api/schools/me",
+      headers: {
+        "x-auth-token": token,
+      },
+    };
+    axios
+      .request(config)
+      .then((res) => {
+        setName(res.data.name);
+        setAddress(res.data.address);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [token, role, navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const newSchool = {
-      _id: id,
       name,
       address,
     };
 
     let config = {
-      method: "post",
+      method: "put",
       maxBodyLength: Infinity,
-      url: utils.URI + "/api/schools",
+      url: utils.URI + "/api/schools/",
       headers: {
         "x-auth-token": token,
       },
@@ -39,14 +56,12 @@ const AddSchool = () => {
     axios
       .request(config)
       .then((res) => {
-        alert("School added successfully");
-        setName("");
-        setId("");
-        setAddress("");
+        alert("School edited successfully");
+        navigate("/");
       })
       .catch((err) => {
-        if (err.response) alert("Error adding School : " + err.response.data);
-        else alert("Error adding School : ");
+        if (err.response) alert("Error editing School : " + err.response.data);
+        console.log(err);
       });
   };
 
@@ -59,7 +74,7 @@ const AddSchool = () => {
           <div className="ms-2 mb-0 me-2 mt-3" id="tblContainer">
             <div className="container-fluid mt-5">
               <div className="row">
-                <h3 className="text-center">Add School </h3>
+                <h3 className="text-center">Edit School </h3>
 
                 <Form onSubmit={handleSubmit}>
                   <div className="row">
@@ -68,8 +83,9 @@ const AddSchool = () => {
                       <Form.Control
                         type="text"
                         placeholder="Enter School id (id should contain 3 capital letters)"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
+                        value={school.id}
+                        readOnly
+                        disabled
                       />
                     </Form.Group>
 
@@ -108,4 +124,4 @@ const AddSchool = () => {
   );
 };
 
-export default AddSchool;
+export default EditSchool;

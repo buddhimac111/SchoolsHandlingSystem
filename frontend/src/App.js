@@ -35,6 +35,8 @@ import EditTeacher from "./pages/admin/Edit/EditTeacher";
 import EditClass from "./pages/admin/Edit/EditClass";
 import EditTimetable from "./pages/admin/Edit/EditTimetable";
 import EditStudent from "./pages/admin/Edit/EditStudent";
+import AddSchool from "./pages/admin/Add/AddSchool";
+import EditSchool from "./pages/admin/Edit/EditSchool";
 
 function App() {
   const [token, setToken] = useState("");
@@ -71,6 +73,7 @@ function App() {
           <Route path="/admin/add-student" element={<AddStudent />} />
           <Route path="/admin/add-teacher" element={<AddTeacher />} />
           <Route path="/admin/add-classes" element={<AddClasses />} />
+          <Route path="/admin/add-school" element={<AddSchool />} />
           <Route
             path="/admin/add-timetable/:classId"
             element={<AddTimetable />}
@@ -87,6 +90,7 @@ function App() {
           <Route path="/admin/edit-student/:id" element={<EditStudent />} />
           <Route path="/admin/edit-class/:id" element={<EditClass />} />
           <Route path="/admin/edit-timetable/:id" element={<EditTimetable />} />
+          <Route path="/admin/edit-school" element={<EditSchool />} />
         </Routes>
       </AppContext.Provider>
     </div>

@@ -1,7 +1,7 @@
 import SideNav from "../../components/SideNav";
 import TopBar from "../../components/TopBar";
 import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
-import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
+import { FaTrash, FaEye } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar";
 import "./dAdmin.css";
 import { useNavigate } from "react-router-dom";
@@ -10,19 +10,22 @@ import AppContext from "../../appContext";
 import utils from "../../utils";
 import useSchool from "../../hooks/useSchool";
 import SchoolDetailsPopup from "../../components/popups/SchoolDetailsPopup";
+import axios from "axios";
 
 const Schools = () => {
   const { token, role } = useContext(AppContext);
   const [show, setShow] = useState(false);
   const [viewData, setViewData] = useState({});
+  const [schools, setSchools] = useState([]);
+  const schoolsData = useSchool();
   const navigate = useNavigate();
   if (role !== "dAdmin") navigate("/");
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
-  }, [token, navigate]);
-  const schools = useSchool();
+    setSchools(schoolsData);
+  }, [token, schoolsData, navigate]);
   const handlePopUp = (teacher) => {
     setViewData(teacher);
     setShow(true);
@@ -44,7 +47,7 @@ const Schools = () => {
                     <MDBBtn
                       className="w-100 text-nowrap"
                       onClick={() => {
-                        navigate("/admin/add-student");
+                        navigate("/admin/add-school");
                       }}
                     >
                       + Add School
@@ -111,8 +114,37 @@ const Schools = () => {
                                 handlePopUp(school);
                               }}
                             />
-                            <FaEdit size={22} color="black" className="ms-3" />
-                            <FaTrash size={22} color="black" className="ms-3" />
+                            <FaTrash
+                              size={22}
+                              color="black"
+                              className="ms-3"
+                              cursor="pointer"
+                              onClick={() => {
+                                let config = {
+                                  method: "delete",
+                                  maxBodyLength: "Infinity",
+                                  url: utils.URI + "/api/schools/" + school._id,
+                                  headers: {
+                                    "x-auth-token": token,
+                                  },
+                                };
+                                axios
+                                  .request(config)
+                                  .then((res) => {
+                                    const newSchools = [...schools];
+                                    newSchools.splice(index, 1);
+                                    setSchools(newSchools);
+                                    alert("School Deleted Successfully");
+                                  })
+                                  .catch((err) => {
+                                    if (err.response)
+                                      alert(
+                                        "Error Deleting : " + err.response.data
+                                      );
+                                    console.log(err);
+                                  });
+                              }}
+                            />
                           </div>
                         </td>
                       </tr>

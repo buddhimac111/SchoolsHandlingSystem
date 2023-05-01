@@ -70,6 +70,7 @@ export default function useUserData(token, role) {
         .request(config)
         .then((response) => {
           const newSchool = {
+            id: response.data._id,
             name: response.data.name,
             address: response.data.address,
             picture: response.data.picture,
