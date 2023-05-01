@@ -14,8 +14,11 @@ const HomePage = () => {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [LoginError, setLoginError] = useState("");
-
-  const login = async () => {
+  let submitted = false;
+  const login = async (e) => {
+    e.preventDefault();
+    if (submitted) return false;
+    submitted = true;
     let data = JSON.stringify({
       email: Username,
       password: Password,
@@ -45,6 +48,9 @@ const HomePage = () => {
       .catch((error) => {
         if (error.response) setLoginError(error.response.data);
         else setLoginError(error.message);
+      })
+      .finally(() => {
+        submitted = false;
       });
   };
 
@@ -67,7 +73,7 @@ const HomePage = () => {
                 <></>
               )}
 
-              <form>
+              <form onSubmit={login}>
                 <div>
                   <label htmlFor="Username" className="lblLog">
                     Email
@@ -93,22 +99,10 @@ const HomePage = () => {
                     }}
                   />
                 </div>
-
-                {/* <div>
-                  <a
-                    href="/"
-                    className="text-decoration-none d-flex justify-content-end"
-                    id="forgotPassword"
-                  >
-                    Forgot Password?
-                  </a>
-                </div> */}
-
                 <button
                   id="btnLogin"
-                  type="button"
+                  type="submit"
                   className="btn btn-sm p-2 w-100 rounded-pill weight "
-                  onClick={login}
                 >
                   LOG IN
                 </button>

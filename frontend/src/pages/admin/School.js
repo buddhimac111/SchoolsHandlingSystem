@@ -48,7 +48,7 @@ const School = () => {
                           navigate("/admin/add-student");
                         }}
                       >
-                        + Add School 
+                        + Add School
                       </MDBBtn>
                     </div>
                   </>
@@ -60,7 +60,12 @@ const School = () => {
               </div>
             </div>
             <div className="tblArea">
-              <MDBTable align="middle" hover responsive>
+              <MDBTable
+                style={{ textAlign: "center" }}
+                align="middle"
+                hover
+                responsive
+              >
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
@@ -69,8 +74,6 @@ const School = () => {
                     <th scope="col">School Address</th>
                     <th scope="col">Students Count</th>
                     <th scope="col">Teachers Count</th>
-                    
-                    
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
@@ -99,27 +102,25 @@ const School = () => {
                             />
                             <div className="ms-3">
                               <p className="fw-bold mb-1">{School.name}</p>
-                              
-                              
-                              
-                              
-                              
                             </div>
                           </div>
                         </td>
                         <td>
-                        <p className="text-muted mb-0">{School.email}</p>
+                          <p className="text-muted mb-0">{School.email}</p>
                         </td>
                         <td>
-                        <p className="text-muted mb-0">{School.address}</p>
+                          <p className="text-muted mb-0">{School.address}</p>
                         </td>
                         <td>
-                        <p className="text-muted mb-0">{School.StudentCount}</p>
+                          <p className="text-muted mb-0">
+                            {School.StudentCount}
+                          </p>
                         </td>
-                        
-                        
+
                         <td>
-                        <p className="text-muted mb-0">{School.TeacherCount}</p>
+                          <p className="text-muted mb-0">
+                            {School.TeacherCount}
+                          </p>
                         </td>
                         <td>
                           <div className="d-flex justify-content-center">

@@ -62,7 +62,6 @@ const AdminDashboard = () => {
       title: "Major",
     });
   }
-  console.log(schools);
   return (
     <>
       <div className="d-flex">

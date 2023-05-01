@@ -59,7 +59,7 @@ const AddClasses = () => {
                     <Form.Label>Grade</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter school name"
+                      placeholder="Enter Class Grade (ex: 9, 10, 11)"
                       value={grade}
                       onChange={(e) => setgrade(e.target.value)}
                     />
@@ -68,7 +68,7 @@ const AddClasses = () => {
                     <Form.Label>Class Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter class name"
+                      placeholder="Enter class name (ex: A, B, C)"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -77,7 +77,7 @@ const AddClasses = () => {
                     <Form.Label>Year</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter year"
+                      placeholder="Enter year (ex: 2021, 2022)"
                       value={year}
                       onChange={(e) => setyear(e.target.value)}
                     />

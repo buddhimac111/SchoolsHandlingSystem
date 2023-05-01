@@ -60,7 +60,12 @@ const Students = () => {
               </div>
             </div>
             <div className="tblArea">
-              <MDBTable align="middle" hover responsive>
+              <MDBTable
+                style={{ textAlign: "center" }}
+                align="middle"
+                hover
+                responsive
+              >
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
@@ -97,7 +102,7 @@ const Students = () => {
                               style={{ width: "45px", height: "45px" }}
                               className="rounded-circle"
                             />
-                            <div className="ms-3">
+                            <div className="ms-5">
                               <p className="fw-bold mb-1">{student.name}</p>
                               <p className="text-muted mb-0">{student.email}</p>
                             </div>
