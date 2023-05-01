@@ -34,6 +34,7 @@ import AddSubject from "./pages/admin/Add/AddSubject";
 import EditTeacher from "./pages/admin/Edit/EditTeacher";
 import EditClass from "./pages/admin/Edit/EditClass";
 import EditTimetable from "./pages/admin/Edit/EditTimetable";
+import EditStudent from "./pages/admin/Edit/EditStudent";
 
 function App() {
   const [token, setToken] = useState("");
@@ -83,6 +84,7 @@ function App() {
           <Route path="/student/dashboard" element={<StudentDashboard />} />
           <Route path="/student/requests" element={<StudentRequestPage />} />
           <Route path="/admin/edit-teacher/:id" element={<EditTeacher />} />
+          <Route path="/admin/edit-student/:id" element={<EditStudent />} />
           <Route path="/admin/edit-class/:id" element={<EditClass />} />
           <Route path="/admin/edit-timetable/:id" element={<EditTimetable />} />
         </Routes>

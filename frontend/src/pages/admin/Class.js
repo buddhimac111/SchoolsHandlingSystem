@@ -140,7 +140,7 @@ const Classes = () => {
                               cursor="pointer"
                               onClick={() => {
                                 let config = {
-                                  method: "DELETE",
+                                  method: "delete",
                                   maxBodyLength: Infinity,
                                   url: utils.URI + "/api/classes/" + classe._id,
                                   headers: {

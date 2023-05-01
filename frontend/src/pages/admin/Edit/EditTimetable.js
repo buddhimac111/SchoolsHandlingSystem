@@ -38,7 +38,7 @@ const EditTimetable = () => {
         navigate("/admin/add-timetable/" + id);
         console.log(err);
       });
-  }, [token, navigate]);
+  }, [token, id, navigate]);
   const subjects = useSubjects();
   const dates = ["monday", "tuesday", "wednesday", "thursday", "friday"];
   const periods = [1, 2, 3, 4, 5, 6, 7, 8];

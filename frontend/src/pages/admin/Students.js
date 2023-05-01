@@ -10,19 +10,22 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import utils from "../../utils";
 import StudentDetailsPopup from "../../components/popups/StudentDetailsPopup";
+import axios from "axios";
 
 const Students = () => {
   const { token, role } = useContext(AppContext);
   const [show, setShow] = useState(false);
   const [viewData, setViewData] = useState({});
+  const [students, setStudents] = useState([]);
   const navigate = useNavigate();
   if (role === "dAdmin") navigate("/");
+  const studentsData = useStudents();
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
-  }, [token, navigate]);
-  const students = useStudents();
+    setStudents(studentsData);
+  }, [token, studentsData, navigate]);
   const handlePopUp = (student) => {
     setViewData(student);
     setShow(true);
@@ -136,11 +139,45 @@ const Students = () => {
                                   size={22}
                                   color="black"
                                   className="ms-3"
+                                  cursor="pointer"
+                                  onClick={() => {
+                                    navigate(
+                                      "/admin/edit-student/" + student._id
+                                    );
+                                  }}
                                 />
                                 <FaTrash
                                   size={22}
                                   color="black"
                                   className="ms-3"
+                                  cursor="pointer"
+                                  onClick={() => {
+                                    let config = {
+                                      method: "delete",
+                                      maxBodyLength: Infinity,
+                                      url:
+                                        utils.URI + "/api/users/" + student._id,
+                                      headers: {
+                                        "x-auth-token": token,
+                                      },
+                                    };
+                                    axios
+                                      .request(config)
+                                      .then((res) => {
+                                        const newStudents = [...students];
+                                        newStudents.splice(index, 1);
+                                        setStudents(newStudents);
+                                        alert("Student Deleted");
+                                      })
+                                      .catch((err) => {
+                                        if (err.response)
+                                          alert(
+                                            "Error Deleting: " +
+                                              err.response.data
+                                          );
+                                        console.log(err);
+                                      });
+                                  }}
                                 />
                               </>
                             ) : null}
