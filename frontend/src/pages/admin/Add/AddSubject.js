@@ -1,25 +1,24 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import SideNav from "../../components/SideNav";
-import TopBar from "../../components/TopBar";
+import SideNav from "../../../components/SideNav";
+import TopBar from "../../../components/TopBar";
 import axios from "axios";
-import utils from "../../utils";
-import AppContext from "../../appContext";
+import utils from "../../../utils";
+import AppContext from "../../../appContext";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 const AddSubject = () => {
+  const navigate = useNavigate();
   const { token, role } = useContext(AppContext);
   const [name, setName] = useState("");
-
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (!token || role !== "dAdmin") navigate("/");
+  }, [token, role, navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newClass = {
-      _id: name,
-    };
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -27,17 +26,17 @@ const AddSubject = () => {
       headers: {
         "x-auth-token": token,
       },
-      data: newClass,
+      data: { _id: name },
     };
     axios
       .request(config)
       .then((res) => {
-        alert("Class added successfully");
-        setName("");
+        alert("Subject added successfully");
+        navigate("/admin/subjects");
       })
       .catch((err) => {
-        if (err.response) alert("Error adding Class : " + err.response.data);
-        else alert("Error adding Class : ");
+        if (err.response) alert("Error adding Subject : " + err.response.data);
+        else alert("Error adding Subject : ");
       });
   };
 

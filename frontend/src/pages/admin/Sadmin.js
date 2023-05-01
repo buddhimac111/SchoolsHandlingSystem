@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import utils from "../../utils";
-import StudentDetailsPopup from "../../components/StudentDetailsPopup";
 import useSAdmin from "../../hooks/useSAdmin";
-import SAdminDetailsPopup from "../../components/SAdminDetailsPopup";
+import SAdminDetailsPopup from "../../components/popups/SAdminDetailsPopup";
 
 const SAdmin = () => {
   const { token, role } = useContext(AppContext);
@@ -22,7 +21,7 @@ const SAdmin = () => {
     if (!token) {
       navigate("/");
     }
-  }, [token, navigate]);
+  }, [token, role, navigate]);
   const SAdmin = useSAdmin();
   const handlePopUp = (SAdmin) => {
     setViewData(SAdmin);
@@ -53,7 +52,12 @@ const SAdmin = () => {
               </div>
             </div>
             <div className="tblArea">
-              <MDBTable align="middle" hover responsive>
+              <MDBTable
+                style={{ textAlign: "center" }}
+                align="middle"
+                hover
+                responsive
+              >
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>

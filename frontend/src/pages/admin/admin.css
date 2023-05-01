@@ -6,18 +6,15 @@
 .searchContainer {
   height: 50px;
   padding: 0px;
-
 }
 
 .tblArea {
-  height: 82vh;
+  height: 85vh;
   overflow: auto;
 }
 
 @media screen and (max-width: 800px) {
-
   #tblContainer {
     width: 290px;
-
   }
 }

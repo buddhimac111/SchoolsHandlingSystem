@@ -1,8 +1,8 @@
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
-import utils from "../utils";
+import utils from "../../utils";
 
-export default function StudentDetailsPopup({ show, setShow, data }) {
+export default function TeacherDetailsPopup({ show, setShow, data }) {
   if (!data._id) {
     return;
   }
@@ -16,7 +16,7 @@ export default function StudentDetailsPopup({ show, setShow, data }) {
       fullscreen
     >
       <Modal.Header closeButton>
-        <Modal.Title>Student Details for student ID : {data._id}</Modal.Title>
+        <Modal.Title>Teacher Details for teacher ID : {data._id}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="ms-2 mb-0 me-2" id="tblContainer">
@@ -46,25 +46,7 @@ export default function StudentDetailsPopup({ show, setShow, data }) {
               </Form.Group>
 
               <div className="row">
-                <Form.Group controlId="email" className="col-6 mt-3">
-                  <Form.Label>Parent Name</Form.Label>
-                  <Form.Control
-                    type="email"
-                    value={data.parent.name}
-                    readOnly
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="phone" className="col-6 mt-3">
-                  <Form.Label>Parent Phone</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={data.parent.phone}
-                    readOnly
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="grade" className="col-12 mt-3">
+                <Form.Group controlId="grade" className="col-6 mt-3">
                   <Form.Label>Student Class</Form.Label>
                   <Form.Control
                     type="text"

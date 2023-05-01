@@ -213,16 +213,16 @@ router.patch("/picture", sAdminAuth, async (req, res) => {
 });
 
 // delete school
-// router.delete("/:id", dAdminAuth, async (req, res) => {
-//   const id = req.params.id;
+router.delete("/:id", dAdminAuth, async (req, res) => {
+  const id = req.params.id;
 
-//   const school = await School.findByIdAndDelete(id);
-//   if (!school) return res.status(404).send("School already deleted");
-//   if (!/default.png/.test(school.picture))
-//     fs.unlink(`./public/${school.picture}`, (err) => {
-//       if (err && err.code !== "ENOENT") return res.status(500).send(err);
-//     });
-//   res.send(school);
-// });
+  const school = await School.findByIdAndDelete(id);
+  if (!school) return res.status(404).send("School already deleted");
+  if (!/default.png/.test(school.picture))
+    fs.unlink(`./public/${school.picture}`, (err) => {
+      if (err && err.code !== "ENOENT") return res.status(500).send(err);
+    });
+  res.send(school);
+});
 
 module.exports = router;

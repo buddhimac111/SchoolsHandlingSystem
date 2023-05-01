@@ -1,12 +1,11 @@
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
-import utils from "../utils";
+import utils from "../../utils";
 
-export default function SchoolDetailsPopup({ show, setShow, data }) {
+export default function StudentDetailsPopup({ show, setShow, data }) {
   if (!data._id) {
     return;
   }
-  console.log(data);
   return (
     <Modal
       show={show}
@@ -17,7 +16,7 @@ export default function SchoolDetailsPopup({ show, setShow, data }) {
       fullscreen
     >
       <Modal.Header closeButton>
-        <Modal.Title>School Details for school ID : {data._id}</Modal.Title>
+        <Modal.Title>Student Details for student ID : {data._id}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="ms-2 mb-0 me-2" id="tblContainer">
@@ -41,20 +40,35 @@ export default function SchoolDetailsPopup({ show, setShow, data }) {
                 <Form.Control type="text" value={data.address} readOnly />
               </Form.Group>
 
+              <Form.Group controlId="email" className="col-12 mt-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" value={data.email} readOnly />
+              </Form.Group>
+
               <div className="row">
-                <Form.Group controlId="stdCount" className="col-6 mt-3">
-                  <Form.Label>Student Count</Form.Label>
+                <Form.Group controlId="email" className="col-6 mt-3">
+                  <Form.Label>Parent Name</Form.Label>
                   <Form.Control
-                    type="text"
-                    value={data.studentCount}
+                    type="email"
+                    value={data.parent.name}
                     readOnly
                   />
                 </Form.Group>
-                <Form.Group controlId="teaCount" className="col-6 mt-3">
-                  <Form.Label>Teacher Count</Form.Label>
+
+                <Form.Group controlId="phone" className="col-6 mt-3">
+                  <Form.Label>Parent Phone</Form.Label>
                   <Form.Control
                     type="text"
-                    value={data.teacherCount}
+                    value={data.parent.phone}
+                    readOnly
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="grade" className="col-12 mt-3">
+                  <Form.Label>Student Class</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={data.DOB.split("T")[0]}
                     readOnly
                   />
                 </Form.Group>

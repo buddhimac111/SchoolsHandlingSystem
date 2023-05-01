@@ -3,7 +3,7 @@ import TopBar from "../../components/TopBar";
 import { Widget } from "../../components/boxes/Widget.js";
 import Charts from "../../components/boxes/Charts";
 import { useContext, useEffect } from "react";
-import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
+import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import AppContext from "../../appContext";
 import utils from "../../utils";
 import { useNavigate } from "react-router-dom";
@@ -62,7 +62,6 @@ const AdminDashboard = () => {
       title: "Major",
     });
   }
-  console.log(schools);
   return (
     <>
       <div className="d-flex">

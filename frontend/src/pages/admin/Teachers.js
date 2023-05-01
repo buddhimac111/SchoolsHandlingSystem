@@ -9,27 +9,30 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import useTeachers from "../../hooks/useTeachers";
 import utils from "../../utils";
-import TeacherDetailsPopup from "../../components/TeacherDetailsPopup";
+import TeacherDetailsPopup from "../../components/popups/TeacherDetailsPopup";
+import axios from "axios";
 
 const Teachers = () => {
   const { token, role } = useContext(AppContext);
   const [show, setShow] = useState(false);
   const [viewData, setViewData] = useState({});
+  const [teachers, setTeachers] = useState([]);
   const navigate = useNavigate();
   const event = () => {
     navigate("/admin/add-teacher");
   };
   if (role !== "sAdmin") navigate("/");
+  const teachersData = useTeachers();
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
-  }, [token, navigate]);
+    setTeachers(teachersData);
+  }, [token, teachersData, navigate]);
   const handlePopUp = (student) => {
     setViewData(student);
     setShow(true);
   };
-  const teachers = useTeachers();
   return (
     <>
       <div className="d-flex">
@@ -50,7 +53,12 @@ const Teachers = () => {
               </div>
             </div>
             <div className="tblArea">
-              <MDBTable align="middle" hover responsive>
+              <MDBTable
+                style={{ textAlign: "center" }}
+                align="middle"
+                hover
+                responsive
+              >
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
@@ -123,11 +131,44 @@ const Teachers = () => {
                                 size={22}
                                 color="black"
                                 className="ms-3"
+                                cursor="pointer"
+                                onClick={() => {
+                                  navigate(
+                                    "/admin/edit-teacher/" + teacher._id
+                                  );
+                                }}
                               />
                               <FaTrash
                                 size={22}
                                 color="black"
                                 className="ms-3"
+                                cursor="pointer"
+                                onClick={() => {
+                                  let config = {
+                                    method: "delete",
+                                    maxBodyLength: Infinity,
+                                    url:
+                                      utils.URI + "/api/users/" + teacher._id,
+                                    headers: {
+                                      "x-auth-token": token,
+                                    },
+                                  };
+                                  axios
+                                    .request(config)
+                                    .then((res) => {
+                                      const newTeachers = [...teachers];
+                                      newTeachers.splice(index, 1);
+                                      setTeachers(newTeachers);
+                                      alert("Teacher Deleted Successfully");
+                                    })
+                                    .catch((err) => {
+                                      if (err.response)
+                                        alert(
+                                          "Error Deleting: " + err.response.data
+                                        );
+                                      console.log(err);
+                                    });
+                                }}
                               />
                             </div>
                           </td>

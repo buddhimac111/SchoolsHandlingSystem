@@ -8,17 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../appContext";
 import useSubjects from "../../hooks/useSubjects";
+import utils from "../../utils";
+import axios from "axios";
 
 const Subjects = () => {
+  const [subjects, setSubjects] = useState([]);
   const { token, role } = useContext(AppContext);
   const navigate = useNavigate();
   if (role !== "dAdmin") navigate("/");
+  const subjectsData = useSubjects();
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
-  }, [token, navigate]);
-  const subjects = useSubjects();
+    setSubjects(subjectsData);
+  }, [token, subjectsData, navigate]);
   return (
     <>
       <div className="d-flex">
@@ -44,7 +48,12 @@ const Subjects = () => {
               </div>
             </div>
             <div className="tblArea">
-              <MDBTable align="middle" hover responsive>
+              <MDBTable
+                style={{ textAlign: "center" }}
+                align="middle"
+                hover
+                responsive
+              >
                 <MDBTableHead dark>
                   <tr>
                     <th scope="col">#</th>
@@ -72,20 +81,38 @@ const Subjects = () => {
                         <td>
                           <div className="d-flex justify-content-center">
                             <FaEye size={22} color="black" />
-                            {role === "sAdmin" ? (
-                              <>
-                                <FaEdit
-                                  size={22}
-                                  color="black"
-                                  className="ms-3"
-                                />
-                                <FaTrash
-                                  size={22}
-                                  color="black"
-                                  className="ms-3"
-                                />
-                              </>
-                            ) : null}
+                            <FaTrash
+                              size={22}
+                              color="black"
+                              className="ms-3"
+                              cursor="pointer"
+                              onClick={() => {
+                                let config = {
+                                  method: "delete",
+                                  maxBodyLength: Infinity,
+                                  url: utils.URI + "/api/subjects/" + subject,
+                                  headers: {
+                                    "x-auth-token": token,
+                                  },
+                                };
+                                axios
+                                  .request(config)
+                                  .then((res) => {
+                                    alert("Subject deleted successfully");
+                                    setSubjects(
+                                      subjects.filter((s) => s !== subject)
+                                    );
+                                  })
+                                  .catch((err) => {
+                                    if (err.response)
+                                      alert(
+                                        "Error deleting Subject : " +
+                                          err.response.data
+                                      );
+                                    console.log(err);
+                                  });
+                              }}
+                            />
                           </div>
                         </td>
                       </tr>

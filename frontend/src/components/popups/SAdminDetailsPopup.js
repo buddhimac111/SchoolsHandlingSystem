@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
-import utils from "../utils";
+import utils from "../../utils";
 
 export default function SAdminDetailsPopup({ show, setShow, data }) {
   if (!data._id) {

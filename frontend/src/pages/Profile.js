@@ -1,6 +1,6 @@
 import SideNav from "../components/SideNav";
 import TopBar from "../components/TopBar";
-import { FaIdCard, FaAt } from "react-icons/fa";
+import { FaIdCard, FaAt, FaEdit } from "react-icons/fa";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import utils from "../utils";
@@ -61,6 +61,15 @@ const UserProfile = () => {
                         <>
                           <h6>Student Count : {school.studentCount}</h6>
                           <h6>Teacher Count : {school.teacherCount}</h6>
+                          <FaEdit
+                            size={22}
+                            color="white"
+                            className="ms-3"
+                            cursor="pointer"
+                            onClick={() => {
+                              navigate("/admin/edit-school/");
+                            }}
+                          />
                         </>
                       ) : null}
                     </div>

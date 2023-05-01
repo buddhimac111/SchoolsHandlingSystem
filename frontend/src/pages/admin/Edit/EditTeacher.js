@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import SideNav from "../../components/SideNav";
-import TopBar from "../../components/TopBar";
+import SideNav from "../../../components/SideNav";
+import TopBar from "../../../components/TopBar";
 import axios from "axios";
-import AppContext from "../../appContext";
-import GetClasses from "../../hooks/getClasses";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import utils from "../../utils";
+import AppContext from "../../../appContext";
+import GetClasses from "../../../hooks/getClasses";
+import utils from "../../../utils";
+import "../admin.css";
 
-const AddTeacher = () => {
+const EditTeacher = () => {
+  const { id } = useParams();
   const { token, role } = useContext(AppContext);
 
   const [name, setName] = useState("");
@@ -28,52 +28,105 @@ const AddTeacher = () => {
 
   useEffect(() => {
     if (!token || role !== "sAdmin") navigate("/");
-  }, [token, role, navigate]);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const newTeacher = {
-      userBody: {
-        name,
-        email,
-        role: "teacher",
-        gender,
-        password,
-      },
-      otherBody: {
-        major,
-        address,
-        classe,
-        DOB,
-      },
-    };
     let config = {
-      method: "post",
+      method: "get",
       maxBodyLength: Infinity,
-      url: utils.URI + "/api/users",
+      url: utils.URI + "/api/teachers/" + id,
       headers: {
         "x-auth-token": token,
       },
-      data: newTeacher,
     };
     axios
       .request(config)
       .then((res) => {
-        alert("Teacher added successfully");
-        setName("");
-        setEmail("");
-        setGender("");
-        setPassword("");
-        setMajor("");
-        setAddress("");
-        setClasse("");
-        setDOB("");
+        setName(res.data.name);
+        setEmail(res.data.email);
+        setGender(res.data.gender);
+        setAddress(res.data.address);
+        setMajor(res.data.major);
+        setDOB(res.data.DOB.split("T")[0]);
+        setClasse(res.data.classe);
       })
       .catch((err) => {
-        alert("Error adding teacher");
+        console.log(err);
+      });
+  }, [token, role, navigate, id]);
+  function handleUserSubmit(event) {
+    event.preventDefault();
+    let config = {
+      method: "put",
+      maxBodyLength: Infinity,
+      url: utils.URI + "/api/users/" + id,
+      headers: {
+        "x-auth-token": token,
+      },
+      data: {
+        name,
+        email,
+        password,
+        gender,
+      },
+    };
+    axios
+      .request(config)
+      .then((res) => {
+        alert("User edited successfully");
+      })
+      .catch((err) => {
+        if (err.response) alert("Error editing user : " + err.response.data);
+        console.log(err);
+      });
+  }
+  const handleTeacherSubmit = async (event) => {
+    event.preventDefault();
+
+    let config = {
+      method: "put",
+      maxBodyLength: Infinity,
+      url: utils.URI + "/api/teachers/" + id,
+      headers: {
+        "x-auth-token": token,
+      },
+      data: {
+        address,
+        DOB,
+        major,
+      },
+    };
+    axios
+      .request(config)
+      .then((res) => {
+        alert("Teacher Edited successfully");
+      })
+      .catch((err) => {
+        if (err.response) alert("Error editing teacher : " + err.response.data);
+        console.log(err);
       });
   };
+  function handleChangeClass(event) {
+    event.preventDefault();
+    let config = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: utils.URI + "/api/teachers/" + id,
+      headers: {
+        "x-auth-token": token,
+      },
+      data: {
+        classe,
+      },
+    };
+    axios
+      .request(config)
+      .then((res) => {
+        alert("Teacher class changed successfully");
+      })
+      .catch((err) => {
+        if (err.response)
+          alert("Error changing teacher class : " + err.response.data);
+        console.log(err);
+      });
+  }
 
   return (
     <>
@@ -82,11 +135,10 @@ const AddTeacher = () => {
         <div className="w-100">
           <TopBar />
           <div className="ms-2 mb-0 me-2 mt-3" id="tblContainer">
-            <div className="container-fluid mt-5">
-              <div className="row">
-                <h3 className="text-center">Add Teacher</h3>
-
-                <Form onSubmit={handleSubmit}>
+            <div className="container-fluid">
+              <div className="row tblArea">
+                <h3 className="text-center">Edit User Details</h3>
+                <Form onSubmit={handleUserSubmit}>
                   <div className="row">
                     <Form.Group controlId="name" className="col-6 mt-3">
                       <Form.Label>Teacher Name</Form.Label>
@@ -106,8 +158,17 @@ const AddTeacher = () => {
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </Form.Group>
+                    <Form.Group controlId="password" className="col-6 mt-3">
+                      <Form.Label>Teacher Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Enter teacher's password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </Form.Group>
                     <Form.Group controlId="gender" className="col-6 mt-3">
-                      <Form.Label>Student Gender</Form.Label>
+                      <Form.Label>Teacher Gender</Form.Label>
                       <div className="row">
                         <div className="col-6">
                           <Form.Check
@@ -131,16 +192,18 @@ const AddTeacher = () => {
                         </div>
                       </div>
                     </Form.Group>
-                    <Form.Group controlId="password" className="col-6 mt-3">
-                      <Form.Label>Teacher Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Enter teacher's password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
+                    <Form.Group controlId="button" className="col-6 mt-3">
+                      <Button variant="primary" type="submit" className="mt-2">
+                        Edit
+                      </Button>
                     </Form.Group>
                   </div>
+                </Form>
+
+                <h3 className="text-center mt-3">Edit Teacher Details</h3>
+
+                <Form onSubmit={handleTeacherSubmit}>
+                  <div className="row"></div>
 
                   <Form.Group controlId="address" className="col-12 mt-3">
                     <Form.Label>Teacher Address</Form.Label>
@@ -162,6 +225,27 @@ const AddTeacher = () => {
                         onChange={(e) => setMajor(e.target.value)}
                       />
                     </Form.Group>
+                    <Form.Group controlId="dob" className="col-6 mt-3">
+                      <Form.Label>Teacher Birthday</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter teacher's birthday: yyyy/mm/dd"
+                        value={DOB}
+                        onChange={(e) => setDOB(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group controlId="button" className="col-6 mt-3">
+                      <Button variant="primary" type="submit" className="mt-2">
+                        Edit
+                      </Button>
+                    </Form.Group>
+                  </div>
+                </Form>
+
+                <h3 className="text-center mt-3">Change Teachers Class</h3>
+
+                <Form onSubmit={handleChangeClass}>
+                  <div className="row">
                     <Form.Group controlId="grade" className="col-6 mt-3">
                       <Form.Label>Teacher Class</Form.Label>
                       <Form.Select
@@ -178,18 +262,9 @@ const AddTeacher = () => {
                         })}
                       </Form.Select>
                     </Form.Group>
-                    <Form.Group controlId="dob" className="col-6 mt-3">
-                      <Form.Label>Teacher Birthday</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter teacher's birthday: yyyy/mm/dd"
-                        value={DOB}
-                        onChange={(e) => setDOB(e.target.value)}
-                      />
-                    </Form.Group>
                     <Form.Group controlId="button" className="col-6 mt-3">
                       <Button variant="primary" type="submit" className="mt-2">
-                        Submit
+                        Change
                       </Button>
                     </Form.Group>
                   </div>
@@ -203,4 +278,4 @@ const AddTeacher = () => {
   );
 };
 
-export default AddTeacher;
+export default EditTeacher;

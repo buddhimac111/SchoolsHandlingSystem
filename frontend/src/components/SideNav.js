@@ -20,7 +20,12 @@ const SideNav = () => {
   };
   return (
     <div
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial", background:"" }}
+      style={{
+        display: "flex",
+        height: "100vh",
+        overflow: "scroll initial",
+        background: "",
+      }}
     >
       <CDBSidebar textColor="var(--secondary)" backgroundColor="var(--primary)">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
@@ -29,9 +34,7 @@ const SideNav = () => {
             to="/dashboard"
             style={{ color: "inherit" }}
           >
-            <img src="../edu.png" 
-                  width={50}
-                  height={50} />
+            <img src="/edu.png" alt="logo" width={50} height={50} />
             <sup className="text-info">
               {role === "dAdmin"
                 ? "Divisional Admin"
@@ -109,20 +112,6 @@ const SideNav = () => {
               <></>
             )}
 
-            {role === "sAdmin" ? (
-              <NavLink
-                exact="true"
-                to="/admin/timetables"
-                activeclassname="activeClicked"
-              >
-                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
-                  Time-Tables
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-
             {role === "teacher" || role === "sAdmin" ? (
               <NavLink to="/admin/students" activeclassname="activeClicked">
                 <CDBSidebarMenuItem className="sideLinks" icon="user-graduate">
@@ -142,19 +131,6 @@ const SideNav = () => {
               >
                 <CDBSidebarMenuItem className="sideLinks" icon="newspaper">
                   Examinations
-                </CDBSidebarMenuItem>
-              </NavLink>
-            ) : (
-              <></>
-            )}
-            {role === "sAdmin" ? (
-              <NavLink
-                exact="true"
-                to="/timetables"
-                activeclassname="activeClicked"
-              >
-                <CDBSidebarMenuItem className="sideLinks" icon="calendar-alt">
-                  Time-Tables
                 </CDBSidebarMenuItem>
               </NavLink>
             ) : (
